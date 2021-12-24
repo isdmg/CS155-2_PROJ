@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "795380815175",
+    "firebase_url": "https://midnight-chevves-default-rtdb.firebaseio.com",
+    "project_id": "midnight-chevves",
+    "storage_bucket": "midnight-chevves.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795380815175:android:c9a626e2f5c6ed4c96e862",
+        "android_client_info": {
+          "package_name": "com.example.midnight_chevves"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795380815175-ls4vt22n75ll3uuikaqo5666tnqjeklf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmiXKn83KORKXWx-kMF8SHYSQjhUceFqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795380815175-ls4vt22n75ll3uuikaqo5666tnqjeklf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795380815175:android:8523c8e88638e17b96e862",
+        "android_client_info": {
+          "package_name": "com.midnight_chevves.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795380815175-ls4vt22n75ll3uuikaqo5666tnqjeklf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmiXKn83KORKXWx-kMF8SHYSQjhUceFqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795380815175-ls4vt22n75ll3uuikaqo5666tnqjeklf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
