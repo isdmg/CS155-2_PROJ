@@ -6,8 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
+    <ImageButton
+        android:id="@+id/signup_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/ic_baseline_arrow_back_ios_24" />
+
+
     <TextView
         android:id="@+id/signup_title"
+        android:layout_below="@id/signup_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -143,7 +155,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/layout_signup_confirm_password"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:text="Sign up" />
 

@@ -1,12 +1,15 @@
 package com.example.midnight_chevves;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputLayout layoutEmail, layoutPassword, layoutConfirmPassword;
     private TextInputEditText inputEmail, inputPassword, inputConfirmPassword;
     private Button btnSignUp;
+    private ImageButton btnBack;
     private ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
@@ -38,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.signup_password);
         inputConfirmPassword = findViewById(R.id.signup_confirm_password);
         btnSignUp = findViewById(R.id.button_signup);
+        btnBack = findViewById(R.id.signup_back);
         progressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -45,10 +50,18 @@ public class SignUpActivity extends AppCompatActivity {
         layoutPassword = findViewById(R.id.layout_signup_password);
         layoutConfirmPassword = findViewById(R.id.layout_signup_confirm_password);
 
+        // TODO: Implement View Listener?
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PerformAuth();
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
@@ -111,9 +124,9 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void sendUserToNextActivity() {
-//            Intent intent = new Intent(SignUpActivity.this, ...)
-//        Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity();
+        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void clearError(int field) {

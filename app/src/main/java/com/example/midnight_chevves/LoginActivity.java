@@ -1,6 +1,7 @@
 package com.example.midnight_chevves;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.midnight_chevves.Customer.Activities.CustomerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,13 +24,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout layoutEmail, layoutPassword;
     private TextInputEditText inputEmail, inputPassword;
-    private Button btnLogIn;
+    private Button btnLogIn, btnSignUpRedirect;
     private ProgressDialog progressDialog;
 
-    private FirebaseAuth auth;
+    protected FirebaseAuth auth;
     private FirebaseUser user;
-
-    private Button btnFb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +38,15 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.login_email);
         inputPassword = findViewById(R.id.login_password);
         btnLogIn = findViewById(R.id.button_login);
+        btnSignUpRedirect = findViewById(R.id.button_sign_up_redirect);
         progressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        btnFb = findViewById(R.id.button_fb_login);
         layoutEmail = findViewById(R.id.layout_login_email);
         layoutPassword = findViewById(R.id.layout_password_login);
 
 
+        // TODO: Implement View Listener?
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,10 +54,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnFb.setOnClickListener(new View.OnClickListener() {
+        btnSignUpRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -113,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void sendUserToNextActivity() {
-//            Intent intent = new Intent(SignUpActivity.this, ...)
-//        Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity();
+        Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void clearError(int field) {

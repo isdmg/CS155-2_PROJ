@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         RecyclerView.LayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
 
-
+        // TODO: Refactor variables within the activity and xml.
         recyclerView1 = (RecyclerView) v.findViewById(R.id.recycler_view1);
         recyclerView1.setLayoutManager(layoutManager);
 
@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment {
         adapter = populateRecyclerView("wine");
         recyclerView3.setAdapter(adapter);
         adapter.startListening();
+        // TODO: Use Global...
     }
 
     private FirebaseRecyclerAdapter<Products, ProductViewHolder> populateRecyclerView(String category) {
