@@ -1,4 +1,4 @@
-package com.example.midnight_chevves;
+package com.example.midnight_chevves.Customer.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.midnight_chevves.Customer.Fragments.AboutUsFragment;
+import com.example.midnight_chevves.Customer.Fragments.CartFragment;
+import com.example.midnight_chevves.Customer.Fragments.HomeFragment;
+import com.example.midnight_chevves.Customer.Fragments.ProfileFragment;
+import com.example.midnight_chevves.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CustomerActivity extends AppCompatActivity {
@@ -18,10 +23,6 @@ public class CustomerActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.customer_nav);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
-//
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment());
-//        getSupportFragmentManager().beginTransaction().addToBackStack(null);//add the transaction to the back stack so the user can navigate back
-//        getSupportFragmentManager().beginTransaction().commit();
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
     }
 
@@ -44,10 +45,6 @@ public class CustomerActivity extends AppCompatActivity {
                         selectedFragment = new CartFragment();
                     break;
             }
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment);
-//            getSupportFragmentManager().beginTransaction().addToBackStack(null);//add the transaction to the back stack so the user can navigate back
-//            getSupportFragmentManager().beginTransaction().commit();
-
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
             return true;
         }

@@ -1,4 +1,4 @@
-package com.example.midnight_chevves;
+package com.example.midnight_chevves.Customer.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midnight_chevves.Model.Products;
+import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
