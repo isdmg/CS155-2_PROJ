@@ -3,6 +3,7 @@ package com.example.midnight_chevves;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,14 +12,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.midnight_chevves.Admin.AdminActivity;
 import com.example.midnight_chevves.Customer.Activities.CustomerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     protected FirebaseAuth auth;
+    private FirebaseFirestore store;
     private FirebaseUser user;
 
     @Override
@@ -41,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUpRedirect = findViewById(R.id.button_sign_up_redirect);
         progressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
+        store = FirebaseFirestore.getInstance();
         user = auth.getCurrentUser();
         layoutEmail = findViewById(R.id.layout_login_email);
         layoutPassword = findViewById(R.id.layout_password_login);
@@ -98,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         progressDialog.dismiss();
-                        sendUserToNextActivity();
+                        isAdmin();
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     } else {
                         try {
@@ -114,8 +125,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void sendUserToNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
+    private void sendUserToNextActivity(boolean isAdmin) {
+        Intent intent;
+
+        if (isAdmin) {
+           intent =  new Intent(LoginActivity.this, AdminActivity.class);
+        }  else {
+            intent = new Intent(LoginActivity.this, CustomerActivity.class);
+        }
+
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -141,5 +159,35 @@ public class LoginActivity extends AppCompatActivity {
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email)
                 .matches();
+    }
+
+    private void isAdmin() {
+        DocumentReference documentReference = store.collection("Users").document(auth.getUid());
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.getString("isAdmin").equals("1")) {
+                    sendUserToNextActivity(true);
+                } else {
+                    sendUserToNextActivity(false);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    // TODO: Implement method (remember me).
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(user != null) {
+            auth.signOut();
+        }
     }
 }

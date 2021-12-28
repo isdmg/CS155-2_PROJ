@@ -22,6 +22,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -32,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
+    private FirebaseFirestore store;
     private FirebaseUser user;
 
     @Override
@@ -45,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.signup_back);
         progressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
+        store = FirebaseFirestore.getInstance();
         user = auth.getCurrentUser();
         layoutEmail = findViewById(R.id.layout_signup_email);
         layoutPassword = findViewById(R.id.layout_signup_password);
@@ -108,6 +115,16 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         progressDialog.dismiss();
+                        DocumentReference documentReference = store.collection("Users").document(auth.getUid());
+                        Map<String,Object> userInfo = new HashMap<>();
+                        // TODO: Change to variables.
+                        userInfo.put("Name", "Juan Pedro");
+                        userInfo.put("Username", "jpd123");
+                        userInfo.put("Email", "tes2t@gmail.com");
+                        userInfo.put("Phone", "09190791784");
+//                        userInfo.put("Photo", );
+                        userInfo.put("isAdmin", "0");
+                        documentReference.set(userInfo);
                         sendUserToNextActivity();
                         Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                     } else {
@@ -154,6 +171,4 @@ public class SignUpActivity extends AppCompatActivity {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email)
                 .matches();
     }
-
-
 }

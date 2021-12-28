@@ -10,9 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Midnight_chevves">
         <activity
+            android:name=".Customer.Activities.LoginSecurityActivity"
+            android:exported="false"
+            android:parentActivityName=".Customer.Activities.CustomerActivity"/>
+        <activity
+            android:name=".Admin.AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity"/>
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

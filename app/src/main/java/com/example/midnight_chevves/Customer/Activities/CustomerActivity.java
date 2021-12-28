@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.example.midnight_chevves.Customer.Fragments.AboutUsFragment;
 import com.example.midnight_chevves.Customer.Fragments.CartFragment;
 import com.example.midnight_chevves.Customer.Fragments.HomeFragment;
-import com.example.midnight_chevves.Customer.Fragments.ProfileFragment;
+import com.example.midnight_chevves.Customer.Fragments.AccountFragment;
 import com.example.midnight_chevves.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,7 +36,7 @@ public class CustomerActivity extends AppCompatActivity {
                     selectedFragment = new HomeFragment();
                     break;
                 case R.id.profile:
-                        selectedFragment = new ProfileFragment();
+                        selectedFragment = new AccountFragment();
                     break;
                 case R.id.about_us:
                         selectedFragment = new AboutUsFragment();
