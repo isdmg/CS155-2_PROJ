@@ -72,7 +72,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 inputName.setText(documentSnapshot.getString("Name"));
                 inputUsername.setText(documentSnapshot.getString("Username"));
-                inputPhoneNumber.setText(documentSnapshot.getString("Phone"));
+                inputPhoneNumber.setText(documentSnapshot.getString("Phone").substring(3));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

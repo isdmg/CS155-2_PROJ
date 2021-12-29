@@ -8,19 +8,20 @@
 
     <ImageButton
         android:id="@+id/edit_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
-        android:scaleType="fitXY"
-        android:background="@drawable/ic_baseline_arrow_back_ios_24" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_baseline_arrow_back_ios_24"
+        android:contentDescription="@string/back_button"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/login_security_wip"
         android:layout_width="match_parent"
-        android:layout_below="@+id/edit_back"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_back"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="WIP"
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_security_wip"
         android:layout_centerHorizontal="true"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
@@ -53,13 +55,16 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_baseline_people_alt_24"
         android:layout_below="@id/layout_edit_name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/username">
+        android:hint="@string/username"
+        app:counterEnabled="true"
+        app:counterMaxLength="10">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_username"
@@ -77,21 +82,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_edit_username"
         android:layout_centerHorizontal="true"
+        app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
         android:layout_marginLeft="35dp"
-        app:prefixText="+63  "
-        app:prefixTextColor="?attr/colorPrimary"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         android:ems="10"
-        android:hint="@string/phone_number">
+        android:hint="@string/phone_number"
+        app:prefixText="+63  "
+        app:prefixTextColor="?attr/colorPrimary">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edit_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

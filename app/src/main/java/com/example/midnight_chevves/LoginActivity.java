@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.login_email);
         inputPassword = findViewById(R.id.login_password);
         btnLogIn = findViewById(R.id.button_login);
-        btnSignUpRedirect = findViewById(R.id.button_sign_up_redirect);
+        btnSignUpRedirect = findViewById(R.id.button_signup_redirect);
         progressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();

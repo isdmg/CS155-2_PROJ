@@ -30,35 +30,31 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private TextInputLayout layoutEmail, layoutPassword, layoutConfirmPassword;
-    private TextInputEditText inputEmail, inputPassword, inputConfirmPassword;
-    private Button btnSignUp;
+    private TextInputLayout layoutName, layoutUsername, layoutEmail, layoutPhoneNumber;
+    private TextInputEditText inputName, inputUsername, inputEmail, inputPhoneNumber;
+    private Button btnProceed;
     private ImageButton btnBack;
-    private ProgressDialog progressDialog;
 
-    private FirebaseAuth auth;
-    private FirebaseFirestore store;
-    private FirebaseUser user;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        inputName = findViewById(R.id.signup_name);
+        inputUsername = findViewById(R.id.signup_username);
         inputEmail = findViewById(R.id.signup_email);
-        inputPassword = findViewById(R.id.signup_password);
-        inputConfirmPassword = findViewById(R.id.signup_confirm_password);
-        btnSignUp = findViewById(R.id.button_signup);
+        inputPhoneNumber = findViewById(R.id.signup_number);
         btnBack = findViewById(R.id.signup_back);
-        progressDialog = new ProgressDialog(this);
-        auth = FirebaseAuth.getInstance();
-        store = FirebaseFirestore.getInstance();
-        user = auth.getCurrentUser();
+        btnProceed = findViewById(R.id.button_signup2_redirect);
+        bundle = new Bundle();
+        layoutName = findViewById(R.id.layout_signup_name);
+        layoutUsername = findViewById(R.id.layout_signup_username);
         layoutEmail = findViewById(R.id.layout_signup_email);
-        layoutPassword = findViewById(R.id.layout_signup_password);
-        layoutConfirmPassword = findViewById(R.id.layout_signup_confirm_password);
+        layoutPhoneNumber = findViewById(R.id.layout_signup_number);
 
         // TODO: Implement View Listener?
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PerformAuth();
@@ -74,26 +70,23 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void PerformAuth() {
+        String name = inputName.getText().toString();
+        String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String confirmPassword = inputConfirmPassword.getText().toString();
+        String phoneNumber = inputPhoneNumber.getText().toString();
 
-        if (!password.equals(confirmPassword)) {
-            layoutConfirmPassword.setErrorEnabled(true);
-            layoutConfirmPassword.setError("Passwords do not match!");
-            inputConfirmPassword.requestFocus();
+        if (phoneNumber.isEmpty()) {
+            layoutPhoneNumber.setErrorEnabled(true);
+            layoutPhoneNumber.setError("Phone number field is required!");
+            inputPhoneNumber.requestFocus();
+        } else if (phoneNumber.length() != 10) {
+            layoutPhoneNumber.setError("Invalid phone number format!");
+            inputPhoneNumber.requestFocus();
+        } else if (phoneNumber.charAt(0) != '9') {
+            layoutPhoneNumber.setError("Mobile area code is not accepted!");
+            inputPhoneNumber.requestFocus();
         } else {
-            clearError(3);
-        }
-
-        if (password.isEmpty()) {
-            layoutPassword.setErrorEnabled(true);
-            layoutPassword.setError("Password field is required!");
-            inputPassword.requestFocus();
-        } else if (password.length() < 6) {
-            layoutPassword.setError("Password should be at least six characters!");
-        } else {
-            clearError(2);
+            clearError(4);
         }
 
         if (!isEmailValid(email)) {
@@ -101,66 +94,65 @@ public class SignUpActivity extends AppCompatActivity {
             layoutEmail.setError("Invalid email address!");
             inputEmail.requestFocus();
         } else {
+            clearError(3);
+        }
+
+        if (username.isEmpty()) {
+            layoutUsername.setErrorEnabled(true);
+            layoutUsername.setError("Username field is required!");
+            inputUsername.requestFocus();
+        } else if (username.length() > 20) {
+            layoutUsername.setError("Maximum length exceeded!");
+            inputUsername.requestFocus();
+        } else {
+            clearError(2);
+        }
+
+        if (name.isEmpty()) {
+            layoutName.setErrorEnabled(true);
+            layoutName.setError("Name field is required!");
+            inputName.requestFocus();
+        } else if (!name.contains(" ")) {
+            layoutName.setErrorEnabled(true);
+            layoutName.setError("Last name is required!");
+            inputName.requestFocus();
+        } else {
             clearError(1);
         }
 
         if (withoutErrors()) {
-            progressDialog.setMessage("Signing up...");
-            progressDialog.setTitle("Registration");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        progressDialog.dismiss();
-                        DocumentReference documentReference = store.collection("Users").document(auth.getUid());
-                        Map<String,Object> userInfo = new HashMap<>();
-                        // TODO: Change to variables.
-                        userInfo.put("Name", "Juan Pedro");
-                        userInfo.put("Username", "jpd123");
-                        userInfo.put("Email", "tes2t@gmail.com");
-                        userInfo.put("Phone", "09190791784");
-//                        userInfo.put("Photo", );
-                        userInfo.put("isAdmin", "0");
-                        documentReference.set(userInfo);
-                        sendUserToNextActivity();
-                        Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                    } else {
-                        try {
-                            throw task.getException();
-                        } catch (Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
+            bundle.putString("name", name);
+            bundle.putString("username", username);
+            bundle.putString("email", email);
+            bundle.putString("phoneNumber", phoneNumber);
+            sendUserToNextActivity();
         }
     }
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(SignUpActivity.this, SignUpStep2Activity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     private void clearError(int field) {
         if (field == 1) {
+            layoutName.setError(null);
+            layoutName.setErrorEnabled(false);
+        } else if (field == 2) {
+            layoutUsername.setError(null);
+            layoutUsername.setErrorEnabled(false);
+        } else if (field == 3) {
             layoutEmail.setError(null);
             layoutEmail.setErrorEnabled(false);
-        } else if (field == 2) {
-            layoutPassword.setError(null);
-            layoutPassword.setErrorEnabled(false);
         } else {
-            layoutConfirmPassword.setError(null);
-            layoutConfirmPassword.setErrorEnabled(false);
+            layoutPhoneNumber.setError(null);
+            layoutPhoneNumber.setErrorEnabled(false);
         }
     }
 
     private boolean withoutErrors() {
-        if (!layoutEmail.isErrorEnabled() && !layoutPassword.isErrorEnabled() && !layoutConfirmPassword.isErrorEnabled()) {
+        if (!layoutName.isErrorEnabled() && !layoutUsername.isErrorEnabled() && !layoutEmail.isErrorEnabled() && !layoutPhoneNumber.isErrorEnabled()) {
             return true;
         } else {
             return false;

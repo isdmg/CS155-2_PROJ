@@ -110,7 +110,7 @@
         android:id="@+id/signup_button_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_sign_up_redirect"
+        android:layout_above="@+id/button_signup_redirect"
         android:layout_marginStart="35dp"
         android:text="Don't have an account?"
         android:textSize="20sp"
@@ -118,7 +118,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sign_up_redirect"
+        android:id="@+id/button_signup_redirect"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"

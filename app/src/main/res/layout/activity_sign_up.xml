@@ -8,26 +8,15 @@
 
     <ImageButton
         android:id="@+id/signup_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
-        android:scaleType="fitXY"
-        android:background="@drawable/ic_baseline_arrow_back_ios_24" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_baseline_arrow_back_ios_24"
+        android:contentDescription="@string/back_button"
+        android:scaleType="fitXY" />
 
-
-    <TextView
-        android:id="@+id/signup_title"
-        android:layout_below="@id/signup_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:ems="10"
-        android:text="WIP"
-        android:textAlignment="center"
-        android:textSize="70sp" />
 
     <!--    <EditText-->
     <!--        android:id="@+id/signup_email"-->
@@ -81,11 +70,58 @@
     <!--        android:paddingEnd="12dp" />-->
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_signup_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signup_back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:hint="@string/first_and_last_name"
+        app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_signup_username"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_signup_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:hint="@string/username"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:startIconDrawable="@drawable/ic_baseline_people_alt_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnm_-"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_signup_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signup_title"
+        android:layout_below="@id/layout_signup_username"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
@@ -103,7 +139,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_signup_password"
+        android:id="@+id/layout_signup_number"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,51 +149,75 @@
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/password"
-        app:endIconMode="password_toggle"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24">
+        android:hint="@string/phone_number"
+        app:prefixText="+63  "
+        app:prefixTextColor="?attr/colorPrimary"
+        app:startIconDrawable="@drawable/ic_baseline_local_phone_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/signup_password"
+            android:id="@+id/signup_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_signup_confirm_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_signup_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginRight="35dp"
-        android:ems="10"
-        android:hint="@string/confirm_password"
-        app:endIconMode="password_toggle"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24">
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/layout_signup_password"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/layout_signup_email"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginLeft="35dp"-->
+    <!--        android:layout_marginTop="35dp"-->
+    <!--        android:layout_marginRight="35dp"-->
+    <!--        android:ems="10"-->
+    <!--        android:hint="@string/password"-->
+    <!--        app:endIconMode="password_toggle"-->
+    <!--        app:startIconDrawable="@drawable/ic_baseline_lock_24">-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/signup_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/signup_password"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="textPassword" />-->
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/layout_signup_confirm_password"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/layout_signup_password"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginLeft="35dp"-->
+    <!--        android:layout_marginTop="35dp"-->
+    <!--        android:layout_marginRight="35dp"-->
+    <!--        android:ems="10"-->
+    <!--        android:hint="@string/confirm_password"-->
+    <!--        app:endIconMode="password_toggle"-->
+    <!--        app:startIconDrawable="@drawable/ic_baseline_lock_24">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/signup_confirm_password"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="textPassword" />-->
+
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
     <Button
-        android:id="@+id/button_signup"
+        android:id="@+id/button_signup2_redirect"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/layout_signup_confirm_password"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginRight="35dp"
-        android:text="Sign up" />
 
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/proceed" />
 
 </RelativeLayout>
