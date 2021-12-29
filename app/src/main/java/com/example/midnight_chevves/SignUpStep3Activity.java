@@ -40,7 +40,6 @@ public class SignUpStep3Activity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseFirestore store;
-    private StorageTask uploadTask;
     private StorageReference storageReference;
     private ProgressDialog progressDialog;
 
@@ -101,7 +100,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
-                    Map<String,Object> userInfo = new HashMap<>();
+                    Map<String, Object> userInfo = new HashMap<>();
                     // TODO: Change to variables.
                     userInfo.put("Name", bundle.getString("name"));
                     userInfo.put("Username", bundle.getString("username"));
@@ -123,10 +122,8 @@ public class SignUpStep3Activity extends AppCompatActivity {
                                 }
                             });
 
-                    Log.d("test1", bundle.getString("name") + " " + bundle.getString("username") + " " + bundle.getString("phoneNumber"));
-
-                    final StorageReference imageRef = storageReference.child("Users/"+auth.getUid());
-                    imageRef.putFile(imageUri).addOnFailureListener(new OnFailureListener() {
+                    storageReference.child("Users/" + auth.getUid())
+                            .putFile(imageUri).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(SignUpStep3Activity.this, "Upload Image Failed!", Toast.LENGTH_SHORT).show();

@@ -17,30 +17,28 @@
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
 
-    <TextView
-        android:id="@+id/login_security_wip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_back"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/edit_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/edit_back"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="WIP"
-        android:textAlignment="center"
-        android:textSize="70sp" />
+        android:layout_marginTop="35dp"
+        android:src="@drawable/ic_baseline_person_24" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_edit_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_security_wip"
+        android:layout_below="@id/edit_image"
         android:layout_centerHorizontal="true"
-        app:startIconDrawable="@drawable/ic_baseline_person_24"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/name">
+        android:hint="@string/name"
+        app:startIconDrawable="@drawable/ic_baseline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_name"
@@ -55,7 +53,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/ic_baseline_people_alt_24"
         android:layout_below="@id/layout_edit_name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
@@ -64,7 +61,8 @@
         android:ems="10"
         android:hint="@string/username"
         app:counterEnabled="true"
-        app:counterMaxLength="10">
+        app:counterMaxLength="20"
+        app:startIconDrawable="@drawable/ic_baseline_people_alt_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_username"
@@ -82,14 +80,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_edit_username"
         android:layout_centerHorizontal="true"
-        app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
         android:hint="@string/phone_number"
         app:prefixText="+63  "
-        app:prefixTextColor="?attr/colorPrimary">
+        app:prefixTextColor="?attr/colorPrimary"
+        app:startIconDrawable="@drawable/ic_baseline_local_phone_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_number"
@@ -104,10 +102,10 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/layout_edit_number"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="25dp"
         android:text="@string/save"
         android:textAlignment="center"
         android:textColor="#606467"
