@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,8 +36,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private Button btnLoginSecurity, btnAddressInformation, btnLogOut;
     private CircleImageView accountImage;
+    private TextView username;
 
     private FirebaseAuth auth;
+    private FirebaseFirestore store;
     private StorageReference storageReference;
 
 
@@ -51,12 +54,15 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         btnAddressInformation = v.findViewById(R.id.button_address_info);
         btnLogOut = v.findViewById(R.id.button_customer_logout);
         accountImage = v.findViewById(R.id.account_image);
+        username = v.findViewById(R.id.text_username);
         auth = FirebaseAuth.getInstance();
+        store = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-
         btnLoginSecurity.setOnClickListener(this);
         btnAddressInformation.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
+
+        getAccountDetails();
 
         return v;
     }
@@ -83,7 +89,20 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void getAccountImage() {
+    private void getAccountDetails() {
+        store.collection("Users").document(auth.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                username.setText(documentSnapshot.getString("Username"));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         storageReference.child("Users/" + auth.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -105,7 +124,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getAccountImage();
+                getAccountDetails();
             }
         }, 1500);
     }
