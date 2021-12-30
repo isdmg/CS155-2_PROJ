@@ -73,7 +73,11 @@ public class SignUpStep3Activity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                performAuth();
+                if (imageUri != null) {
+                    performAuth();
+                } else {
+                    Toast.makeText(SignUpStep3Activity.this, "Please select an account image!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
