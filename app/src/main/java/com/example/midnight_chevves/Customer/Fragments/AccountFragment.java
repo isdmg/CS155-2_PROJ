@@ -126,6 +126,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             public void run() {
                 getAccountDetails();
             }
-        }, 1500);
+        }, 2000);
     }
 }
