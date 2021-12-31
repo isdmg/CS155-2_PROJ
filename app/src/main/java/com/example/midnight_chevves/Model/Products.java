@@ -2,94 +2,76 @@ package com.example.midnight_chevves.Model;
 
 
 public class Products {
-    private String pname, description, price, image, category, pid, rdate, time;
-    private int slots;
+    private String Name, Description, Price, Category, ID, RDate;
+    private int Slots;
 
     public Products() {
     }
 
-    public Products(String pname, String description, String price, String image, String category, String pid, String rdate, String time, int slots) {
-        this.pname = pname;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-        this.category = category;
-        this.pid = pid;
-        this.rdate = rdate;
-        this.time = time;
-        this.slots = slots;
+    public Products(String Name, String Description, String Price, String Category, String ID, String RDate, int Slots) {
+        this.Name = Name;
+        this.Description = Description;
+        this.Price = Price;
+        this.Category = Category;
+        this.ID = ID;
+        this.RDate = RDate;
+        this.Slots = Slots;
     }
 
-    public String getPname() {
-        return pname;
+    public String getName() {
+        return Name;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = Description;
     }
 
     public String getPrice() {
-        return price;
+        return Price;
     }
 
     public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+        this.Price = Price;
     }
 
     public String getCategory() {
-        return category;
+        return Category;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.Category = Category;
     }
 
-    public String getPid() {
-        return pid;
+    public String getID() {
+        return ID;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setID(String pid) {
+        this.ID = pid;
     }
 
     public String getRDate() {
-        return rdate;
+        return RDate;
     }
 
-    public void setRDate(String rdate) {
-        this.rdate = rdate;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setRDate(String RDate) {
+        this.RDate = RDate;
     }
 
     public int getSlots() {
-        return slots;
+        return Slots;
     }
 
     public void setSlots(int slot) {
-        this.slots = slot;
+        this.Slots = Slots;
     }
 
 }

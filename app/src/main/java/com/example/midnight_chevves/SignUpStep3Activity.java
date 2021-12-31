@@ -109,7 +109,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
                     userInfo.put("Name", bundle.getString("name"));
                     userInfo.put("Username", bundle.getString("username"));
                     userInfo.put("Phone", "+63" + bundle.getString("phoneNumber"));
-                    userInfo.put("isAdmin", "0");
+                    userInfo.put("isAdmin", false);
 
                     store.collection("Users").document(auth.getUid())
                             .set(userInfo)
@@ -126,7 +126,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
                                 }
                             });
 
-                    storageReference.child("Users/" + auth.getUid())
+                    storageReference.child("Users/"+auth.getUid()+".jpg")
                             .putFile(imageUri).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {

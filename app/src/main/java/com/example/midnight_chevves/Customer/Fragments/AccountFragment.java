@@ -103,7 +103,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        storageReference.child("Users/" + auth.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//        String test = "Users/"+auth.getUid()+".jpg";
+//        Log.d("test1", test);
+//        Log.d("test2", Integer.toString(test.compareTo("Users/Hisq1ejMZRhJOulvl8bwSjhuqew1.jpg")));
+
+
+        storageReference.child("Users/"+auth.getUid()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(accountImage);

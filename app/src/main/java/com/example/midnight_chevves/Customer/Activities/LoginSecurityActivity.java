@@ -115,7 +115,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
             }
         });
 
-        storageReference.child("Users/" + auth.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.child("Users/"+auth.getUid()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(accountImage);
@@ -177,7 +177,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
             documentReference.update("Phone", "+63" + phoneNumber);
 
             if (imageUri != null) {
-                storageReference.child("Users/" + auth.getUid())
+                storageReference.child("Users/"+auth.getUid()+".jpg")
                         .putFile(imageUri).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
