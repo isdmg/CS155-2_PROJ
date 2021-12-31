@@ -7,7 +7,7 @@
     tools:context=".Customer.Activities.ProductDetailsActivity">
 
     <ImageButton
-        android:id="@+id/edit_back"
+        android:id="@+id/details_back"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
@@ -18,10 +18,10 @@
         android:scaleType="fitXY" />
 
     <ImageView
-        android:id="@+id/edit_image"
+        android:id="@+id/details_image"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_below="@id/edit_back"
+        android:layout_below="@id/details_back"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:src="@drawable/ic_baseline_refresh_24" />
@@ -31,7 +31,7 @@
         android:id="@+id/details_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_image"
+        android:layout_below="@id/details_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="WIP"
@@ -64,7 +64,7 @@
         android:id="@+id/button_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/details_price"
+        android:layout_below="@id/details_slots"
         android:layout_marginTop="25dp"
         app:backGroundColor="?attr/colorPrimary"
         app:textSize="5sp" />
