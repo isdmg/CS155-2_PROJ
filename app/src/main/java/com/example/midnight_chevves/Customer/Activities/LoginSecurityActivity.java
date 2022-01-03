@@ -17,8 +17,11 @@ import com.example.midnight_chevves.Customer.Fragments.AccountFragment;
 import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.SignUpStep3Activity;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +31,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -115,7 +119,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
             }
         });
 
-        storageReference.child("Users/"+auth.getUid()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.child("Users/" + auth.getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(accountImage);
@@ -177,11 +181,21 @@ public class LoginSecurityActivity extends AppCompatActivity {
             documentReference.update("Phone", "+63" + phoneNumber);
 
             if (imageUri != null) {
-                storageReference.child("Users/"+auth.getUid()+".jpg")
-                        .putFile(imageUri).addOnFailureListener(new OnFailureListener() {
+                storageReference.child("Users/" + auth.getUid() + ".jpg")
+                        .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        storageReference.child("Users/" + auth.getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                documentReference.update("imageRef", uri.toString());
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginSecurityActivity.this, "Upload Image Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginSecurityActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

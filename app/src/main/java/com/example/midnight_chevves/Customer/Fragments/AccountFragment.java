@@ -1,5 +1,7 @@
 package com.example.midnight_chevves.Customer.Fragments;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,8 +24,11 @@ import com.example.midnight_chevves.SignUpActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -40,7 +45,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseAuth auth;
     private FirebaseFirestore store;
-    private StorageReference storageReference;
 
 
 
@@ -57,7 +61,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         username = v.findViewById(R.id.text_username);
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
         btnLoginSecurity.setOnClickListener(this);
         btnAddressInformation.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
@@ -90,47 +93,50 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getAccountDetails() {
-        store.collection("Users").document(auth.getUid())
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                username.setText(documentSnapshot.getString("Username"));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        store.collection("Users").document(auth.getUid())
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                username.setText(documentSnapshot.getString("Username"));
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-//        String test = "Users/"+auth.getUid()+".jpg";
-//        Log.d("test1", test);
-//        Log.d("test2", Integer.toString(test.compareTo("Users/Hisq1ejMZRhJOulvl8bwSjhuqew1.jpg")));
-
-
-        storageReference.child("Users/"+auth.getUid()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        final DocumentReference docRef = store.collection("Users").document(auth.getUid());
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(accountImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: " + snapshot.getData());
+                    username.setText(snapshot.getString("Username"));
+                    Picasso.get().load(snapshot.getString("imageRef")).into(accountImage);
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
             }
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getAccountDetails();
-            }
-        }, 2000);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                getAccountDetails();
+//            }
+//        }, 2000);
+//    }
 }

@@ -2,6 +2,7 @@ package com.example.midnight_chevves;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midnight_chevves.Admin.AdminActivity;
 import com.example.midnight_chevves.Customer.Activities.CustomerActivity;
+import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +28,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -39,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     protected FirebaseAuth auth;
     private FirebaseFirestore store;
     private FirebaseUser user;
+    private StorageReference storageReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
         user = auth.getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference();
         layoutEmail = findViewById(R.id.layout_login_email);
         layoutPassword = findViewById(R.id.layout_password_login);
 
@@ -143,7 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     private void sendUserToNextActivity(boolean isAdmin) {
         Intent intent;
 
@@ -201,12 +211,5 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    // TODO: Implement method (remember me).
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(user != null) {
-            auth.signOut();
-        }
-    }
+//    // TODO: Implement remember me function.
 }
