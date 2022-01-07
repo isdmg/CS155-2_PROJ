@@ -3,45 +3,56 @@ package com.example.midnight_chevves.Model;
 
 
 public class Cart {
-    private String pid,pname,price,quantity;
+    private String ProductID, ProductName, ProductPrice, PurchaseDate, Quantity;
 
     public Cart() {
     }
 
-    public Cart(String pid, String pname, String price, String quantity) {
-        this.pid = pid;
-        this.pname = pname;
-        this.price = price;
-        this.quantity = quantity;
-
+    public Cart(String ProductID, String ProductName, String ProductPrice, String PurchaseDate, String Quantity) {
+        this.ProductID = ProductID;
+        this.ProductName = ProductName;
+        this.ProductPrice = ProductPrice;
+        this.PurchaseDate = PurchaseDate;
+        this.Quantity = Quantity;
     }
 
-    public String getPid() {
-        return pid;
+    public String getProductID() {
+        return ProductID;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setProductID(String productID) {
+        ProductID = productID;
     }
 
-    public String getPname() {
-        return pname;
+    public String getProductName() {
+        return ProductName;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setProductName(String productName) {
+        ProductName = productName;
     }
 
-    public String getPrice() {
-        return price;
+    public String getProductPrice() {
+        return ProductPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setProductPrice(String productPrice) {
+        ProductPrice = productPrice;
+    }
+
+    public String getPurchaseDate() {
+        return PurchaseDate;
+    }
+
+    public void setPurchaseDate(String purchaseDate) {
+        PurchaseDate = purchaseDate;
     }
 
     public String getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
+    public void setQuantity(String quantity) {
+        Quantity = quantity;
+    }
 }

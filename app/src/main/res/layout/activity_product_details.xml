@@ -78,7 +78,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
-        android:text="WIP"
+        android:text="@string/add_to_cart"
         android:textAlignment="center"
         android:textColor="#606467"
         app:cornerRadius="20dp" />

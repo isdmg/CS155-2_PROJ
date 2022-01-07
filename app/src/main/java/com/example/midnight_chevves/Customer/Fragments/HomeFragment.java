@@ -108,6 +108,7 @@ public class HomeFragment extends Fragment {
                             holder.txtProductName.setText(model.getName());
                             holder.txtProductDescription.setText(model.getDescription());
                             holder.txtProductPrice.setText("₱" + model.getPrice());
+                            Log.d("ProductHolder", model.getName());
                             // Shows that no slots are left by changing the LinearLayout transparency to 25/100.
                             if (model.getSlots() == 0) {
                                 holder.linearLayout.setAlpha(0.25f);

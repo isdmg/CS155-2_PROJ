@@ -154,13 +154,10 @@ public class SignUpStep3Activity extends AppCompatActivity {
 
     private void writeDocument() {
         Map<String, Object> userInfo = new HashMap<>();
-        // TODO: Change to variables.
         userInfo.put("Name", bundle.getString("name"));
         userInfo.put("Username", bundle.getString("username"));
         userInfo.put("Phone", "+63" + bundle.getString("phoneNumber"));
         userInfo.put("isAdmin", false);
-
-        Log.d("imageRef-test", downloadImageUrl);
         userInfo.put("imageRef", downloadImageUrl);
 
         store.collection("Users").document(auth.getUid())

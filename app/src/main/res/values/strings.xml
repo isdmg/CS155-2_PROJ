@@ -11,4 +11,5 @@
     <string name="first_and_last_name">First and Last Name</string>
     <string name="sign_up">Sign up</string>
     <string name="proceed">Proceed</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>
