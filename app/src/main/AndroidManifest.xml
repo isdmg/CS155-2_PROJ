@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
         <activity
+            android:name=".Admin.Category.CategoryCakes"
+            android:exported="false" />
+        <activity
             android:name=".Customer.Activities.ProductDetailsActivity"
             android:exported="false"
             android:parentActivityName=".Customer.Activities.CustomerActivity" />
