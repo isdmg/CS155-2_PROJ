@@ -55,7 +55,7 @@
             android:id="@+id/add_box_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

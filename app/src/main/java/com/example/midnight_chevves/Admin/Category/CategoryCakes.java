@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.midnight_chevves.Admin.AddCakesActivity;
-import com.example.midnight_chevves.Admin.ManageOrdersActivity;
-import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
-import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
+import com.example.midnight_chevves.Admin.EditProductsActivity;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
@@ -126,7 +124,7 @@ public class CategoryCakes extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(CategoryCakes.this, ManageOrdersActivity.class);
+                                Intent intent = new Intent(CategoryCakes.this, EditProductsActivity.class);
                                 intent.putExtra("ID", model.getID());
                                 startActivity(intent);
                             }

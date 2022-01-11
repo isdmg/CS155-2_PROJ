@@ -25,7 +25,7 @@
             android:name=".Admin.AddBoxesActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.ManageOrdersActivity"
+            android:name=".Admin.EditProductsActivity"
             android:exported="false" />
         <activity
             android:name=".Admin.Category.CategoryBoxes"

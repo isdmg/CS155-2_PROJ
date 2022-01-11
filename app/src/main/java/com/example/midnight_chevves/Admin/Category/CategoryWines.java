@@ -20,10 +20,8 @@ import android.content.Intent;
 
 
 import com.example.midnight_chevves.Admin.AddWinesActivity;
-import com.example.midnight_chevves.Admin.ManageOrdersActivity;
-        import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
-        import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
-        import com.example.midnight_chevves.Model.Products;
+import com.example.midnight_chevves.Admin.EditProductsActivity;
+import com.example.midnight_chevves.Model.Products;
         import com.example.midnight_chevves.R;
         import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
         import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -125,7 +123,7 @@ public class CategoryWines extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(CategoryWines.this, ManageOrdersActivity.class);
+                                Intent intent = new Intent(CategoryWines.this, EditProductsActivity.class);
                                 intent.putExtra("ID", model.getID());
                                 startActivity(intent);
                             }
