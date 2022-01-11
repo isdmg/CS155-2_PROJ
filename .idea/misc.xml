@@ -8,10 +8,7 @@
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/drawable/ic_fb.xml" value="0.2703125" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/drawable/ic_ig.xml" value="0.2703125" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/drawable/ic_meta.xml" value="0.3769230769230769" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_cakes.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_products.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_admin.xml" value="0.2504528985507246" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_category_cakes.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_facebook_auth.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -38,6 +35,13 @@
         <entry key="..\:/Users/danie/AndroidStudioProjects/midnight_chevves/app/src/main/res/layout/ic_baseline_help_24.xml" value="0.1" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/midnight_chevves/app/src/main/res/layout/product_items_layout.xml" value="0.264" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/midnight_chevves/app/src/main/res/menu/customer_menu.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_boxes.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_cakes.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_wines.xml" value="0.1" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_admin.xml" value="0.22916666666666666" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_category_boxes.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_category_cakes.xml" value="0.22916666666666666" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_category_wines.xml" value="0.2681704260651629" />
       </map>
     </option>
   </component>

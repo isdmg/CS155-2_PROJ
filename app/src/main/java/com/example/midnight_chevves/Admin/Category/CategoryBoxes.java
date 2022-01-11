@@ -1,91 +1,91 @@
 package com.example.midnight_chevves.Admin.Category;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.net.Uri;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
-import com.example.midnight_chevves.Admin.AddCakesActivity;
-import com.example.midnight_chevves.Admin.ManageOrdersActivity;
-import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
-import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
-import com.example.midnight_chevves.Model.Products;
-import com.example.midnight_chevves.R;
-import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
-public class CategoryCakes extends AppCompatActivity {
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.GridLayoutManager;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
 
-    private TextView txtCake;
-    private RecyclerView recyclerView_ADMIN_cakes;
+import com.example.midnight_chevves.Admin.AddBoxesActivity;
+
+        import com.example.midnight_chevves.Admin.ManageOrdersActivity;
+        import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
+        import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
+        import com.example.midnight_chevves.Model.Products;
+        import com.example.midnight_chevves.R;
+        import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
+        import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+        import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.OnSuccessListener;
+
+        import com.google.firebase.firestore.CollectionReference;
+        import com.google.firebase.firestore.FirebaseFirestore;
+        import com.google.firebase.storage.FirebaseStorage;
+        import com.google.firebase.storage.StorageReference;
+        import com.squareup.picasso.Picasso;
+
+public class CategoryBoxes extends AppCompatActivity {
+
+
+    private TextView txtBox;
+    private RecyclerView recycler_view_ADMIN_boxes;
     private FirebaseFirestore store;
     private StorageReference storageReference;
     private CollectionReference collectionReference;
 
-    private Button btnAddCakes;
+    private Button btnAddBoxes;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_cakes);
+        setContentView(R.layout.activity_category_boxes);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(CategoryCakes.this, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(CategoryBoxes.this, 2);
 
         // TODO: Refactor variables within the activity and xml.
-        recyclerView_ADMIN_cakes = (RecyclerView) findViewById(R.id.recycler_view_ADMIN_cake);
-        recyclerView_ADMIN_cakes.setLayoutManager(gridLayoutManager);
+        recycler_view_ADMIN_boxes = (RecyclerView) findViewById(R.id.recycler_view_ADMIN_boxes);
+        recycler_view_ADMIN_boxes.setLayoutManager(gridLayoutManager);
 
-        txtCake =findViewById(R.id.text_cake_ADMIN);
+        txtBox =findViewById(R.id.text_boxes_ADMIN);
 
 
         store = FirebaseFirestore.getInstance();
         collectionReference = store.collection("Products");
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        btnAddCakes = findViewById(R.id.add_btn_cake);
+        btnAddBoxes = findViewById(R.id.add_btn_boxes);
 
-        btnAddCakes.setOnClickListener(new View.OnClickListener() {
+        btnAddBoxes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CategoryCakes.this, AddCakesActivity.class);
+                Intent intent = new Intent(CategoryBoxes.this, AddBoxesActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter;
-        adapter = populateRecyclerView("cake");
-        recyclerView_ADMIN_cakes.setAdapter(adapter);
+        adapter = populateRecyclerView("box");
+        recycler_view_ADMIN_boxes.setAdapter(adapter);
         adapter.startListening();
 
     }
@@ -119,14 +119,14 @@ public class CategoryCakes extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(CategoryCakes.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CategoryBoxes.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(CategoryCakes.this, ManageOrdersActivity.class);
+                                Intent intent = new Intent(CategoryBoxes.this, ManageOrdersActivity.class);
                                 intent.putExtra("ID", model.getID());
                                 startActivity(intent);
                             }

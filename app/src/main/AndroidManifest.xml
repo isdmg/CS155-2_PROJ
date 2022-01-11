@@ -16,9 +16,24 @@
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
         <activity
+            android:name=".Admin.AddWinesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Category.CategoryWines"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AddBoxesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.ManageOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Category.CategoryBoxes"
+            android:exported="false" />
+        <activity
             android:name=".Admin.AddCakesActivity"
             android:exported="false"
-            android:parentActivityName=".Admin.Category.CategoryCakes"/>
+            android:parentActivityName=".Admin.Category.CategoryCakes" />
         <activity
             android:name=".Admin.Category.CategoryCakes"
             android:exported="false" />
