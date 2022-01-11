@@ -24,8 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.midnight_chevves.Admin.AddBoxesActivity;
 
 import com.example.midnight_chevves.Admin.EditProductsActivity;
-import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
-import com.example.midnight_chevves.Customer.Fragments.CartFragment;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
@@ -175,7 +173,7 @@ public class CategoryBoxes extends AppCompatActivity {
                                                             });
                                                         }
                                                     } else {
-                                                        Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
+                                                        Log.d(CategoryBoxes.class.getSimpleName(), "Error getting documents: ", task.getException());
                                                     }
                                                 }
                                             });
