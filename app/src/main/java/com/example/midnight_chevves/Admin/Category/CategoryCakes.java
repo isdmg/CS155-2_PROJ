@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.midnight_chevves.Admin.AddCakesActivity;
+import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
@@ -43,6 +45,8 @@ public class CategoryCakes extends AppCompatActivity {
     private StorageReference storageReference;
     private CollectionReference collectionReference;
 
+    private Button btnAddCakes;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,9 +62,20 @@ public class CategoryCakes extends AppCompatActivity {
 
         txtCake =findViewById(R.id.text_cake_ADMIN);
 
+
         store = FirebaseFirestore.getInstance();
         collectionReference = store.collection("Products");
         storageReference = FirebaseStorage.getInstance().getReference();
+
+        btnAddCakes = findViewById(R.id.add_btn_cake);
+
+        btnAddCakes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CategoryCakes.this, AddCakesActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

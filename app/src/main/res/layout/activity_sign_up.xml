@@ -111,8 +111,7 @@
             android:id="@+id/signup_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:digits="0123456789qwertzuiopasdfghjklyxcvbnm_-"
-            android:inputType="text" />
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

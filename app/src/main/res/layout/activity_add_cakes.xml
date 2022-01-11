@@ -4,68 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Customer.Activities.LoginSecurityActivity">
+    tools:context=".Admin.AddCakesActivity">
 
-    <ImageButton
-        android:id="@+id/edit_back"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_baseline_arrow_back_ios_24"
-        android:contentDescription="@string/back_button"
-        android:scaleType="fitXY" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/edit_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_below="@id/edit_back"
+    <ImageView
+        android:id="@+id/add_cake_image"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:src="@drawable/ic_baseline_person_24" />
+        app:srcCompat="@drawable/ic_baseline_help_24" />
+
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_edit_name"
+        android:id="@+id/layout_add_cake_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_image"
+        android:layout_below="@id/add_cake_image"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/name"
-        app:startIconDrawable="@drawable/ic_baseline_person_24">
+        android:hint="Product Name"
+        app:startIconDrawable="@drawable/ic_baseline_drive_file_rename_outline_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_name"
+            android:id="@+id/add_cake_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_- "/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_edit_username"
+        android:id="@+id/layout_add_cake_price"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_edit_name"
+        android:layout_below="@id/layout_add_cake_name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/username"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:startIconDrawable="@drawable/ic_baseline_people_alt_24">
+        android:hint="Product Price"
+        app:startIconDrawable="@drawable/ic_baseline_money_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_username"
+            android:id="@+id/add_cake_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
@@ -73,40 +60,37 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_edit_number"
+        android:id="@+id/layout_add_cake_slots"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_edit_username"
+        android:layout_below="@id/layout_add_cake_price"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/phone_number"
-        app:prefixText="+63  "
-        app:prefixTextColor="?attr/colorPrimary"
-        app:startIconDrawable="@drawable/ic_baseline_local_phone_24">
+        android:hint="Slots"
+        app:startIconDrawable="@drawable/ic_baseline_format_list_numbered_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_number"
+            android:id="@+id/add_cake_slots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_save_edit"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    <Button
+        android:id="@+id/button_add_cake"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
-        android:text="@string/save"
-        android:textAlignment="center"
-        android:textColor="#606467"
-        app:cornerRadius="20dp" />
+        android:text="Add" />
+
+
 </RelativeLayout>
