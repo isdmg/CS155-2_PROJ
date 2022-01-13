@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.midnight_chevves.Customer.Activities.AddressActivity;
 import com.example.midnight_chevves.Customer.Activities.CustomerOrdersActivity;
 import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
 import com.example.midnight_chevves.LoginActivity;
@@ -88,7 +89,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.button_address_info:
-                //
+                intent = new Intent(getActivity(), AddressActivity.class);
+                startActivity(intent);
                 break;
             case R.id.button_customer_logout:
                 FirebaseAuth.getInstance().signOut();

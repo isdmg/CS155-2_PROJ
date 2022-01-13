@@ -14,5 +14,10 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="checkout">Checkout</string>
     <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="address1">House/Unit/Floor Number</string>
+    <string name="address2">Street Name</string>
+    <string name="address3">Area/Subdivision/District Name</string>
+    <string name="address4">Province</string>
+    <string name="address5">City</string>
 
 </resources>

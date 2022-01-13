@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.Model.Products;
@@ -39,6 +41,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private TextView txtCake, txtBox, txtWine;
@@ -46,6 +51,7 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore store;
     private StorageReference storageReference;
     private CollectionReference collectionReference;
+    private ImageSlider imageSlider;
 
 
     @Nullable
@@ -74,6 +80,15 @@ public class HomeFragment extends Fragment {
         store = FirebaseFirestore.getInstance();
         collectionReference = store.collection("Products");
         storageReference = FirebaseStorage.getInstance().getReference();
+
+        imageSlider = v.findViewById(R.id.slider);
+        List<SlideModel> slideModels=new ArrayList<>();
+
+        slideModels.add(new SlideModel(R.drawable.gallerytest));
+        slideModels.add(new SlideModel("https://bit.ly/2YoJ77H"));
+        slideModels.add(new SlideModel("https://bit.ly/2BteuF2"));
+        slideModels.add(new SlideModel("https://bit.ly/3fLJf72"));
+        imageSlider.setImageList(slideModels, true);
 
         return v;
     }

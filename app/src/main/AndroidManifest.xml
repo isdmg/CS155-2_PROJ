@@ -67,6 +67,10 @@
             android:exported="false"
             android:parentActivityName=".Customer.Activities.CustomerActivity" />
         <activity
+            android:name=".Customer.Activities.AddressActivity"
+            android:exported="false"
+            android:parentActivityName=".Customer.Activities.CustomerActivity"/>
+        <activity
             android:name=".Admin.AdminActivity"
             android:exported="false" />
         <activity
