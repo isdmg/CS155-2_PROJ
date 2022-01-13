@@ -52,6 +52,15 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        button_ManageOrder = findViewById(R.id.button_ManageOrder);
+        button_ManageOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminActivity.this, ManageOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

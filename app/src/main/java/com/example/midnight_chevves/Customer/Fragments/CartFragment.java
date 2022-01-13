@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.midnight_chevves.Customer.Activities.CheckoutActivity;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.Model.Cart;
 import com.example.midnight_chevves.Model.Products;
@@ -45,6 +47,9 @@ public class CartFragment extends Fragment {
     private FirebaseFirestore store;
     private int overTotalPrice = 0;
     private CollectionReference collectionReference;
+    private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
+
+    private Button btnCheckout;
 
 
     @Nullable
@@ -58,7 +63,15 @@ public class CartFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
-        collectionReference = store.collection("Cart").document(auth.getUid()).collection("List");
+        collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
+        btnCheckout = v.findViewById(R.id.button_checkout);
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkout();
+            }
+        });
 
         return v;
     }
@@ -70,7 +83,7 @@ public class CartFragment extends Fragment {
                         .setQuery(collectionReference, Cart.class)
                         .build();
 
-        FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter =
+        adapter =
                 new FirestoreRecyclerAdapter<Cart, CartViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
@@ -95,7 +108,7 @@ public class CartFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         if (i == 0) {
-                                            Intent intent = new Intent(getActivity(),ProductDetailsActivity.class);
+                                            Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
                                             intent.putExtra("ID", model.getProductID());
                                             startActivity(intent);
                                         } else {
@@ -118,7 +131,7 @@ public class CartFragment extends Fragment {
                                             collectionReference.whereEqualTo("ProductID", model.getProductID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if(task.isSuccessful()) {
+                                                    if (task.isSuccessful()) {
                                                         for (DocumentSnapshot document : task.getResult()) {
                                                             collectionReference.document(document.getId()).delete();
                                                         }
@@ -134,6 +147,7 @@ public class CartFragment extends Fragment {
                             }
                         });
                     }
+
                     @NonNull
                     @Override
                     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -144,5 +158,16 @@ public class CartFragment extends Fragment {
                 };
         recyclerViewCart.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    private void checkout() {
+        if (adapter.getItemCount() != 0) {
+            Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+            intent.putExtra("totalAmount", overTotalPrice);
+            Log.d("total", Integer.toString(overTotalPrice));
+            startActivity(intent);
+        } else {
+            Toast.makeText(getActivity(), "Cart is empty!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

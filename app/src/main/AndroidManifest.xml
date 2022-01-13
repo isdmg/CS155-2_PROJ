@@ -16,6 +16,19 @@
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
         <activity
+            android:name=".OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.ManageOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.Activities.CustomerOrdersActivity"
+            android:exported="false"
+            android:parentActivityName=".Customer.Activities.CustomerActivity" />
+        <activity
+            android:name=".Customer.Activities.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".Admin.AddWinesActivity"
             android:exported="false" />
         <activity

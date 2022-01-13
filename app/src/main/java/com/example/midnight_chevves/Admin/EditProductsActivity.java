@@ -1,10 +1,13 @@
 package com.example.midnight_chevves.Admin;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -12,6 +15,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -30,7 +34,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -118,30 +124,52 @@ public class EditProductsActivity extends AppCompatActivity {
     }
 
     private void getProductDetails() {
-        store.collection("Products").document(ID)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                inputName.setText(documentSnapshot.getString("Name"));
-                inputPrice.setText(documentSnapshot.getString("Price"));
-                btnSlots.setNumber(documentSnapshot.get("Slots").toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProductsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        store.collection("Products").document(ID)
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                inputName.setText(documentSnapshot.getString("Name"));
+//                inputPrice.setText(documentSnapshot.getString("Price"));
+//                btnSlots.setNumber(documentSnapshot.get("Slots").toString());
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(EditProductsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).into(productImage);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(EditProductsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        final DocumentReference docRef = store.collection("Products").document(ID);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(productImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProductsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: " + snapshot.getData());
+                    inputName.setText(snapshot.getString("Name"));
+                    inputPrice.setText(snapshot.getString("Price"));
+                    btnSlots.setNumber(snapshot.get("Slots").toString());
+                    Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
             }
         });
     }

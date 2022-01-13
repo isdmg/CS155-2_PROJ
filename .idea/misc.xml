@@ -14,23 +14,28 @@
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_wines.xml" value="0.196875" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_admin.xml" value="0.2504528985507246" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_category_cakes.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_checkout.xml" value="0.34782608695652173" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer.xml" value="0.17300724637681159" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer_orders.xml" value="0.3351449275362319" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_edit_products.xml" value="0.1" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_facebook_auth.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_login_security.xml" value="0.3546195652173913" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_manage_orders.xml" value="0.35778985507246375" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_order_details.xml" value="0.5" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_product_details.xml" value="0.2875905797101449" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up_step2.xml" value="0.3451086956521739" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up_step3.xml" value="0.44044665012406947" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/cart_items_layout.xml" value="0.121875" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/cart_items_layout.xml" value="0.33" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_about_us.xml" value="0.3546195652173913" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_account.xml" value="0.3546195652173913" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_cart.xml" value="0.3546195652173913" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_home.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_profile.xml" value="0.3546195652173913" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/order_items_layout.xml" value="0.33" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/product_items_layout.xml" value="0.121875" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/clean_test/app/src/main/res/layout/product_items_layout_admin.xml" value="0.34782608695652173" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/midnight_chevves/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/midnight_chevves/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2703125" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/midnight_chevves/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.14635416666666667" />

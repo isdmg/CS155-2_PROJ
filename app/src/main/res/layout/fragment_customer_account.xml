@@ -48,7 +48,7 @@
         app:cornerRadius="20dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_address_info"
+        android:id="@+id/button_orders"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -56,10 +56,25 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="25dp"
+        android:text="Orders"
+        android:textAlignment="center"
+        android:textColor="#606467"
+        app:cornerRadius="20dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_address_info"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/button_orders"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="25dp"
         android:text="Address Information"
         android:textAlignment="center"
         android:textColor="#606467"
         app:cornerRadius="20dp" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_customer_logout"

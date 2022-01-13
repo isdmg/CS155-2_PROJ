@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.midnight_chevves.Customer.Activities.CustomerOrdersActivity;
 import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
 import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
@@ -39,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
-    private Button btnLoginSecurity, btnAddressInformation, btnLogOut;
+    private Button btnLoginSecurity, btnOrders, btnAddressInformation, btnLogOut;
     private CircleImageView accountImage;
     private TextView username;
 
@@ -57,11 +58,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         btnLoginSecurity = v.findViewById(R.id.button_login_security);
         btnAddressInformation = v.findViewById(R.id.button_address_info);
         btnLogOut = v.findViewById(R.id.button_customer_logout);
+        btnOrders = v.findViewById(R.id.button_orders);
         accountImage = v.findViewById(R.id.account_image);
         username = v.findViewById(R.id.text_username);
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
         btnLoginSecurity.setOnClickListener(this);
+        btnOrders.setOnClickListener(this);
         btnAddressInformation.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
 
@@ -77,6 +80,11 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         switch (id) {
             case R.id.button_login_security:
                 intent = new Intent(getActivity(), LoginSecurityActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_orders:
+                Log.d("test0", "wtf");
+                intent = new Intent(getActivity(), CustomerOrdersActivity.class);
                 startActivity(intent);
                 break;
             case R.id.button_address_info:

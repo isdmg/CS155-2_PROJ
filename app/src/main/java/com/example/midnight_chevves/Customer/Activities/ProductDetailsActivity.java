@@ -1,6 +1,9 @@
 package com.example.midnight_chevves.Customer.Activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
@@ -23,7 +26,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,7 +62,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-        collectionReference = store.collection("Cart").document(auth.getUid()).collection("List");
+        collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
         ID = getIntent().getStringExtra("ID");
         productName = findViewById(R.id.details_name);
         productPrice = findViewById(R.id.details_price);
@@ -85,30 +90,52 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void getProductDetails() {
-        store.collection("Products").document(ID)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                productName.setText(documentSnapshot.getString("Name"));
-                productPrice.setText(documentSnapshot.getString("Price"));
-                productSlots.setText(documentSnapshot.get("Slots").toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        store.collection("Products").document(ID)
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                productName.setText(documentSnapshot.getString("Name"));
+//                productPrice.setText(documentSnapshot.getString("Price"));
+//                productSlots.setText(documentSnapshot.get("Slots").toString());
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).into(productImage);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        final DocumentReference docRef = store.collection("Products").document(ID);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(productImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: " + snapshot.getData());
+                    productName.setText(snapshot.getString("Name"));
+                    productPrice.setText(snapshot.getString("Price"));
+                    productSlots.setText(snapshot.get("Slots").toString());
+                    Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.midnight_chevves.Customer.Activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +30,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -104,30 +108,52 @@ public class LoginSecurityActivity extends AppCompatActivity {
     }
 
     private void getUserInfo() {
-        store.collection("Users").document(auth.getUid())
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                inputName.setText(documentSnapshot.getString("Name"));
-                inputUsername.setText(documentSnapshot.getString("Username"));
-                inputPhoneNumber.setText(documentSnapshot.getString("Phone").substring(3));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginSecurityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        store.collection("Users").document(auth.getUid())
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                inputName.setText(documentSnapshot.getString("Name"));
+//                inputUsername.setText(documentSnapshot.getString("Username"));
+//                inputPhoneNumber.setText(documentSnapshot.getString("Phone").substring(3));
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(LoginSecurityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        storageReference.child("Users/" + auth.getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).into(accountImage);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(LoginSecurityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        storageReference.child("Users/" + auth.getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        final DocumentReference docRef = store.collection("Users").document(auth.getUid());
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(accountImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginSecurityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: " + snapshot.getData());
+                    inputName.setText(snapshot.getString("Name"));
+                    inputUsername.setText(snapshot.getString("Username"));
+                    inputPhoneNumber.setText(snapshot.getString("Phone").substring(3));
+                    Picasso.get().load(snapshot.getString("imageRef")).into(accountImage);
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
             }
         });
     }
