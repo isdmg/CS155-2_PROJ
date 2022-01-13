@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.midnight_chevves.Admin.Category.CategoryBoxes;
 import com.example.midnight_chevves.Admin.Category.CategoryCakes;
 import com.example.midnight_chevves.Admin.Category.CategoryWines;
+import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -20,7 +23,7 @@ public class AdminActivity extends AppCompatActivity {
     private Button AdminButton_Char_CUTE_rie_boxes;
     private Button AdminButton_Wines;
     private Button button_ManageOrder;
-
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,18 @@ public class AdminActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AdminActivity.this, ManageOrdersActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnLogout = findViewById(R.id.button_admin_logout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Toast.makeText(AdminActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
             }
         });
 
