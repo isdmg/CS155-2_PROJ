@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/LightBG_hans"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,14 +13,15 @@
             android:id="@+id/text_cake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="226dp"
             android:text="Cakes"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/slider"
             android:layout_width="wrap_content"
+            app:corner_radius="@integer/material_motion_duration_short_1"
             android:layout_height="200dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="18dp"
@@ -30,41 +33,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_cake"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/text_char_cute_rie_boxes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/recycler_view1"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Char-CUTE-rie boxes"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_char_cute_rie_boxes"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/text_wines"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/recycler_view2"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Wines"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_wines"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="5dp" />
 
     </RelativeLayout>
 

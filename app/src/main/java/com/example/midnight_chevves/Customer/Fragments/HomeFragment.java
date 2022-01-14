@@ -84,10 +84,10 @@ public class HomeFragment extends Fragment {
         imageSlider = v.findViewById(R.id.slider);
         List<SlideModel> slideModels=new ArrayList<>();
 
-        slideModels.add(new SlideModel(R.drawable.gallerytest));
-        slideModels.add(new SlideModel("https://bit.ly/2YoJ77H"));
-        slideModels.add(new SlideModel("https://bit.ly/2BteuF2"));
-        slideModels.add(new SlideModel("https://bit.ly/3fLJf72"));
+        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG"));
+        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG"));
+        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg"));
+        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438815657201704/5D32E9DC-EE13-4F1E-8BDB-2074F18D1AB7.JPG"));
         imageSlider.setImageList(slideModels, true);
 
         return v;
