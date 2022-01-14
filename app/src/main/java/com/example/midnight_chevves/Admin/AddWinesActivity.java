@@ -175,6 +175,7 @@ public class AddWinesActivity extends AppCompatActivity {
         wineInfo.put("ID", randomKey);
         wineInfo.put("Name", name);
         wineInfo.put("Price", price);
+        wineInfo.put("Date", saveCurrentDate);
         wineInfo.put("RDate", saveCurrentDate);
         wineInfo.put("imageRef", downloadImageUrl);
         wineInfo.put("Slots", Integer.parseInt(slots));

@@ -1,17 +1,23 @@
 package com.example.midnight_chevves.Customer.Fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,13 +38,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.paulrybitskyi.persistentsearchview.PersistentSearchView;
+import com.paulrybitskyi.persistentsearchview.listeners.OnSearchConfirmedListener;
+import com.paulrybitskyi.persistentsearchview.listeners.OnSearchQueryChangeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,6 +65,9 @@ public class HomeFragment extends Fragment {
     private StorageReference storageReference;
     private CollectionReference collectionReference;
     private ImageSlider imageSlider;
+    private PersistentSearchView persistentSearchView;
+    private String searchInput = "";
+    private ScrollView scrollView;
 
 
     @Nullable
@@ -82,13 +98,56 @@ public class HomeFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
 
         imageSlider = v.findViewById(R.id.slider);
-        List<SlideModel> slideModels=new ArrayList<>();
+        List<SlideModel> slideModels = new ArrayList<>();
 
         slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG"));
         slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG"));
         slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg"));
         slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438815657201704/5D32E9DC-EE13-4F1E-8BDB-2074F18D1AB7.JPG"));
         imageSlider.setImageList(slideModels, true);
+
+        scrollView = v.findViewById(R.id.scrollView_home);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @RequiresApi(api = Build.VERSION_CODES.P)
+                @Override
+                public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if(scrollY + 75<=oldScrollY) {
+                        Log.d("scrollY", String.valueOf(scrollY));
+                        Log.d("oldScrollY", String.valueOf(oldScrollY));
+                        persistentSearchView.setVisibility(View.VISIBLE);
+                    } else if (scrollY > oldScrollY + 50){
+                        Log.d("scrollY", String.valueOf(scrollY));
+                        Log.d("oldScrollY", String.valueOf(oldScrollY));
+                        persistentSearchView.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+        }
+
+        persistentSearchView = v.findViewById(R.id.persistentSearchView);
+
+        persistentSearchView.setOnClearInputBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStart();
+            }
+        });
+
+        persistentSearchView.setOnSearchConfirmedListener(new OnSearchConfirmedListener() {
+            @Override
+            public void onSearchConfirmed(PersistentSearchView searchView, String query) {
+                // Handle a search confirmation. This is the place where you'd
+                // want to perform a search against your data provider.
+
+                searchView.collapse();
+                searchInput = query;
+                Log.d("searchQuery", searchInput);
+                onStart();
+            }
+
+        });
+
 
         return v;
     }
@@ -97,24 +156,36 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter;
+
         adapter = populateRecyclerView("cake");
         recyclerView1.setAdapter(adapter);
         adapter.startListening();
+
         adapter = populateRecyclerView("box");
         recyclerView2.setAdapter(adapter);
         adapter.startListening();
+
         adapter = populateRecyclerView("wine");
         recyclerView3.setAdapter(adapter);
         adapter.startListening();
-        // TODO: Use Global...
     }
 
     private FirestoreRecyclerAdapter<Products, ProductViewHolder> populateRecyclerView(String category) {
         if (category.equals(category)) {
-            FirestoreRecyclerOptions<Products> options =
-                    new FirestoreRecyclerOptions.Builder<Products>()
-                            .setQuery(collectionReference.whereEqualTo("Category", category), Products.class)
-                            .build();
+            FirestoreRecyclerOptions<Products> options;
+
+            if (searchInput.isEmpty()) {
+                options =
+                        new FirestoreRecyclerOptions.Builder<Products>()
+                                .setQuery(collectionReference.whereEqualTo("Category", category), Products.class)
+                                .build();
+            } else {
+                options =
+                        new FirestoreRecyclerOptions.Builder<Products>()
+                                .setQuery(collectionReference.whereEqualTo("Category", category).orderBy("Name").startAt(searchInput).endAt(searchInput+ "\uf8ff"), Products.class)
+                                .build();
+            }
+
 
             FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter =
                     new FirestoreRecyclerAdapter<Products, ProductViewHolder>(options) {
@@ -131,7 +202,7 @@ public class HomeFragment extends Fragment {
                                 holder.linearLayout.setAlpha(1f);
                             }
 
-                            storageReference.child("Product Images/"+model.getID()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            storageReference.child("Product Images/" + model.getID() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Picasso.get().load(uri).into(holder.imageView);
@@ -146,11 +217,13 @@ public class HomeFragment extends Fragment {
                             holder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
-                                intent.putExtra("ID", model.getID());
-                                startActivity(intent);
+                                    Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
+                                    intent.putExtra("ID", model.getID());
+                                    startActivity(intent);
                                 }
                             });
+
+
                         }
 
                         @NonNull

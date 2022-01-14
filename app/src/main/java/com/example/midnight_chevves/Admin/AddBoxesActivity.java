@@ -175,6 +175,7 @@ public class AddBoxesActivity extends AppCompatActivity {
         boxInfo.put("ID", randomKey);
         boxInfo.put("Name", name);
         boxInfo.put("Price", price);
+        boxInfo.put("Date", saveCurrentDate);
         boxInfo.put("RDate", saveCurrentDate);
         boxInfo.put("imageRef", downloadImageUrl);
         boxInfo.put("Slots", Integer.parseInt(slots));

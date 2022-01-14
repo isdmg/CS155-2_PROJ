@@ -27,6 +27,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class ManageOrdersActivity extends AppCompatActivity {
 
@@ -58,7 +59,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
         FirestoreRecyclerOptions<Orders> options =
                 new FirestoreRecyclerOptions.Builder<Orders>()
-                        .setQuery(collectionReference.whereEqualTo("OrderStatus", "Pending"), Orders.class)
+                        .setQuery(collectionReference.whereEqualTo("OrderStatus", "Pending").orderBy("OrderDate", Query.Direction.ASCENDING), Orders.class)
                         .build();
 
         adapter =
