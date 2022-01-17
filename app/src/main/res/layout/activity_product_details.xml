@@ -65,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/details_slots"
+        app:initialNumber="1"
         android:layout_marginTop="25dp"
         app:backGroundColor="?attr/colorPrimary"
         app:textSize="5sp" />

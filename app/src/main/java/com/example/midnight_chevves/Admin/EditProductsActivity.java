@@ -164,7 +164,7 @@ public class EditProductsActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     inputName.setText(snapshot.getString("Name"));
-                    inputPrice.setText(snapshot.getString("Price"));
+                    inputPrice.setText(Long.toString((Long) snapshot.get("Price")));
                     btnSlots.setNumber(snapshot.get("Slots").toString());
                     Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
                 } else {
@@ -198,7 +198,7 @@ public class EditProductsActivity extends AppCompatActivity {
         if (withoutErrors()) {
             DocumentReference documentReference = store.collection("Products").document(ID);
             documentReference.update("Name", name);
-            documentReference.update("Price", price);
+            documentReference.update("Price", Integer.parseInt(price));
             documentReference.update("Slots", slots);
 
             if (imageUri != null) {

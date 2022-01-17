@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,7 @@ public class CartFragment extends Fragment {
     private int overTotalPrice = 0;
     private CollectionReference collectionReference;
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
+    private TextView subtotal;
 
     private Button btnCheckout;
 
@@ -64,6 +66,7 @@ public class CartFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
         collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
+        subtotal = v.findViewById(R.id.text_subtotal);
         btnCheckout = v.findViewById(R.id.button_checkout);
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +75,6 @@ public class CartFragment extends Fragment {
                 checkout();
             }
         });
-
         return v;
     }
 
@@ -86,13 +88,35 @@ public class CartFragment extends Fragment {
         adapter =
                 new FirestoreRecyclerAdapter<Cart, CartViewHolder>(options) {
                     @Override
+                    public int getItemCount() {
+                        return getSnapshots().size();
+                    }
+
+                    @Override
+                    public void onDataChanged() {
+                        adapter.notifyDataSetChanged();
+                        Log.d("Yo!!1", "data changed");
+                        overTotalPrice = 0;
+                        if (getItemCount() == 0) {
+                            Log.d("test0", "0");
+                            btnCheckout.setVisibility(View.GONE);
+                            subtotal.setVisibility(View.GONE);
+                        } else {
+                            btnCheckout.setVisibility(View.VISIBLE);
+                            subtotal.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
                     protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
-                        holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
-                        holder.txtProductPrice.setText("Price = " + "₱" + ((Integer.valueOf(model.getProductPrice()))) * Integer.valueOf(model.getQuantity()));
+                        holder.txtProductQuantity.setText("Quantity: " + Integer.toString(model.getQuantity()));
+                        holder.txtProductPrice.setText("Price: ₱" + ((Integer.valueOf(model.getProductPrice()))) * Integer.valueOf(model.getQuantity()));
                         holder.txtProductName.setText(model.getProductName());
                         Log.d("WineHolder", model.getProductName());
-                        int oneTypeProductTPrice = ((Integer.valueOf(model.getProductPrice()))) * Integer.valueOf(model.getQuantity());
+                        int oneTypeProductTPrice = model.getProductPrice() * model.getQuantity();
                         overTotalPrice = overTotalPrice + oneTypeProductTPrice;
+                        subtotal.setText("Subtotal: ₱" + Integer.toString(overTotalPrice));
+                        Log.d("over", Integer.toString(overTotalPrice));
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -110,6 +134,7 @@ public class CartFragment extends Fragment {
                                         if (i == 0) {
                                             Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
                                             intent.putExtra("ID", model.getProductID());
+                                            intent.putExtra("Quantity", model.getQuantity());
                                             startActivity(intent);
                                         } else {
 //                                            cartListRef.child("User view")
@@ -161,13 +186,9 @@ public class CartFragment extends Fragment {
     }
 
     private void checkout() {
-        if (adapter.getItemCount() != 0) {
-            Intent intent = new Intent(getActivity(), CheckoutActivity.class);
-            intent.putExtra("totalAmount", overTotalPrice);
-            Log.d("total", Integer.toString(overTotalPrice));
-            startActivity(intent);
-        } else {
-            Toast.makeText(getActivity(), "Cart is empty!", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+        intent.putExtra("totalAmount", overTotalPrice);
+        Log.d("total", Integer.toString(overTotalPrice));
+        startActivity(intent);
     }
 }

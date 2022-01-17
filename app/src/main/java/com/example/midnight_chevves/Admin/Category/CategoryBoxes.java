@@ -106,7 +106,7 @@ public class CategoryBoxes extends AppCompatActivity {
                     protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
                         holder.txtProductName.setText(model.getName());
                         holder.txtProductDescription.setText(model.getDescription());
-                        holder.txtProductPrice.setText("₱" + model.getPrice());
+                        holder.txtProductPrice.setText("₱" + Integer.toString(model.getPrice()));
                         Log.d("ProductHolder", model.getName());
                         // Shows that no slots are left by changing the LinearLayout transparency to 25/100.
                         if (model.getSlots() == 0) {

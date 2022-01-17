@@ -130,9 +130,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     productName.setText(snapshot.getString("Name"));
-                    productPrice.setText(snapshot.getString("Price"));
+                    productPrice.setText(String.valueOf(snapshot.get("Price")));
                     productSlots.setText(snapshot.get("Slots").toString());
+
+                    btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
+                    int quantity = getIntent().getIntExtra("Quantity", 0);
+                    if (quantity != 0) {
+                        btnQuantity.setNumber(String.valueOf(quantity));
+                    }
+
                     Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
+
+                    if ((Long) snapshot.get("Slots") == 0) {
+                        btnQuantity.setVisibility(View.INVISIBLE);
+                        btnAddToCart.setEnabled(false);
+                        btnAddToCart.setAlpha(0.25f);
+                    } else {
+                        btnQuantity.setVisibility(View.VISIBLE);
+                        btnAddToCart.setEnabled(true);
+                        btnAddToCart.setAlpha(1f);
+                    }
                 } else {
                     Log.d(TAG, "Current data: null");
                 }
@@ -149,9 +166,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Map<String, Object> cartInfo = new HashMap<>();
         cartInfo.put("ProductID", ID);
         cartInfo.put("ProductName", productName.getText().toString());
-        cartInfo.put("ProductPrice", productPrice.getText().toString());
+        cartInfo.put("ProductPrice", Integer.parseInt(productPrice.getText().toString()));
         cartInfo.put("PurchaseDate", date);
-        cartInfo.put("Quantity", btnQuantity.getNumber());
+        cartInfo.put("Quantity", Integer.parseInt(btnQuantity.getNumber()));
 
         collectionReference
                 .whereEqualTo("ProductID", ID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -166,7 +183,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     }
                     Log.d("test0", Boolean.toString(documentExists));
                     if (documentExists) {
-                        collectionReference.document(documentID).update("Quantity", btnQuantity.getNumber());
+                        collectionReference.document(documentID).update("Quantity", Integer.parseInt(btnQuantity.getNumber()));
                         onBackPressed();
                     } else {
                         collectionReference

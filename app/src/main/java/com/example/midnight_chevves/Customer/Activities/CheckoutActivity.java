@@ -106,50 +106,28 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
+                        store.collection("Products").document(document.getString("ProductID"))
+                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                int slots = documentSnapshot.getLong("Slots").intValue();
+                                int newSlots = slots - document.getLong("Quantity").intValue();
+                                store.collection("Products").document(document.getString("ProductID")).update("Slots", newSlots);
+                            }
+                        });
                         collectionReference.document(document.getId()).delete();
-
-//                        Calendar calendar = Calendar.getInstance();
-//                        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-//                        String saveCurrentDate = currentDate.format(calendar.getTime());
 
                         Map<String, Object> orderInfo = new HashMap<>();
                         orderInfo.put("ProductID", document.getString("ProductID"));
                         orderInfo.put("ProductName", document.getString("ProductName"));
-                        orderInfo.put("ProductPrice", document.getString("ProductPrice"));
+                        orderInfo.put("ProductPrice", document.getLong("ProductPrice"));
                         orderInfo.put("PurchaseDate", document.getString("PurchaseDate"));
-                        orderInfo.put("Quantity", document.getString("Quantity"));
+                        orderInfo.put("Quantity", document.getLong("Quantity"));
 
-//                        Map<String, Object> extraInfo = new HashMap<>();
-//                        extraInfo.put("accountRef", auth.getUid());
-//                        extraInfo.put("OrderId", orderId);
-//                        extraInfo.put("OrderStatus", "Pending");
-//                        extraInfo.put("OrderDate", saveCurrentDate);
-//                        extraInfo.put("TotalAmount", getIntent().getIntExtra("totalAmount", 0));
-//
                         DocumentReference df1 = store.collection("Orders").document(orderId);
                         CollectionReference df2 = df1.collection("Products");
                         df2.add(orderInfo);
-                        //                        df1 = store.collection("Transactions").document(auth.getUid());
-//                        df1.set(customerStatus);
-//
-//                        Map<String, Object> extraInfo = new HashMap<>();
-//                        extraInfo.put("accountRef", auth.getUid());
-//                        extraInfo.put("OrderId", randomKey);
-//                        extraInfo.put("OrderStatus", "Pending");
-//                        extraInfo.put("OrderDate", saveCurrentDate);
-//
-//                        df2 = df1.collection("Orders").document(randomKey);
-//                        df2.set(extraInfo);
-//
-//                        df2.collection("Products").add(orderInfo);
 
-                        ///
-
-                        ///
-
-//                        store.collection("Carts").document(auth.getUid()).collection("Orders").
-//                                document(randomKey).collection("Products")
-//                                .add(orderInfo);
                     }
                 } else {
                     Log.d(CheckoutActivity.class.getSimpleName(), "Error getting documents: ", task.getException());
@@ -194,7 +172,6 @@ public class CheckoutActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

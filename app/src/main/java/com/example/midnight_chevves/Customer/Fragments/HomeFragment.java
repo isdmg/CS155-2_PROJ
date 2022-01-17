@@ -130,6 +130,15 @@ public class HomeFragment extends Fragment {
         persistentSearchView.setOnClearInputBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchInput = "";
+                onStart();
+            }
+        });
+
+        persistentSearchView.setOnLeftBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchInput = "";
                 onStart();
             }
         });

@@ -175,8 +175,7 @@ public class AddCakesActivity extends AppCompatActivity {
         cakeInfo.put("Description", "");
         cakeInfo.put("ID", randomKey);
         cakeInfo.put("Name", name);
-        cakeInfo.put("Price", price);
-        cakeInfo.put("Date", saveCurrentDate);
+        cakeInfo.put("Price", Integer.parseInt(price));
         cakeInfo.put("RDate", saveCurrentDate);
         cakeInfo.put("imageRef", downloadImageUrl);
         cakeInfo.put("Slots", Integer.parseInt(slots));
