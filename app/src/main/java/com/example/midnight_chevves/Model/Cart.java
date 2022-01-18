@@ -3,18 +3,27 @@ package com.example.midnight_chevves.Model;
 
 
 public class Cart {
-    private String ProductID, ProductName, PurchaseDate;
+    private String ListID, ProductID, ProductName, PurchaseDate;
     private int ProductPrice, Quantity;
 
     public Cart() {
     }
 
-    public Cart(String ProductID, String ProductName, int ProductPrice, String PurchaseDate, int Quantity) {
+    public Cart(String ListID, String ProductID, String ProductName, int ProductPrice, String PurchaseDate, int Quantity) {
+        this.ListID = ListID;
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.ProductPrice = ProductPrice;
         this.PurchaseDate = PurchaseDate;
         this.Quantity = Quantity;
+    }
+
+    public String getListID() {
+        return ListID;
+    }
+
+    public void setListID(String listID) {
+        ListID = listID;
     }
 
     public String getProductID() {

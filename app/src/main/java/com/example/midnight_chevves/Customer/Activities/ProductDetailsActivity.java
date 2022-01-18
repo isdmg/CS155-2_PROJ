@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
@@ -158,12 +159,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void addToCart() {
-        String date;
+        String date, randomKey;
+        randomKey = UUID.randomUUID().toString();
         Calendar calendarDate = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         date = dateFormat.format(calendarDate.getTime());
 
         Map<String, Object> cartInfo = new HashMap<>();
+        cartInfo.put("ListID", randomKey);
         cartInfo.put("ProductID", ID);
         cartInfo.put("ProductName", productName.getText().toString());
         cartInfo.put("ProductPrice", Integer.parseInt(productPrice.getText().toString()));
@@ -186,11 +189,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         collectionReference.document(documentID).update("Quantity", Integer.parseInt(btnQuantity.getNumber()));
                         onBackPressed();
                     } else {
-                        collectionReference
-                                .add(cartInfo)
-                                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        collectionReference.document(randomKey)
+                                .set(cartInfo)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(ProductDetailsActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
                                         onBackPressed();
                                     }

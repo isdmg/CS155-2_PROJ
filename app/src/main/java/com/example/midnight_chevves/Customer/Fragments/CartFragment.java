@@ -95,10 +95,8 @@ public class CartFragment extends Fragment {
                     @Override
                     public void onDataChanged() {
                         adapter.notifyDataSetChanged();
-                        Log.d("Yo!!1", "data changed");
                         overTotalPrice = 0;
                         if (getItemCount() == 0) {
-                            Log.d("test0", "0");
                             btnCheckout.setVisibility(View.GONE);
                             subtotal.setVisibility(View.GONE);
                         } else {
@@ -133,6 +131,7 @@ public class CartFragment extends Fragment {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         if (i == 0) {
                                             Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
+                                            intent.putExtra("ListID", model.getListID());
                                             intent.putExtra("ID", model.getProductID());
                                             intent.putExtra("Quantity", model.getQuantity());
                                             startActivity(intent);
