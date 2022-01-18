@@ -220,8 +220,8 @@ public class EditProductsActivity extends AppCompatActivity {
                     }
                 });
             }
+            onBackPressed();
         }
-        onBackPressed();
     }
 
     private void clearError(int field) {

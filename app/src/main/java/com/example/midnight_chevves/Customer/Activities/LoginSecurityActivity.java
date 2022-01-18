@@ -225,8 +225,8 @@ public class LoginSecurityActivity extends AppCompatActivity {
                     }
                 });
             }
+            onBackPressed();
         }
-        onBackPressed();
     }
 
     private void clearError(int field) {
