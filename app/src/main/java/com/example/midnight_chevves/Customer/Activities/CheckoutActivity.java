@@ -77,7 +77,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 Map<String, Object> extraInfo = new HashMap<>();
                 extraInfo.put("accountRef", auth.getUid());
                 extraInfo.put("OrderId", orderId);
-                extraInfo.put("OrderStatus", "Pending");
+                extraInfo.put("OrderStatus", "Ordered");
                 extraInfo.put("OrderDate", saveCurrentDate);
                 extraInfo.put("TotalAmount", getIntent().getIntExtra("totalAmount", 0));
                 extraInfo.put("PaymentMethod", paymentMethod);

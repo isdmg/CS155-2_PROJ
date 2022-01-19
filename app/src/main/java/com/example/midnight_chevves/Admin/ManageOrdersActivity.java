@@ -59,7 +59,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
         FirestoreRecyclerOptions<Orders> options =
                 new FirestoreRecyclerOptions.Builder<Orders>()
-                        .setQuery(collectionReference.whereEqualTo("OrderStatus", "Pending").orderBy("OrderDate", Query.Direction.ASCENDING), Orders.class)
+                        .setQuery(collectionReference.whereNotEqualTo("OrderStatus", "Delivered"), Orders.class)
                         .build();
 
         adapter =
@@ -84,16 +84,41 @@ public class ManageOrdersActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 CharSequence options[] = new CharSequence[]
                                         {
-                                                "Yes",
-                                                "No"
+                                                "Shipped",
+                                                "Out for delivery",
+                                                "Delivered"
                                         };
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ManageOrdersActivity.this);
-                                builder.setTitle("Have you delivered this order?");
+                                builder.setTitle("Set Order Status: ");
                                 builder.setItems(options, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        DocumentReference df = store.collection("Orders").document(model.getOrderId());
                                         if (i == 0) {
-                                            DocumentReference df = store.collection("Orders").document(model.getOrderId());
+                                            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    df.update("OrderStatus", "Shipped");
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(ManageOrdersActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        } else if (i == 1) {
+                                            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    df.update("OrderStatus", "Out for delivery");
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(ManageOrdersActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        } else {
                                             df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
