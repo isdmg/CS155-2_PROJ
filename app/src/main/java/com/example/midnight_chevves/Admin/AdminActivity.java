@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.midnight_chevves.Admin.Category.CategoryBoxes;
@@ -19,10 +20,8 @@ import com.example.midnight_chevves.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity {
+    private ImageView AdminButton_Cake,AdminButton_Char_CUTE_rie_boxes, AdminButton_Wines;
 
-    private Button AdminButton_Cake;
-    private Button AdminButton_Char_CUTE_rie_boxes;
-    private Button AdminButton_Wines;
     private Button button_ManageOrder;
     private Button btnLogout;
     private Button AdminButton_Extras;
@@ -33,7 +32,7 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
 
-        AdminButton_Cake = (Button) findViewById(R.id.AdminButton_Cake);
+        AdminButton_Cake = (ImageView) findViewById(R.id.AdminButton_Cake);
         AdminButton_Cake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +40,7 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        AdminButton_Char_CUTE_rie_boxes = (Button) findViewById(R.id.AdminButton_Char_CUTE_rie_boxes);
+        AdminButton_Char_CUTE_rie_boxes = (ImageView) findViewById(R.id.AdminButton_Char_CUTE_rie_boxes);
         AdminButton_Char_CUTE_rie_boxes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +48,7 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        AdminButton_Wines = (Button) findViewById(R.id.AdminButton_Wines);
+        AdminButton_Wines = (ImageView) findViewById(R.id.AdminButton_Wines);
         AdminButton_Wines.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
