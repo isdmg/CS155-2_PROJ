@@ -11,10 +11,10 @@
 
     <uses-feature
         android:name="android.hardware.location.gps"
-        android:required="false"/>
-   <uses-feature
+        android:required="false" />
+    <uses-feature
         android:name="android.hardware.location.network"
-        android:required="false"/>
+        android:required="false" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -28,6 +28,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
+        <activity
+            android:name=".Admin.AddExtrasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Category.CategoryExtras"
+            android:exported="false" />
         <activity
             android:name=".OrderDetailsActivity"
             android:exported="false" />
@@ -108,7 +114,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDYT9cpJkYHg-LhHcUD7i75L5EPDi-b5Y8"/>
+            android:value="AIzaSyDYT9cpJkYHg-LhHcUD7i75L5EPDi-b5Y8" />
     </application>
 
 </manifest>

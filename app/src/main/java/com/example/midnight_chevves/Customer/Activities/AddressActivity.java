@@ -163,7 +163,6 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
                 markerOptions.position(latLng);
                 markerOptions.title("My Address");
                 gMap.clear();
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 gMap.addMarker(markerOptions);
 
                 Geocoder geocoder = new Geocoder(AddressActivity.this,

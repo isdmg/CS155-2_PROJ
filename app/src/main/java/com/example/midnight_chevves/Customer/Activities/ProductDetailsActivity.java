@@ -4,12 +4,20 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,7 +25,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.midnight_chevves.Admin.Category.CategoryCakes;
+import com.example.midnight_chevves.Admin.Category.CategoryExtras;
+import com.example.midnight_chevves.Admin.EditProductsActivity;
+import com.example.midnight_chevves.Model.AddOns;
+import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
+import com.example.midnight_chevves.ViewHolder.AddOnsViewHolder;
+import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,17 +60,22 @@ import java.util.UUID;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
-    private String ID;
+    private String ID, category;
     private TextView productName, productPrice, productSlots;
-    private Button btnAddToCart;
-    private ImageButton btnBack;
+    private Button btnAddToCart, btnAddOns;
+    private ImageButton btnBack, btnBackAddOns;
     private ImageView productImage;
     private ElegantNumberButton btnQuantity;
 
     private FirebaseAuth auth;
     private FirebaseFirestore store;
-    private CollectionReference collectionReference;
+    private CollectionReference collectionReference, collectionReference2;
     private StorageReference storageReference;
+
+    private AlertDialog.Builder addOnsBuilder;
+    private AlertDialog addOns;
+    private Button btnAddOnsSave, btnAddOnsCancel;
+    private RecyclerView recyclerViewExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +86,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         store = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
+        collectionReference2 = store.collection("Products");
         ID = getIntent().getStringExtra("ID");
         productName = findViewById(R.id.details_name);
         productPrice = findViewById(R.id.details_price);
@@ -74,6 +97,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.details_back);
         btnAddToCart = findViewById(R.id.button_add_to_cart);
+        btnAddOns = findViewById(R.id.button_add_ons);
 
         // TODO: Add View.OnClickListener?
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +110,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addToCart();
+            }
+        });
+
+        btnAddOns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createAddOnsDialog();
             }
         });
     }
@@ -133,6 +164,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     productName.setText(snapshot.getString("Name"));
                     productPrice.setText(String.valueOf(snapshot.get("Price")));
                     productSlots.setText(snapshot.get("Slots").toString());
+                    category = snapshot.getString("Category");
 
                     btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
                     int quantity = getIntent().getIntExtra("Quantity", 0);
@@ -204,5 +236,125 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void createAddOnsDialog() {
+        addOnsBuilder = new AlertDialog.Builder(this);
+        final View addOnsPopupView = getLayoutInflater().inflate(R.layout.add_ons, null);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ProductDetailsActivity.this, RecyclerView.HORIZONTAL, false);
+        recyclerViewExtra = (RecyclerView) addOnsPopupView.findViewById(R.id.recycler_view_add_ons);
+        recyclerViewExtra.setLayoutManager(layoutManager);
+        btnBackAddOns = addOnsPopupView.findViewById(R.id.add_ons_back);
+        btnBackAddOns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addOns.dismiss();
+            }
+        });
+
+        ///
+        if (category.equals("cake")) {
+            FirestoreRecyclerOptions<AddOns> options;
+            options =
+                    new FirestoreRecyclerOptions.Builder<AddOns>()
+                            .setQuery(collectionReference2.whereEqualTo("Category", "extra"), AddOns.class)
+                            .build();
+
+            FirestoreRecyclerAdapter<AddOns, AddOnsViewHolder> adapter =
+                    new FirestoreRecyclerAdapter<AddOns, AddOnsViewHolder>(options) {
+                        @Override
+                        protected void onBindViewHolder(@NonNull AddOnsViewHolder holder, int position, @NonNull final AddOns model) {
+                            holder.txtProductName.setText(model.getName());
+                            holder.txtProductPrice.setText("₱" + model.getPrice());
+
+                            holder.btnQuantity.setRange(0, model.getSlots());
+
+                            // Shows that no slots are left by changing the LinearLayout transparency to 25/100.
+                            if (model.getSlots() == 0) {
+                                holder.linearLayout.setAlpha(0.25f);
+                            } else {
+                                holder.linearLayout.setAlpha(1f);
+                            }
+
+                            storageReference.child("Product Images/" + model.getID() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Picasso.get().load(uri).into(holder.imageView);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+
+                        @NonNull
+                        @Override
+                        public AddOnsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_ons_items_layout, parent, false);
+                            AddOnsViewHolder holder = new AddOnsViewHolder(view);
+                            return holder;
+                        }
+                    };
+            recyclerViewExtra.setAdapter(adapter);
+            adapter.startListening();
+        } else {
+            FirestoreRecyclerOptions<AddOns> options;
+            options =
+                    new FirestoreRecyclerOptions.Builder<AddOns>()
+                            .setQuery(collectionReference2.whereEqualTo("Name", "Christmas Packing Upgrade"), AddOns.class)
+                            .build();
+
+            FirestoreRecyclerAdapter<AddOns, AddOnsViewHolder> adapter =
+                    new FirestoreRecyclerAdapter<AddOns, AddOnsViewHolder>(options) {
+                        @Override
+                        protected void onBindViewHolder(@NonNull AddOnsViewHolder holder, int position, @NonNull final AddOns model) {
+                            holder.txtProductName.setText(model.getName());
+                            holder.txtProductPrice.setText("₱" + model.getPrice());
+
+                            holder.btnQuantity.setRange(0, model.getSlots());
+
+                            // Shows that no slots are left by changing the LinearLayout transparency to 25/100.
+                            if (model.getSlots() == 0) {
+                                holder.linearLayout.setAlpha(0.25f);
+                            } else {
+                                holder.linearLayout.setAlpha(1f);
+                            }
+
+                            storageReference.child("Product Images/" + model.getID() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Picasso.get().load(uri).into(holder.imageView);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+
+                        @NonNull
+                        @Override
+                        public AddOnsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_ons_items_layout, parent, false);
+                            AddOnsViewHolder holder = new AddOnsViewHolder(view);
+                            return holder;
+                        }
+                    };
+            recyclerViewExtra.setAdapter(adapter);
+            adapter.startListening();
+        }
+
+        ///
+
+        addOnsBuilder.setView(addOnsPopupView);
+        addOns = addOnsBuilder.create();
+        addOns.show();
+
+
     }
 }

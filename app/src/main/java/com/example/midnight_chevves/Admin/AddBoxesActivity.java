@@ -102,7 +102,7 @@ public class AddBoxesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    addBox();
+                    PerformAuth();
                 } else {
                     Toast.makeText(AddBoxesActivity.this, "Please select a product image!", Toast.LENGTH_SHORT).show();
                 }
@@ -125,6 +125,40 @@ public class AddBoxesActivity extends AppCompatActivity {
 //            Picasso.get().load(imageUri).into(cakeImage);
 //        }
 //    }
+
+    private void PerformAuth() {
+        String name = inputName.getText().toString();
+        String price = inputPrice.getText().toString();
+        String slots = inputSlots.getText().toString();
+
+        if (slots.isEmpty()) {
+            layoutSlots.setErrorEnabled(true);
+            layoutSlots.setError("Slots field is required!");
+            inputSlots.requestFocus();
+        } else {
+            clearError(3);
+        }
+
+        if (price.isEmpty()) {
+            layoutPrice.setErrorEnabled(true);
+            layoutPrice.setError("Price field is required!");
+            inputPrice.requestFocus();
+        } else {
+            clearError(2);
+        }
+
+        if (name.isEmpty()) {
+            layoutName.setErrorEnabled(true);
+            layoutName.setError("Name field is required!");
+            inputName.requestFocus();
+        } else {
+            clearError(1);
+        }
+
+        if (withoutErrors()) {
+            addBox();
+        }
+    }
 
     private void addBox() {
         progressDialog.setMessage("Adding Char-CUTE-rie boxes...");
@@ -198,5 +232,26 @@ public class AddBoxesActivity extends AppCompatActivity {
                 });
         Toast.makeText(AddBoxesActivity.this, "Adding Product Successful", Toast.LENGTH_SHORT).show();
         onBackPressed();
+    }
+
+    private void clearError(int field) {
+        if (field == 1) {
+            layoutName.setError(null);
+            layoutName.setErrorEnabled(false);
+        } else if (field == 2) {
+            layoutPrice.setError(null);
+            layoutPrice.setErrorEnabled(false);
+        } else {
+            layoutSlots.setError(null);
+            layoutSlots.setErrorEnabled(false);
+        }
+    }
+
+    private boolean withoutErrors() {
+        if (!layoutName.isErrorEnabled() && !layoutPrice.isErrorEnabled() && !layoutSlots.isErrorEnabled()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

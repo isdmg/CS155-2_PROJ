@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.midnight_chevves.Admin.Category.CategoryBoxes;
 import com.example.midnight_chevves.Admin.Category.CategoryCakes;
+import com.example.midnight_chevves.Admin.Category.CategoryExtras;
 import com.example.midnight_chevves.Admin.Category.CategoryWines;
 import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
@@ -24,6 +25,7 @@ public class AdminActivity extends AppCompatActivity {
     private Button AdminButton_Wines;
     private Button button_ManageOrder;
     private Button btnLogout;
+    private Button AdminButton_Extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,15 @@ public class AdminActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 Toast.makeText(AdminActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AdminButton_Extras = findViewById(R.id.AdminButton_Extras);
+        AdminButton_Extras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminActivity.this, CategoryExtras.class);
+                startActivity(intent);
             }
         });
 

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.midnight_chevves.R;
-import com.example.midnight_chevves.SignUpStep3Activity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,18 +39,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-
-public class AddCakesActivity extends AppCompatActivity {
+public class AddExtrasActivity extends AppCompatActivity {
 
     private TextInputLayout layoutName, layoutPrice, layoutSlots;
     private TextInputEditText inputName, inputPrice, inputSlots;
-    private Button btnAddCake;
+    private Button btnAddExtra;
 
     private FirebaseFirestore store;
     private StorageReference storageReference;
     private ProgressDialog progressDialog;
 
-    private ImageView cakeImage;
+    private ImageView extraImage;
     private Uri imageUri;
     private String downloadImageUrl;
 
@@ -61,23 +59,22 @@ public class AddCakesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_cakes);
+        setContentView(R.layout.activity_add_extras);
 
         store = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        layoutName = findViewById(R.id.layout_add_cake_name);
-        layoutPrice = findViewById(R.id.layout_add_cake_price);
-        layoutSlots = findViewById(R.id.layout_add_cake_slots);
-        inputName = findViewById(R.id.add_cake_name);
-        inputPrice = findViewById(R.id.add_cake_price);
-        inputSlots = findViewById(R.id.add_cake_slots);
-        cakeImage = findViewById(R.id.add_cake_image);
+        layoutName = findViewById(R.id.layout_add_extra_name);
+        layoutPrice = findViewById(R.id.layout_add_extra_price);
+        layoutSlots = findViewById(R.id.layout_add_extra_slots);
+        inputName = findViewById(R.id.add_extra_name);
+        inputPrice = findViewById(R.id.add_extra_price);
+        inputSlots = findViewById(R.id.add_extra_slots);
+        extraImage = findViewById(R.id.add_extra_image);
 
         progressDialog = new ProgressDialog(this);
 
-
-        btnAddCake = findViewById(R.id.button_add_cake);
+        btnAddExtra = findViewById(R.id.button_add_extra);
 
         someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -87,25 +84,25 @@ public class AddCakesActivity extends AppCompatActivity {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             // There are no request codes
                             imageUri = result.getData().getData();
-                            Picasso.get().load(imageUri).into(cakeImage);
+                            Picasso.get().load(imageUri).into(extraImage);
                         }
                     }
                 });
 
-        cakeImage.setOnClickListener(new View.OnClickListener() {
+        extraImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGalleryForResult();
             }
         });
 
-        btnAddCake.setOnClickListener(new View.OnClickListener() {
+        btnAddExtra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
                     PerformAuth();
                 } else {
-                    Toast.makeText(AddCakesActivity.this, "Please select a product image!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExtrasActivity.this, "Please select a product image!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -115,17 +112,6 @@ public class AddCakesActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         someActivityResultLauncher.launch(intent);
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-//            imageUri = result.getUri();
-//            Picasso.get().load(imageUri).into(cakeImage);
-//        }
-//    }
 
     private void PerformAuth() {
         String name = inputName.getText().toString();
@@ -162,7 +148,7 @@ public class AddCakesActivity extends AppCompatActivity {
     }
 
     private void addCake() {
-        progressDialog.setMessage("Adding Cake...");
+        progressDialog.setMessage("Adding Add-on...");
         progressDialog.setTitle("Adding Product");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -190,7 +176,7 @@ public class AddCakesActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                Toast.makeText(AddCakesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddExtrasActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -205,8 +191,7 @@ public class AddCakesActivity extends AppCompatActivity {
         String saveCurrentDate = currentDate.format(calendar.getTime());
 
         Map<String, Object> cakeInfo = new HashMap<>();
-        cakeInfo.put("Category", "cake");
-        cakeInfo.put("Description", "");
+        cakeInfo.put("Category", "extra");
         cakeInfo.put("ID", randomKey);
         cakeInfo.put("Name", name);
         cakeInfo.put("Price", Integer.parseInt(price));
@@ -228,10 +213,10 @@ public class AddCakesActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Log.w("test0", "Error writing document", e);
                         progressDialog.dismiss();
-                        Toast.makeText(AddCakesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddExtrasActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-        Toast.makeText(AddCakesActivity.this, "Adding Product Successful", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddExtrasActivity.this, "Adding Product Successful", Toast.LENGTH_SHORT).show();
         onBackPressed();
     }
 
