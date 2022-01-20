@@ -4,6 +4,7 @@ package com.example.midnight_chevves.ViewHolder;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +16,7 @@ import com.example.midnight_chevves.R;
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView txtOrderId,txtProductStatus,txtProductDate;
     private ItemClickListner itemClickListner;
-    public Button orderDetail;
+    public ImageView orderDetail;
 
     public OrderViewHolder(View itemView) {
         super(itemView);

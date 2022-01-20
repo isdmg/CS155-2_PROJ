@@ -54,6 +54,7 @@ import com.paulrybitskyi.persistentsearchview.listeners.OnSearchConfirmedListene
 import com.paulrybitskyi.persistentsearchview.listeners.OnSearchQueryChangeListener;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,8 @@ public class HomeFragment extends Fragment {
     private PersistentSearchView persistentSearchView;
     private String searchInput = "";
     private ScrollView scrollView;
+
+
 
 
     @Nullable
@@ -97,14 +100,19 @@ public class HomeFragment extends Fragment {
         collectionReference = store.collection("Products");
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        imageSlider = v.findViewById(R.id.slider);
-        List<SlideModel> slideModels = new ArrayList<>();
 
-        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG"));
-        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG"));
-        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg"));
-        slideModels.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438815657201704/5D32E9DC-EE13-4F1E-8BDB-2074F18D1AB7.JPG"));
-        imageSlider.setImageList(slideModels, true);
+        //image gallery banner segment
+        imageSlider = v.findViewById(R.id.slider);
+        ArrayList<SlideModel> images = new ArrayList<>();
+        images.add(new SlideModel(R.drawable.temp_banner, null));
+        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG", null));
+        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG", null));
+        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg", null));
+
+
+        imageSlider.setImageList(images);
+        //
+
 
         scrollView = v.findViewById(R.id.scrollView_home);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

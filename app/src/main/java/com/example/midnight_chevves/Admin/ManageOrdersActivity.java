@@ -51,6 +51,15 @@ public class ManageOrdersActivity extends AppCompatActivity {
         store = FirebaseFirestore.getInstance();
 
         collectionReference = store.collection("Orders");
+
+
+        btnBack = findViewById(R.id.manage_orders_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
