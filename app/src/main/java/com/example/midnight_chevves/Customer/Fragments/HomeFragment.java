@@ -112,13 +112,13 @@ public class HomeFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.P)
                 @Override
                 public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if(scrollY + 75<=oldScrollY) {
-                        Log.d("scrollY", String.valueOf(scrollY));
-                        Log.d("oldScrollY", String.valueOf(oldScrollY));
+                    if(scrollY + 75<=oldScrollY || scrollY == 0) {
+//                        Log.d("scrollY", String.valueOf(scrollY));
+//                        Log.d("oldScrollY", String.valueOf(oldScrollY));
                         persistentSearchView.setVisibility(View.VISIBLE);
-                    } else if (scrollY > oldScrollY + 50){
-                        Log.d("scrollY", String.valueOf(scrollY));
-                        Log.d("oldScrollY", String.valueOf(oldScrollY));
+                    } else if (scrollY > oldScrollY){
+//                        Log.d("scrollY", String.valueOf(scrollY));
+//                        Log.d("oldScrollY", String.valueOf(oldScrollY));
                         persistentSearchView.setVisibility(View.INVISIBLE);
                     }
                 }
