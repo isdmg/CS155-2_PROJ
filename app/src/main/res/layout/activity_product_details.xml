@@ -17,81 +17,102 @@
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
 
-    <ImageView
-        android:id="@+id/details_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/details_back"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/ic_baseline_refresh_24" />
+        android:layout_marginTop="25dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/details_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:src="@drawable/ic_baseline_refresh_24" />
 
 
-    <TextView
-        android:id="@+id/details_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="WIP"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/details_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="WIP"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/details_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="WIP"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/details_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="WIP"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/details_slots"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_price"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="WIP"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/details_slots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_price"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="WIP"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
 
-    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-        android:id="@+id/button_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_slots"
-        app:initialNumber="1"
-        android:layout_marginTop="25dp"
-        app:backGroundColor="?attr/colorPrimary"
-        app:textSize="5sp" />
+            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                android:id="@+id/button_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_slots"
+                android:layout_marginTop="25dp"
+                app:backGroundColor="?attr/colorPrimary"
+                app:initialNumber="1"
+                app:textSize="5sp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_add_ons"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_below="@+id/button_quantity"
-        android:text="Add ons"
-        android:textAlignment="center"
-        app:cornerRadius="20dp" />
+            <!--    <com.google.android.material.button.MaterialButton-->
+            <!--        android:id="@+id/button_add_ons"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="50dp"-->
+            <!--        android:layout_below="@+id/button_quantity"-->
+            <!--        android:text="Add ons"-->
+            <!--        android:textAlignment="center"-->
+            <!--        app:cornerRadius="20dp" />-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_add_to_cart"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="25dp"
-        android:text="@string/add_to_cart"
-        android:textAlignment="center"
-        android:textColor="#606467"
-        app:cornerRadius="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_add_ons2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_quantity"
+                android:layout_marginTop="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_add_to_cart"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/recycler_view_add_ons2"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/add_to_cart"
+                android:textAlignment="center"
+                android:textColor="#606467"
+                app:cornerRadius="20dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>

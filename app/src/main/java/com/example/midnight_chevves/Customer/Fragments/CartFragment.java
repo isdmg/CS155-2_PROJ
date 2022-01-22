@@ -2,7 +2,6 @@ package com.example.midnight_chevves.Customer.Fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,23 +20,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.midnight_chevves.Customer.Activities.CheckoutActivity;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.Model.Cart;
-import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.CartViewHolder;
-import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class CartFragment extends Fragment {
 
@@ -47,7 +41,8 @@ public class CartFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseFirestore store;
     private int overTotalPrice = 0;
-    private CollectionReference collectionReference;
+    private CollectionReference listReference, extraReference;
+
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
     private TextView subtotal;
 
@@ -65,7 +60,8 @@ public class CartFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
-        collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
+        listReference = store.collection("Carts").document(auth.getUid()).collection("List");
+        extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
         subtotal = v.findViewById(R.id.text_subtotal);
         btnCheckout = v.findViewById(R.id.button_checkout);
 
@@ -82,7 +78,7 @@ public class CartFragment extends Fragment {
         super.onStart();
         FirestoreRecyclerOptions<Cart> options =
                 new FirestoreRecyclerOptions.Builder<Cart>()
-                        .setQuery(collectionReference, Cart.class)
+                        .setQuery(listReference, Cart.class)
                         .build();
 
         adapter =
@@ -131,33 +127,55 @@ public class CartFragment extends Fragment {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         if (i == 0) {
                                             Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
-                                            intent.putExtra("ListID", model.getListID());
-                                            intent.putExtra("ID", model.getProductID());
-                                            intent.putExtra("Quantity", model.getQuantity());
-                                            startActivity(intent);
-                                        } else {
-//                                            cartListRef.child("User view")
-//                                                    .child(Prevalent.currentOnlineUser.getPhone())
-//                                                    .child("Products")
-//                                                    .child(model.getPid())
-//                                                    .removeValue()
-//                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                        @Override
-//                                                        public void onComplete(@NonNull Task<Void> task) {
-//                                                            if (task.isSuccessful()){
-//                                                                Toast.makeText(CartActivity.this,"Item Removed",Toast.LENGTH_SHORT).show();
-//                                                                Intent intent = new Intent(CartActivity.this,HomeActivity.class);
-//                                                                startActivity(intent);
-//                                                            }
-//                                                        }
-//                                                    });
+                                            Bundle bundle = new Bundle();
+                                            ArrayList<String> extraID = new ArrayList<>();
 
-                                            collectionReference.whereEqualTo("ProductID", model.getProductID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            bundle.putString("ProductID", model.getProductID());
+                                            bundle.putString("ListID", model.getListID());
+                                            bundle.putInt("Quantity", model.getQuantity());
+
+//                                            intent.putExtra("ID", model.getProductID());
+//                                            intent.putExtra("ListID", model.getListID());
+//                                            intent.putExtra("Quantity", model.getQuantity());
+
+                                            extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful()) {
                                                         for (DocumentSnapshot document : task.getResult()) {
-                                                            collectionReference.document(document.getId()).delete();
+                                                            extraID.add(document.getString("ProductID"));
+                                                            Log.d("check here", document.getString("ExtraID"));
+                                                        }
+//                                                        intent.putExtra("ExtraID", extraID);
+                                                        bundle.putStringArrayList("ExtraProductID", extraID);
+                                                        sendUserToNextActivity(bundle, intent);
+                                                    } else {
+                                                        Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
+                                                    }
+                                                }
+                                            });
+//                                            intent.putExtras(bundle);
+//                                            startActivity(intent);
+                                        } else {
+                                            listReference.whereEqualTo("ProductID", model.getProductID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        for (DocumentSnapshot document : task.getResult()) {
+                                                            listReference.document(document.getId()).delete();
+                                                        }
+                                                    } else {
+                                                        Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
+                                                    }
+                                                }
+                                            });
+
+                                            extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        for (DocumentSnapshot document : task.getResult()) {
+                                                            extraReference.document(document.getId()).delete();
                                                         }
                                                     } else {
                                                         Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
@@ -182,6 +200,11 @@ public class CartFragment extends Fragment {
                 };
         recyclerViewCart.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    private void sendUserToNextActivity(Bundle bundle, Intent intent) {
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void checkout() {

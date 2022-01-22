@@ -188,7 +188,6 @@ public class HomeFragment extends Fragment {
     }
 
     private FirestoreRecyclerAdapter<Products, ProductViewHolder> populateRecyclerView(String category) {
-        if (category.equals(category)) {
             FirestoreRecyclerOptions<Products> options;
 
             if (searchInput.isEmpty()) {
@@ -235,7 +234,9 @@ public class HomeFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
-                                    intent.putExtra("ID", model.getID());
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("ProductID", model.getID());
+                                    intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
                             });
@@ -252,8 +253,5 @@ public class HomeFragment extends Fragment {
                         }
                     };
             return adapter;
-        } else {
-            return null;
-        }
     }
 }
