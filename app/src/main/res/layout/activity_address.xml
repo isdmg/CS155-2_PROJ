@@ -6,6 +6,16 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/address_title"
+        android:layout_width="297dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/address_back"
+        android:text="Enter Location"
+        android:textSize="30sp" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_save_changes2"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -15,7 +25,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
-        android:text="@string/save"
+        android:text="@string/location"
         android:textAlignment="center"
         android:textColor="#606467"
         app:cornerRadius="20dp" />
@@ -31,32 +41,37 @@
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
 
-    <Button
-        android:id="@+id/bt_location"
-        android:layout_width="179dp"
-        android:layout_height="38dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/address"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+    <ImageButton
+        android:id="@+id/address_location"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
 
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="35dp"
+
+        android:background="@drawable/location"
+        android:contentDescription="@string/back_button"
+        android:scaleType="fitXY" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_address"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="70dp"
+        android:layout_width="297dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="95dp">
-        <TextView
-            android:id="@+id/text_view1"
-            android:layout_width="0dp"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:hint="@string/address"
+        app:startIconDrawable="@drawable/ic_baseline_email_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/address_text"
+            android:layout_width="297dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/text_view2"/>
-    </LinearLayout>
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <fragment

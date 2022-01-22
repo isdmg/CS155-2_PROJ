@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Customer.Activities.CheckoutActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save_form"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/address_buttons_container"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/save"
+        android:textAlignment="center"
+        android:textColor="#606467"
+        app:cornerRadius="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="35dp"
+        android:background="#00FFFFCC"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/address_location"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            android:background="@drawable/location"
+            android:contentDescription="@string/back_button"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/textAddressForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/address_title"
+        android:layout_width="297dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Address"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_address_form"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="120dp"
+        android:layout_width="267dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:hint="Address Details">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/address_text_form"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/address_type_container"
+        android:layout_below="@id/layout_address_form"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="35dp"
+        android:background="#00FFFFCC"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textAddressTypeForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address Type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/address_buttons_container"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_type_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="35dp"
+        android:background="#00FFFFCC"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_residential"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/residential"
+
+            android:textAlignment="center"
+            android:textColor="#606467"
+            android:textSize="12dp"
+            app:cornerRadius="20dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_office"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/office"
+
+            android:textAlignment="center"
+            android:textColor="#606467"
+            android:textSize="12dp"
+            app:cornerRadius="20dp" />
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
