@@ -29,6 +29,9 @@
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
         <activity
+            android:name=".Customer.Activities.PaymentFormEmail"
+            android:exported="false" />
+        <activity
             android:name=".Admin.AddExtrasActivity"
             android:exported="false" />
         <activity

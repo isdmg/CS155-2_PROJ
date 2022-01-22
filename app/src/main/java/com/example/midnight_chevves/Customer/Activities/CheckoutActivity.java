@@ -3,12 +3,14 @@ package com.example.midnight_chevves.Customer.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.midnight_chevves.Admin.Category.CategoryCakes;
 import com.example.midnight_chevves.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +32,7 @@ import java.util.UUID;
 public class CheckoutActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private Button btnCOD;
+    private Button btnCOD, btnForm;
     private FirebaseFirestore store;
     private String randomKey = UUID.randomUUID().toString();
 
@@ -43,6 +45,8 @@ public class CheckoutActivity extends AppCompatActivity {
         store = FirebaseFirestore.getInstance();
 
         btnCOD = findViewById(R.id.checkout_cod);
+        btnForm = findViewById(R.id.checkout_form);
+
 
         btnCOD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +54,18 @@ public class CheckoutActivity extends AppCompatActivity {
                 checkoutCOD();
             }
         });
+
+        btnForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openEmailForm();
+            }
+        });
+    }
+
+    public void openEmailForm(){
+        Intent intent = new Intent(this, PaymentFormEmail.class);
+        startActivity(intent);
     }
 
     private void checkoutCOD() {

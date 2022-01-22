@@ -15,5 +15,12 @@
     <string name="checkout">Checkout</string>
     <string name="cash_on_delivery">Cash on Delivery</string>
     <string name="address">Get Address</string>
+    
+    <string-array name="payment_method_array">
+        <item>GCash</item>
+        <item>Cash on Delivery</item>
+        <item>BDO</item>
+        <item>BPI</item>
+    </string-array>
 
 </resources>

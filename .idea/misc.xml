@@ -62,8 +62,14 @@
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_wines.xml" value="0.25" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_admin.xml" value="0.33" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_category_boxes.xml" value="0.26856884057971014" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_checkout.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer_orders.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_edit_products.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_manage_orders.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_order_details.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_payment_form_email.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/cart_items_layout.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_home.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/order_items_layout.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/product_items_layout.xml" value="0.67" />
