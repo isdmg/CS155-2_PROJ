@@ -126,7 +126,7 @@ public class CartFragment extends Fragment {
                                         overTotalExtraPrice += extraTotal;
                                     }
                                 }
-                                long productTotalWithExtra = model.getProductPrice() + extraTotal;
+                                long productTotalWithExtra = (model.getProductPrice() * model.getQuantity()) + extraTotal;
                                 holder.txtProductPrice.setText("Price: ₱" + productTotalWithExtra);
                                 overTotalPrice += overTotalExtraPrice;
                                 subtotal.setText("Subtotal: ₱" + overTotalPrice);

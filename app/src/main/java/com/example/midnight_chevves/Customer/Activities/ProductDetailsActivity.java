@@ -151,6 +151,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                     btnAddToCart.setEnabled(true);
                                     btnAddToCart.setAlpha(1f);
                                 }
+
+//                                if (snapshot.getLong("Slots") < cumulativeSlots) {
+//                                    Log.d("Alert!", "Quantity reduced to" + snapshot.getLong("Slots") + "due to remaining slots");
+//                                    listReference.document(ListID).update("Quantity", snapshot.getLong("Slots"));
+//                                }
                                 productSlots.setText(String.valueOf(snapshot.getLong("Slots") - cumulativeSlots));
                                 btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
                             }
@@ -358,7 +363,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                                     }
                                                     if (model.getSlots() - cumulativeSlots == 0) {
                                                         holder.linearLayout.setAlpha(0.25f);
-                                                    } else {
+//                                                    } else if (model.getSlots() - cumulativeSlots < 0){
+//                                                        Log.d("Alert!", "Quantity reduced to 0 since the product is empty");
+                                                    }
+                                                    else {
                                                         holder.linearLayout.setAlpha(1f);
                                                     }
                                                     holder.btnQuantity.setRange(0, model.getSlots() - cumulativeSlots);
