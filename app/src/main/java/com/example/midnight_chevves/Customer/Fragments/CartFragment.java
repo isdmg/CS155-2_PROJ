@@ -28,10 +28,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class CartFragment extends Fragment {
@@ -42,6 +45,7 @@ public class CartFragment extends Fragment {
     private FirebaseFirestore store;
     private int overTotalPrice = 0;
     private CollectionReference listReference, extraReference;
+
 
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
     private TextView subtotal;
@@ -64,6 +68,7 @@ public class CartFragment extends Fragment {
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
         subtotal = v.findViewById(R.id.text_subtotal);
         btnCheckout = v.findViewById(R.id.button_checkout);
+        btnCheckout.setVisibility(View.GONE);
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,10 +139,6 @@ public class CartFragment extends Fragment {
                                             bundle.putString("ListID", model.getListID());
                                             bundle.putInt("Quantity", model.getQuantity());
 
-//                                            intent.putExtra("ID", model.getProductID());
-//                                            intent.putExtra("ListID", model.getListID());
-//                                            intent.putExtra("Quantity", model.getQuantity());
-
                                             extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -146,7 +147,6 @@ public class CartFragment extends Fragment {
                                                             extraID.add(document.getString("ProductID"));
                                                             Log.d("check here", document.getString("ExtraID"));
                                                         }
-//                                                        intent.putExtra("ExtraID", extraID);
                                                         bundle.putStringArrayList("ExtraProductID", extraID);
                                                         sendUserToNextActivity(bundle, intent);
                                                     } else {
@@ -154,10 +154,8 @@ public class CartFragment extends Fragment {
                                                     }
                                                 }
                                             });
-//                                            intent.putExtras(bundle);
-//                                            startActivity(intent);
                                         } else {
-                                            listReference.whereEqualTo("ProductID", model.getProductID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            listReference.whereEqualTo("ListID", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful()) {

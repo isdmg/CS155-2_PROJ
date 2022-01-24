@@ -132,12 +132,34 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
+
+
+                    listReference.whereEqualTo("ProductID", snapshot.getString("ID")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            int cumulativeSlots = 0;
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    cumulativeSlots += document.getLong("Quantity");
+                                }
+                                if (snapshot.getLong("Slots") - cumulativeSlots == 0) {
+                                    btnQuantity.setVisibility(View.INVISIBLE);
+                                    btnAddToCart.setEnabled(false);
+                                    btnAddToCart.setAlpha(0.25f);
+                                } else {
+                                    btnQuantity.setVisibility(View.VISIBLE);
+                                    btnAddToCart.setEnabled(true);
+                                    btnAddToCart.setAlpha(1f);
+                                }
+                                productSlots.setText(String.valueOf(snapshot.getLong("Slots") - cumulativeSlots));
+                                btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
+                            }
+                        }
+                    });
+
                     productName.setText(snapshot.getString("Name"));
                     productPrice.setText(String.valueOf(snapshot.get("Price")));
-                    productSlots.setText(snapshot.get("Slots").toString());
 
-                    btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
-//                    int quantity = getIntent().getIntExtra("Quantity", 0);
                     int quantity = bundle.getInt("Quantity");
                     if (quantity != 0) {
                         btnQuantity.setNumber(String.valueOf(quantity));
@@ -145,15 +167,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
 
-                    if ((Long) snapshot.get("Slots") == 0) {
-                        btnQuantity.setVisibility(View.INVISIBLE);
-                        btnAddToCart.setEnabled(false);
-                        btnAddToCart.setAlpha(0.25f);
-                    } else {
-                        btnQuantity.setVisibility(View.VISIBLE);
-                        btnAddToCart.setEnabled(true);
-                        btnAddToCart.setAlpha(1f);
-                    }
+//                    if ((Long) snapshot.get("Slots") == 0) {
+//                        btnQuantity.setVisibility(View.INVISIBLE);
+//                        btnAddToCart.setEnabled(false);
+//                        btnAddToCart.setAlpha(0.25f);
+//                    } else {
+//                        btnQuantity.setVisibility(View.VISIBLE);
+//                        btnAddToCart.setEnabled(true);
+//                        btnAddToCart.setAlpha(1f);
+//                    }
                 } else {
                     Log.d(TAG, "Current data: null");
                 }
@@ -203,14 +225,33 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                     protected void onBindViewHolder(@NonNull AddOnsViewHolder holder, int position, @NonNull final AddOns model) {
                                         holder.txtProductName.setText(model.getName());
                                         holder.txtProductPrice.setText("₱" + model.getPrice());
-                                        holder.btnQuantity.setRange(0, model.getSlots());
 
                                         // Shows that no slots are left by changing the LinearLayout transparency to 25/100.
-                                        if (model.getSlots() == 0) {
-                                            holder.linearLayout.setAlpha(0.25f);
-                                        } else {
-                                            holder.linearLayout.setAlpha(1f);
-                                        }
+                                        extraReference.whereEqualTo("ProductID", model.getID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                int cumulativeSlots = 0;
+                                                if (task.isSuccessful()) {
+                                                    for (DocumentSnapshot document : task.getResult()) {
+                                                        cumulativeSlots += document.getLong("Quantity");
+                                                    }
+                                                    if (model.getSlots() - cumulativeSlots == 0) {
+                                                        holder.linearLayout.setAlpha(0.25f);
+                                                    } else {
+                                                        holder.linearLayout.setAlpha(1f);
+                                                    }
+                                                    holder.btnQuantity.setRange(0, model.getSlots() - cumulativeSlots);
+                                                }
+                                            }
+                                        });
+
+                                        //
+
+//                                        if (model.getSlots() == 0) {
+//                                            holder.linearLayout.setAlpha(0.25f);
+//                                        } else {
+//                                            holder.linearLayout.setAlpha(1f);
+//                                        }
                                         quantityList.add(0);
 
                                         if (ListID == null) {
