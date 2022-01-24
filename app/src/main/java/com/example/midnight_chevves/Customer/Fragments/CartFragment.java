@@ -43,7 +43,8 @@ public class CartFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseFirestore store;
-    private int overTotalPrice = 0;
+    private long overTotalPrice = 0;
+    private long overTotalExtraPrice = 0;
     private CollectionReference listReference, extraReference;
 
 
@@ -109,13 +110,31 @@ public class CartFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
                         holder.txtProductQuantity.setText("Quantity: " + Integer.toString(model.getQuantity()));
-                        holder.txtProductPrice.setText("Price: ₱" + ((Integer.valueOf(model.getProductPrice()))) * Integer.valueOf(model.getQuantity()));
                         holder.txtProductName.setText(model.getProductName());
                         Log.d("WineHolder", model.getProductName());
-                        int oneTypeProductTPrice = model.getProductPrice() * model.getQuantity();
-                        overTotalPrice = overTotalPrice + oneTypeProductTPrice;
-                        subtotal.setText("Subtotal: ₱" + Integer.toString(overTotalPrice));
-                        Log.d("over", Integer.toString(overTotalPrice));
+                        int productPrice = model.getProductPrice() * model.getQuantity();
+                        overTotalPrice = overTotalPrice + productPrice;
+
+                        extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                long extraTotal = 0;
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        Log.d("parentRefTest", String.valueOf(document.getLong("ProductPrice")));
+                                        extraTotal = document.getLong("Quantity") * document.getLong("ProductPrice");
+                                        overTotalExtraPrice += extraTotal;
+                                    }
+                                }
+                                long productTotalWithExtra = model.getProductPrice() + extraTotal;
+                                holder.txtProductPrice.setText("Price: ₱" + productTotalWithExtra);
+                                overTotalPrice += overTotalExtraPrice;
+                                subtotal.setText("Subtotal: ₱" + overTotalPrice);
+                            }
+                        });
+
+
+
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -208,7 +227,6 @@ public class CartFragment extends Fragment {
     private void checkout() {
         Intent intent = new Intent(getActivity(), CheckoutActivity.class);
         intent.putExtra("totalAmount", overTotalPrice);
-        Log.d("total", Integer.toString(overTotalPrice));
         startActivity(intent);
     }
 }

@@ -348,12 +348,23 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
                                         // Shows that no slots are left by changing the LinearLayout transparency to 25/100.
-                                        if (model.getSlots() == 0) {
-                                            holder.linearLayout.setAlpha(0.25f);
-                                            holder.btnQuantity.setNumber("0");
-                                        } else {
-                                            holder.linearLayout.setAlpha(1f);
-                                        }
+                                        extraReference.whereEqualTo("ProductID", model.getID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                int cumulativeSlots = 0;
+                                                if (task.isSuccessful()) {
+                                                    for (DocumentSnapshot document : task.getResult()) {
+                                                        cumulativeSlots += document.getLong("Quantity");
+                                                    }
+                                                    if (model.getSlots() - cumulativeSlots == 0) {
+                                                        holder.linearLayout.setAlpha(0.25f);
+                                                    } else {
+                                                        holder.linearLayout.setAlpha(1f);
+                                                    }
+                                                    holder.btnQuantity.setRange(0, model.getSlots() - cumulativeSlots);
+                                                }
+                                            }
+                                        });
 
                                         quantityList.add(0);
 
