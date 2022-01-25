@@ -18,6 +18,7 @@
     <string name="residential">Residential</string>
     <string name="office">Office</string>
     <string name="location">Get Location</string>
+    <string name="change">Change Location</string>
     
     <string-array name="payment_method_array">
         <item>GCash</item>

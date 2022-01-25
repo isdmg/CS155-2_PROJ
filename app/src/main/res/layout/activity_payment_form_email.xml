@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Customer.Activities.PaymentFormEmail">
 
+
     <EditText
         android:id="@+id/editTextNAME_paymentform"
         android:layout_width="320dp"
@@ -37,12 +38,12 @@
         android:id="@+id/editTextLocation_paymentform"
         android:layout_width="320dp"
         android:layout_height="192dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Shipping Address"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMobileNo_paymentform" />
 
@@ -50,20 +51,34 @@
         android:id="@+id/orderFormSubmit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        android:textAllCaps="false"/>
+        android:text="Submit"
+        android:textAllCaps="false"
+
+        app:layout_constraintTop_toBottomOf="@+id/orderform_paymentmethod" />
 
     <Spinner
         android:id="@+id/orderform_paymentmethod"
         android:layout_width="220dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_show_map" />
+
+    <Button
+        android:id="@+id/button_show_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/change"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextLocation_paymentform" />
 
