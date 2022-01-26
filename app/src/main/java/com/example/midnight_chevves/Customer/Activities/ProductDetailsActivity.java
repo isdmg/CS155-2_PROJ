@@ -56,7 +56,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private String ID, ListID, category;
     private Bundle bundle;
-    private TextView productName, productPrice, productSlots;
+    private TextView productName, productDescription, productPrice, productSlots;
     private Button btnAddToCart;
     private ImageButton btnBack;
     private ImageView productImage;
@@ -97,6 +97,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         extraProductID = bundle.getStringArrayList("ExtraProductID");
 
         productName = findViewById(R.id.details_name);
+        productDescription = findViewById(R.id.details_description);
         productPrice = findViewById(R.id.details_price);
         productSlots = findViewById(R.id.details_slots);
         productImage = findViewById(R.id.details_image);
@@ -163,6 +164,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     });
 
                     productName.setText(snapshot.getString("Name"));
+                    productDescription.setText(snapshot.getString("Description"));
                     productPrice.setText(String.valueOf(snapshot.get("Price")));
 
                     int quantity = bundle.getInt("Quantity");

@@ -1,5 +1,7 @@
 package com.example.midnight_chevves.Customer.Fragments;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,12 +32,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CartFragment extends Fragment {
 
@@ -45,13 +49,17 @@ public class CartFragment extends Fragment {
     private FirebaseFirestore store;
     private long overTotalPrice = 0;
     private long overTotalExtraPrice = 0;
+    private long overTotalProductPrice = 0;
     private CollectionReference listReference, extraReference;
-
 
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
     private TextView subtotal;
 
     private Button btnCheckout;
+    private HashMap<String, Object> updateListInfo;
+    private HashMap<String, Object> updateExtraInfo;
+
+    private boolean productPriceQueryFinish = true;
 
 
     @Nullable
@@ -60,8 +68,21 @@ public class CartFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_customer_cart, container, false);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
 
+        updateListInfo = new HashMap<>();
+        updateExtraInfo = new HashMap<>();
+
         recyclerViewCart = (RecyclerView) v.findViewById(R.id.recycler_view_cart);
-        recyclerViewCart.setLayoutManager(layoutManager);
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false) {
+            @Override
+            public void onLayoutCompleted(RecyclerView.State state) {
+                super.onLayoutCompleted(state);
+                if (!updateListInfo.isEmpty()) {
+//                    validateList();
+//                    validateExtras();
+                    Log.d("oy, oy", "hehe");
+                }
+            }
+        });
 
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
@@ -71,6 +92,7 @@ public class CartFragment extends Fragment {
         btnCheckout = v.findViewById(R.id.button_checkout);
         btnCheckout.setVisibility(View.GONE);
 
+
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +100,13 @@ public class CartFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("onResume", "1");
+        getTotal();
     }
 
     public void onStart() {
@@ -97,7 +126,7 @@ public class CartFragment extends Fragment {
                     @Override
                     public void onDataChanged() {
                         adapter.notifyDataSetChanged();
-                        overTotalPrice = 0;
+                        getTotal();
                         if (getItemCount() == 0) {
                             btnCheckout.setVisibility(View.GONE);
                             subtotal.setVisibility(View.GONE);
@@ -111,9 +140,8 @@ public class CartFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
                         holder.txtProductQuantity.setText("Quantity: " + Integer.toString(model.getQuantity()));
                         holder.txtProductName.setText(model.getProductName());
-                        Log.d("WineHolder", model.getProductName());
-                        int productPrice = model.getProductPrice() * model.getQuantity();
-                        overTotalPrice = overTotalPrice + productPrice;
+                        updateListInfo.put(model.getProductID(), model.getListID());
+                        long productPrice = model.getProductPrice() * model.getQuantity();
 
                         extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -122,18 +150,15 @@ public class CartFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     for (DocumentSnapshot document : task.getResult()) {
                                         Log.d("parentRefTest", String.valueOf(document.getLong("ProductPrice")));
+                                        updateExtraInfo.put(document.getString("ProductID"), document.getString("ExtraID"));
                                         extraTotal = document.getLong("Quantity") * document.getLong("ProductPrice");
                                         overTotalExtraPrice += extraTotal;
                                     }
                                 }
-                                long productTotalWithExtra = (model.getProductPrice() * model.getQuantity()) + extraTotal;
+                                long productTotalWithExtra = productPrice + extraTotal;
                                 holder.txtProductPrice.setText("Price: ₱" + productTotalWithExtra);
-                                overTotalPrice += overTotalExtraPrice;
-                                subtotal.setText("Subtotal: ₱" + overTotalPrice);
                             }
                         });
-
-
 
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -228,5 +253,157 @@ public class CartFragment extends Fragment {
         Intent intent = new Intent(getActivity(), CheckoutActivity.class);
         intent.putExtra("totalAmount", overTotalPrice);
         startActivity(intent);
+    }
+
+    private void validateList() {
+        for (Map.Entry<String, Object> entry : updateListInfo.entrySet()) {
+            final DocumentReference docRef = store.collection("Products").document(entry.getKey());
+            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d(TAG, "Current data: " + snapshot.getData());
+
+
+                        listReference.whereEqualTo("ProductID", snapshot.getString("ID")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                int cumulativeSlots = 0;
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        cumulativeSlots += document.getLong("Quantity");
+                                    }
+
+                                    long productSlots = snapshot.getLong("Slots");
+
+                                    if (productSlots == 0) {
+                                        Log.d("Alert!", snapshot.getString("Name") + " has been removed due to no slots");
+//                                        listReference.document(String.valueOf(entry.getValue())).delete();
+
+                                        extraReference.whereEqualTo("parentRef", String.valueOf(entry.getValue())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (DocumentSnapshot document : task.getResult()) {
+                                                        extraReference.document(document.getId()).delete();
+                                                    }
+                                                } else {
+                                                    Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
+                                                }
+                                            }
+                                        });
+                                    } else if (productSlots < cumulativeSlots) {
+                                        Log.d("Alert!", "Quantity reduced to" + snapshot.getLong("Slots") + "due to remaining slots");
+//                                        listReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        Log.d(TAG, "Current data: null");
+                    }
+                }
+            });
+        }
+    }
+
+
+    private void validateExtras() {
+        for (Map.Entry<String, Object> entry : updateExtraInfo.entrySet()) {
+            final DocumentReference docRef = store.collection("Products").document(entry.getKey());
+            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d(TAG, "Current data: " + snapshot.getData());
+
+
+                        extraReference.whereEqualTo("ProductID", snapshot.getString("ID")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                int cumulativeSlots = 0;
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        cumulativeSlots += document.getLong("Quantity");
+                                    }
+
+                                    long productSlots = snapshot.getLong("Slots");
+
+                                    if (productSlots == 0) {
+                                        Log.d("Alert!E", snapshot.getString("Name") + " has been removed due to no slots");
+//                                        extraReference.document(String.valueOf(entry.getValue())).delete();
+                                    } else if (productSlots < cumulativeSlots) {
+                                        Log.d("Alert!E", "Quantity reduced to" + snapshot.getLong("Slots") + "due to remaining slots");
+//                                        listReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        Log.d(TAG, "Current data: null");
+                    }
+                }
+            });
+        }
+    }
+
+    private void getTotal() {
+        overTotalPrice = 0;
+        overTotalProductPrice = 0;
+        overTotalExtraPrice = 0;
+
+        if (productPriceQueryFinish) {
+            productPriceQueryFinish = false;
+            listReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        listReference.document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                                @Nullable FirebaseFirestoreException e) {
+                                if (e != null) {
+                                    Log.w(TAG, "Listen failed.", e);
+                                    return;
+                                }
+
+                                if (snapshot != null && snapshot.exists()) {
+                                    Log.d(TAG, "Current data: " + snapshot.getData());
+                                    long productTotal = snapshot.getLong("ProductPrice") * document.getLong("Quantity");
+                                    overTotalProductPrice += productTotal;
+                                    Log.d(TAG, String.valueOf(productTotal));
+                                } else {
+                                    Log.d(TAG, "Current data: null");
+                                }
+                            }
+                        });
+                    }
+                    extraReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                overTotalExtraPrice += document.getLong("ProductPrice") * document.getLong("Quantity");
+                            }
+                            overTotalPrice = overTotalProductPrice + overTotalExtraPrice;
+                            subtotal.setText("Subtotal: ₱" + overTotalPrice);
+                        }
+                    });
+                    productPriceQueryFinish = true;
+                }
+            });
+        }
+
     }
 }

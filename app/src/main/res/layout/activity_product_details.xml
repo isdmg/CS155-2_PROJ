@@ -48,10 +48,21 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/details_price"
+                android:id="@+id/details_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/details_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="WIP"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/details_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_description"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
                 android:text="WIP"

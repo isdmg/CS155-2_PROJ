@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,37 +28,50 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 
 public class AddressActivity extends AppCompatActivity implements OnMapReadyCallback {
-    ImageButton btnBack, btnLocation;
-    Button btnSave, btnResi, btnOffi;
-    FusedLocationProviderClient client;
-    SupportMapFragment supportMapFragment;
-    GoogleMap gMap;
-    TextInputEditText addressInput;
-    AlertDialog dialog;
-    AlertDialog.Builder dialogBuilder;
-    TextView addressInside;
-    String addressString, addressType;
+    private ImageButton btnBack, btnLocation;
+    private Button btnSave, btnResi, btnOffi, btnSaveForm;
+    private FusedLocationProviderClient client;
+    private SupportMapFragment supportMapFragment;
+    private GoogleMap gMap;
+    private TextInputEditText addressInput, addressTextForm;
+    private AlertDialog dialog;
+    private AlertDialog.Builder dialogBuilder;
+    private TextView addressInside;
+    private String addressString, addressType;
+    private FirebaseAuth auth;
+    private FirebaseFirestore store;
+    HashMap<String, Object> addressInfo = new HashMap<>();
 
+
+    private TextInputLayout textInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
-        addressInput = findViewById(R.id.address_text);
+
+        auth = FirebaseAuth.getInstance();
+        store = FirebaseFirestore.getInstance();
+        addressInput = findViewById(R.id.g_address);
         btnBack = findViewById(R.id.address_back);
-        btnLocation = findViewById(R.id.address_location);
-        btnSave = findViewById(R.id.button_save_changes2);
+//        btnLocation = findViewById(R.id.address_location);
+        btnSave = findViewById(R.id.button_save_location);
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.google_map);
 
@@ -65,37 +79,43 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
 
         supportMapFragment.getMapAsync(this);
 
+        ActivityCompat.requestPermissions(AddressActivity.this
+                , new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        btnLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ActivityCompat.checkSelfPermission(AddressActivity.this
-                        , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
-                } else {
-                    ActivityCompat.requestPermissions(AddressActivity.this
-                            , new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-
-                }
-            }
-        });
+//        btnLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (addressString == null){
-                    Toast.makeText(AddressActivity.this, "Address is Blank", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddressActivity.this, "Address is empty!", Toast.LENGTH_SHORT).show();
                 } else {
                     popup();
                 }
             }
         });
 
+        textInputLayout = findViewById(R.id.layout_g_address);
+        textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(AddressActivity.this
+                        , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+            }
+        });
 
     }
 
@@ -188,10 +208,15 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
         dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView = getLayoutInflater().inflate(R.layout.activity_address_form, null);
 
-        addressInside = (TextView) contactPopupView.findViewById(R.id.textAddressForm);
-        addressInside.setText(addressString);
-        btnOffi = (Button) contactPopupView.findViewById(R.id.button_residential);
-        btnResi = (Button) contactPopupView.findViewById(R.id.button_office);
+        addressInside = contactPopupView.findViewById(R.id.textAddressForm);
+        addressTextForm = contactPopupView.findViewById(R.id.address_text_form);
+        btnOffi = contactPopupView.findViewById(R.id.button_residential);
+        btnResi = contactPopupView.findViewById(R.id.button_office);
+        btnSaveForm = contactPopupView.findViewById(R.id.button_save_form);
+
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
 
         btnOffi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,10 +234,23 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
                 addressType = "Residential";
             }
         });
+        btnSaveForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                addressInfo.put("MapAddress", addressString);
+                addressInfo.put("AddressDetails", addressTextForm.getText().toString());
+                addressInfo.put("AddressType", addressType);
+                addressInfo.put("userRef", auth.getUid());
+                writeDocument();
+            }
+        });
 
+        addressInside.setText(addressString);
+    }
 
-        dialogBuilder.setView(contactPopupView);
-        dialog = dialogBuilder.create();
-        dialog.show();
+    private void writeDocument() {
+        store.collection("Addresses").document(auth.getUid()).collection("Locations")
+                .add(addressInfo);
     }
 }

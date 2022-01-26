@@ -6,31 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/address_title"
-        android:layout_width="297dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_toEndOf="@+id/address_back"
-        android:text="Enter Location"
-        android:textSize="30sp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_save_changes2"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/google_map"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="25dp"
-        android:text="@string/location"
-        android:textAlignment="center"
-        android:textColor="#606467"
-        app:cornerRadius="20dp" />
-
     <ImageButton
         android:id="@+id/address_back"
         android:layout_width="48dp"
@@ -42,36 +17,32 @@
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
 
-    <ImageButton
-        android:id="@+id/address_location"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-
-        android:layout_marginLeft="270dp"
-        android:layout_marginTop="35dp"
-
-        android:background="@drawable/location"
-        android:contentDescription="@string/back_button"
-        android:scaleType="fitXY" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_address"
+        android:id="@+id/layout_g_address"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="70dp"
-        android:layout_width="297dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/address_back"
         android:layout_centerHorizontal="true"
-
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
+        android:clickable="false"
         android:ems="10"
-        android:hint="@string/address"
-        app:startIconDrawable="@drawable/ic_baseline_email_24">
+        android:focusable="false"
+        android:hint="Location"
+        app:endIconDrawable="@drawable/ic_baseline_my_location_24"
+        app:endIconMode="custom"
+        app:startIconDrawable="@drawable/ic_baseline_search_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/address_text"
-            android:layout_width="297dp"
+            android:enabled="false"
+            android:id="@+id/g_address"
+            android:textSize="11sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:digits="" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -79,9 +50,25 @@
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
-        android:layout_below="@+id/layout_address"
-        android:layout_marginTop="20dp" />
+        android:layout_below="@+id/layout_g_address"
+        android:layout_height="320dp"
+        android:layout_marginTop="25dp">
+    </fragment>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save_location"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="25dp"
+        android:text="Save Location"
+        android:textAlignment="center"
+        android:textColor="#606467"
+        app:cornerRadius="20dp" />
+
 
 
 </RelativeLayout>
