@@ -214,7 +214,7 @@ public class HomeFragment extends Fragment {
                                     for (DocumentSnapshot document : task.getResult()) {
                                         cumulativeSlots += document.getLong("Quantity");
                                     }
-                                    if (model.getSlots() - cumulativeSlots == 0) {
+                                    if (model.getSlots() - cumulativeSlots < 1) {
                                         holder.linearLayout.setAlpha(0.25f);
                                     } else {
                                         holder.linearLayout.setAlpha(1f);

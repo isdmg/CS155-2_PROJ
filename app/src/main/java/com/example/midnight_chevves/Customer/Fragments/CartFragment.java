@@ -11,16 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midnight_chevves.Customer.Activities.CheckoutActivity;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
+import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.Model.Cart;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.CartViewHolder;
@@ -40,6 +45,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CartFragment extends Fragment {
 
@@ -62,27 +68,26 @@ public class CartFragment extends Fragment {
     private boolean productPriceQueryFinish = true;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_customer_cart, container, false);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
 
         updateListInfo = new HashMap<>();
         updateExtraInfo = new HashMap<>();
 
         recyclerViewCart = (RecyclerView) v.findViewById(R.id.recycler_view_cart);
-        recyclerViewCart.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false) {
-            @Override
-            public void onLayoutCompleted(RecyclerView.State state) {
-                super.onLayoutCompleted(state);
-                if (!updateListInfo.isEmpty()) {
-//                    validateList();
-//                    validateExtras();
-                    Log.d("oy, oy", "hehe");
-                }
-            }
-        });
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
+                                              @Override
+                                              public void onLayoutCompleted(RecyclerView.State state) {
+                                                  super.onLayoutCompleted(state);
+                                                  validateCart();
+                                              }
+                                          }
+        );
+
 
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
@@ -91,7 +96,6 @@ public class CartFragment extends Fragment {
         subtotal = v.findViewById(R.id.text_subtotal);
         btnCheckout = v.findViewById(R.id.button_checkout);
         btnCheckout.setVisibility(View.GONE);
-
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +109,6 @@ public class CartFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("onResume", "1");
         getTotal();
     }
 
@@ -126,6 +129,7 @@ public class CartFragment extends Fragment {
                     @Override
                     public void onDataChanged() {
                         adapter.notifyDataSetChanged();
+                        validateCart();
                         getTotal();
                         if (getItemCount() == 0) {
                             btnCheckout.setVisibility(View.GONE);
@@ -181,6 +185,7 @@ public class CartFragment extends Fragment {
 
                                             bundle.putString("ProductID", model.getProductID());
                                             bundle.putString("ListID", model.getListID());
+                                            bundle.putBoolean("Edit", true);
                                             bundle.putInt("Quantity", model.getQuantity());
 
                                             extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -255,7 +260,7 @@ public class CartFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void validateList() {
+    private void validateCart() {
         for (Map.Entry<String, Object> entry : updateListInfo.entrySet()) {
             final DocumentReference docRef = store.collection("Products").document(entry.getKey());
             docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -283,8 +288,7 @@ public class CartFragment extends Fragment {
                                     long productSlots = snapshot.getLong("Slots");
 
                                     if (productSlots == 0) {
-                                        Log.d("Alert!", snapshot.getString("Name") + " has been removed due to no slots");
-//                                        listReference.document(String.valueOf(entry.getValue())).delete();
+                                        listReference.document(String.valueOf(entry.getValue())).delete();
 
                                         extraReference.whereEqualTo("parentRef", String.valueOf(entry.getValue())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
@@ -299,8 +303,7 @@ public class CartFragment extends Fragment {
                                             }
                                         });
                                     } else if (productSlots < cumulativeSlots) {
-                                        Log.d("Alert!", "Quantity reduced to" + snapshot.getLong("Slots") + "due to remaining slots");
-//                                        listReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
+                                        listReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
                                     }
                                 }
                             }
@@ -311,10 +314,7 @@ public class CartFragment extends Fragment {
                 }
             });
         }
-    }
 
-
-    private void validateExtras() {
         for (Map.Entry<String, Object> entry : updateExtraInfo.entrySet()) {
             final DocumentReference docRef = store.collection("Products").document(entry.getKey());
             docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -342,11 +342,9 @@ public class CartFragment extends Fragment {
                                     long productSlots = snapshot.getLong("Slots");
 
                                     if (productSlots == 0) {
-                                        Log.d("Alert!E", snapshot.getString("Name") + " has been removed due to no slots");
-//                                        extraReference.document(String.valueOf(entry.getValue())).delete();
+                                        extraReference.document(String.valueOf(entry.getValue())).delete();;
                                     } else if (productSlots < cumulativeSlots) {
-                                        Log.d("Alert!E", "Quantity reduced to" + snapshot.getLong("Slots") + "due to remaining slots");
-//                                        listReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
+                                        extraReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
                                     }
                                 }
                             }
@@ -395,6 +393,7 @@ public class CartFragment extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 overTotalExtraPrice += document.getLong("ProductPrice") * document.getLong("Quantity");
+                                Log.d("overTotalExtra", String.valueOf(overTotalExtraPrice));
                             }
                             overTotalPrice = overTotalProductPrice + overTotalExtraPrice;
                             subtotal.setText("Subtotal: ₱" + overTotalPrice);
@@ -404,6 +403,5 @@ public class CartFragment extends Fragment {
                 }
             });
         }
-
     }
 }

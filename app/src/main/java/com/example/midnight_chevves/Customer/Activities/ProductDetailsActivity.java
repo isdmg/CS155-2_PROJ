@@ -70,10 +70,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewExtra;
     private List<Integer> quantityList;
 
-    ArrayList<HashMap<String, Object>> extraInfo;
-    ArrayList<HashMap<String, Object>> updateInfo;
-    ArrayList<HashMap<String, Object>> deleteInfo;
-    ArrayList<String> extraProductID;
+    private ArrayList<HashMap<String, Object>> extraInfo;
+    private ArrayList<HashMap<String, Object>> updateInfo;
+    private ArrayList<HashMap<String, Object>> deleteInfo;
+    private ArrayList<String> extraProductID;
+
+    private boolean isEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +91,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
         bundle = getIntent().getExtras();
-//        ListID = getIntent().getStringExtra("ListID");
-//        ID = getIntent().getStringExtra("ID");
-//        extraID = getIntent().getStringArrayListExtra("ExtraID");
         ListID = bundle.getString("ListID");
         ID = bundle.getString("ProductID");
         extraProductID = bundle.getStringArrayList("ExtraProductID");
+
+        if (bundle.getBoolean("Edit")) {
+            isEdit = true;
+        } else {
+            isEdit = false;
+        }
 
         productName = findViewById(R.id.details_name);
         productDescription = findViewById(R.id.details_description);
@@ -141,22 +146,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             int cumulativeSlots = 0;
                             if (task.isSuccessful()) {
                                 for (DocumentSnapshot document : task.getResult()) {
-                                    cumulativeSlots += document.getLong("Quantity");
+                                    if (ListID == null) {
+                                        cumulativeSlots += document.getLong("Quantity");
+                                    } else {
+                                        if (!document.getId().equals(ListID)) {
+                                            cumulativeSlots += document.getLong("Quantity");
+                                        }
+                                    }
                                 }
-                                if (snapshot.getLong("Slots") - cumulativeSlots == 0) {
-                                    btnQuantity.setVisibility(View.INVISIBLE);
-                                    btnAddToCart.setEnabled(false);
-                                    btnAddToCart.setAlpha(0.25f);
+                                if (snapshot.getLong("Slots") - cumulativeSlots < 1) {
+                                    if (!isEdit) {
+                                        btnQuantity.setVisibility(View.INVISIBLE);
+                                        btnAddToCart.setEnabled(false);
+                                        btnAddToCart.setAlpha(0.25f);
+                                    }
                                 } else {
                                     btnQuantity.setVisibility(View.VISIBLE);
                                     btnAddToCart.setEnabled(true);
                                     btnAddToCart.setAlpha(1f);
                                 }
 
-//                                if (snapshot.getLong("Slots") < cumulativeSlots) {
-//                                    Log.d("Alert!", "Quantity reduced to" + snapshot.getLong("Slots") + "due to remaining slots");
-//                                    listReference.document(ListID).update("Quantity", snapshot.getLong("Slots"));
-//                                }
                                 productSlots.setText(String.valueOf(snapshot.getLong("Slots") - cumulativeSlots));
                                 btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
                             }
@@ -174,15 +183,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
 
-//                    if ((Long) snapshot.get("Slots") == 0) {
-//                        btnQuantity.setVisibility(View.INVISIBLE);
-//                        btnAddToCart.setEnabled(false);
-//                        btnAddToCart.setAlpha(0.25f);
-//                    } else {
-//                        btnQuantity.setVisibility(View.VISIBLE);
-//                        btnAddToCart.setEnabled(true);
-//                        btnAddToCart.setAlpha(1f);
-//                    }
                 } else {
                     Log.d(TAG, "Current data: null");
                 }
@@ -240,10 +240,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                                 int cumulativeSlots = 0;
                                                 if (task.isSuccessful()) {
                                                     for (DocumentSnapshot document : task.getResult()) {
-                                                        cumulativeSlots += document.getLong("Quantity");
+                                                        if (ListID == null) {
+                                                            cumulativeSlots += document.getLong("Quantity");
+                                                        } else {
+                                                            if (!document.getString("parentRef").equals(ListID)) {
+                                                                Log.d("parentRefCum", document.getString("parentRef"));
+                                                                cumulativeSlots += document.getLong("Quantity");
+                                                            }
+                                                        }
                                                     }
-                                                    if (model.getSlots() - cumulativeSlots == 0) {
-                                                        holder.linearLayout.setAlpha(0.25f);
+                                                    if (model.getSlots() - cumulativeSlots < 1) {
+                                                        if (!isEdit) {
+                                                            holder.linearLayout.setAlpha(0.25f);
+                                                        }
                                                     } else {
                                                         holder.linearLayout.setAlpha(1f);
                                                     }
@@ -252,13 +261,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        //
-
-//                                        if (model.getSlots() == 0) {
-//                                            holder.linearLayout.setAlpha(0.25f);
-//                                        } else {
-//                                            holder.linearLayout.setAlpha(1f);
-//                                        }
                                         quantityList.add(0);
 
                                         if (ListID == null) {
@@ -365,8 +367,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                                     }
                                                     if (model.getSlots() - cumulativeSlots == 0) {
                                                         holder.linearLayout.setAlpha(0.25f);
-//                                                    } else if (model.getSlots() - cumulativeSlots < 0){
-//                                                        Log.d("Alert!", "Quantity reduced to 0 since the product is empty");
                                                     }
                                                     else {
                                                         holder.linearLayout.setAlpha(1f);
@@ -497,8 +497,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
             if (quantityList.get(i) != 0) {
-                Log.d("NameA", adapter.getItem(i).getName());
-                Log.d("IntegerA", String.valueOf(quantityList.get(i)));
 
                 HashMap<String, Object> hMap = new HashMap<>();
 
