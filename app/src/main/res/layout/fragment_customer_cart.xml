@@ -9,15 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp" />
 
-    <TextView
-        android:id="@+id/text_subtotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_view_cart"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="25dp"
-        android:textSize="15sp" />
-
     <Button
         android:id="@+id/button_checkout"
         android:layout_width="match_parent"

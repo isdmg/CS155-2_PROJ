@@ -1,6 +1,7 @@
 package com.example.midnight_chevves.Customer.Activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -70,7 +71,6 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
         store = FirebaseFirestore.getInstance();
         addressInput = findViewById(R.id.g_address);
         btnBack = findViewById(R.id.address_back);
-//        btnLocation = findViewById(R.id.address_location);
         btnSave = findViewById(R.id.button_save_location);
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.google_map);
@@ -210,8 +210,8 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
 
         addressInside = contactPopupView.findViewById(R.id.textAddressForm);
         addressTextForm = contactPopupView.findViewById(R.id.address_text_form);
-        btnOffi = contactPopupView.findViewById(R.id.button_residential);
-        btnResi = contactPopupView.findViewById(R.id.button_office);
+        btnOffi = contactPopupView.findViewById(R.id.button_office);
+        btnResi = contactPopupView.findViewById(R.id.button_residential);
         btnSaveForm = contactPopupView.findViewById(R.id.button_save_form);
 
         dialogBuilder.setView(contactPopupView);
@@ -250,7 +250,12 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void writeDocument() {
-        store.collection("Addresses").document(auth.getUid()).collection("Locations")
-                .add(addressInfo);
+        store.collection("Addresses").document(auth.getUid()).set(addressInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(AddressActivity.this, "Address has been saved!", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            }
+        });
     }
 }

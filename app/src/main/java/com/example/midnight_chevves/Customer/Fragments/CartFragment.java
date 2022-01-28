@@ -17,15 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midnight_chevves.Customer.Activities.CheckoutActivity;
+import com.example.midnight_chevves.Customer.Activities.PaymentFormEmail;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
-import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.Model.Cart;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.CartViewHolder;
@@ -45,7 +42,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class CartFragment extends Fragment {
 
@@ -59,21 +55,18 @@ public class CartFragment extends Fragment {
     private CollectionReference listReference, extraReference;
 
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
-    private TextView subtotal;
 
     private Button btnCheckout;
     private HashMap<String, Object> updateListInfo;
     private HashMap<String, Object> updateExtraInfo;
 
-    private boolean productPriceQueryFinish = true;
-
-
+    private boolean productPriceQueryOnComplete = true;
+    private boolean extraPriceQueryOnComplete = true;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_customer_cart, container, false);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
 
         updateListInfo = new HashMap<>();
         updateExtraInfo = new HashMap<>();
@@ -93,7 +86,6 @@ public class CartFragment extends Fragment {
         store = FirebaseFirestore.getInstance();
         listReference = store.collection("Carts").document(auth.getUid()).collection("List");
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
-        subtotal = v.findViewById(R.id.text_subtotal);
         btnCheckout = v.findViewById(R.id.button_checkout);
         btnCheckout.setVisibility(View.GONE);
 
@@ -133,10 +125,8 @@ public class CartFragment extends Fragment {
                         getTotal();
                         if (getItemCount() == 0) {
                             btnCheckout.setVisibility(View.GONE);
-                            subtotal.setVisibility(View.GONE);
                         } else {
                             btnCheckout.setVisibility(View.VISIBLE);
-                            subtotal.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -153,10 +143,9 @@ public class CartFragment extends Fragment {
                                 long extraTotal = 0;
                                 if (task.isSuccessful()) {
                                     for (DocumentSnapshot document : task.getResult()) {
-                                        Log.d("parentRefTest", String.valueOf(document.getLong("ProductPrice")));
                                         updateExtraInfo.put(document.getString("ProductID"), document.getString("ExtraID"));
-                                        extraTotal = document.getLong("Quantity") * document.getLong("ProductPrice");
-                                        overTotalExtraPrice += extraTotal;
+                                        extraTotal += document.getLong("Quantity") * document.getLong("ProductPrice");
+                                        Log.d("extraTotal", String.valueOf(extraTotal));
                                     }
                                 }
                                 long productTotalWithExtra = productPrice + extraTotal;
@@ -255,7 +244,9 @@ public class CartFragment extends Fragment {
     }
 
     private void checkout() {
-        Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+        overTotalPrice = overTotalProductPrice + overTotalExtraPrice;
+        Log.d("totalAmount", String.valueOf(overTotalPrice));
+        Intent intent = new Intent(getActivity(), PaymentFormEmail.class);
         intent.putExtra("totalAmount", overTotalPrice);
         startActivity(intent);
     }
@@ -342,7 +333,8 @@ public class CartFragment extends Fragment {
                                     long productSlots = snapshot.getLong("Slots");
 
                                     if (productSlots == 0) {
-                                        extraReference.document(String.valueOf(entry.getValue())).delete();;
+                                        extraReference.document(String.valueOf(entry.getValue())).delete();
+                                        ;
                                     } else if (productSlots < cumulativeSlots) {
                                         extraReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
                                     }
@@ -361,45 +353,37 @@ public class CartFragment extends Fragment {
         overTotalPrice = 0;
         overTotalProductPrice = 0;
         overTotalExtraPrice = 0;
+        getProductTotal();
+        getExtraTotal();
+    }
 
-        if (productPriceQueryFinish) {
-            productPriceQueryFinish = false;
+    private void getProductTotal() {
+        if (productPriceQueryOnComplete) {
+            productPriceQueryOnComplete = false;
             listReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     for (DocumentSnapshot document : task.getResult()) {
-                        listReference.document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                                @Nullable FirebaseFirestoreException e) {
-                                if (e != null) {
-                                    Log.w(TAG, "Listen failed.", e);
-                                    return;
-                                }
-
-                                if (snapshot != null && snapshot.exists()) {
-                                    Log.d(TAG, "Current data: " + snapshot.getData());
-                                    long productTotal = snapshot.getLong("ProductPrice") * document.getLong("Quantity");
-                                    overTotalProductPrice += productTotal;
-                                    Log.d(TAG, String.valueOf(productTotal));
-                                } else {
-                                    Log.d(TAG, "Current data: null");
-                                }
-                            }
-                        });
+                        overTotalProductPrice += document.getLong("ProductPrice") * document.getLong("Quantity");
+//                        Log.d("overTotalPrice", String.valueOf(overTotalProductPrice));
                     }
-                    extraReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                overTotalExtraPrice += document.getLong("ProductPrice") * document.getLong("Quantity");
-                                Log.d("overTotalExtra", String.valueOf(overTotalExtraPrice));
-                            }
-                            overTotalPrice = overTotalProductPrice + overTotalExtraPrice;
-                            subtotal.setText("Subtotal: ₱" + overTotalPrice);
-                        }
-                    });
-                    productPriceQueryFinish = true;
+                    productPriceQueryOnComplete = true;
+                }
+            });
+        }
+    }
+
+    private void getExtraTotal() {
+        if (extraPriceQueryOnComplete) {
+            extraPriceQueryOnComplete = false;
+            extraReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        overTotalExtraPrice += document.getLong("ProductPrice") * document.getLong("Quantity");
+                        Log.d("overTotalExtra", String.valueOf(overTotalExtraPrice));
+                    }
+                    extraPriceQueryOnComplete = true;
                 }
             });
         }

@@ -96,9 +96,9 @@
         <activity
             android:name=".Customer.Activities.AddressActivity"
             android:exported="false"
-            android:parentActivityName=".Customer.Activities.AddressConfirmationActivity" />
+            android:parentActivityName=".Customer.Activities.UserAddressActivity" />
         <activity
-            android:name=".Customer.Activities.AddressConfirmationActivity"
+            android:name=".Customer.Activities.UserAddressActivity"
             android:exported="false"
             android:parentActivityName=".Customer.Activities.CustomerActivity" />
         <activity

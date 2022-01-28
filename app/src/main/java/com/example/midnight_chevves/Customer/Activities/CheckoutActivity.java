@@ -84,7 +84,18 @@ public class CheckoutActivity extends AppCompatActivity {
                 detailsInfo.put("Email", auth.getCurrentUser().getEmail());
                 detailsInfo.put("Name", documentSnapshot.getString("Name"));
                 detailsInfo.put("Phone", documentSnapshot.getString("Phone").substring(3));
-                detailsInfo.put("Address", "");
+
+                store.collection("Addresses").document(auth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String mapAddress = documentSnapshot.getString("MapAddress");
+                            String addressDetails = documentSnapshot.getString("AddressDetails");
+                            detailsInfo.put("Address", mapAddress + "\n" + addressDetails);
+                        }
+                    }
+                });
+
 
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
@@ -150,43 +161,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void addDetails(String randomKey) {
-//        String orderId = randomKey;
-//        CollectionReference collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
-//        collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (DocumentSnapshot document : task.getResult()) {
-//                        collectionReference.document(document.getId()).delete();
-//
-//                        Calendar calendar = Calendar.getInstance();
-//                        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-//                        String saveCurrentDate = currentDate.format(calendar.getTime());
-//
-//                        Map<String, Object> extraInfo = new HashMap<>();
-//                        extraInfo.put("accountRef", auth.getUid());
-//                        extraInfo.put("OrderId", );
-//                        extraInfo.put("OrderStatus", "Pending");
-//                        extraInfo.put("OrderDate", saveCurrentDate);
-//                        extraInfo.put("TotalAmount", getIntent().getIntExtra("totalAmount", 0));
-//
-//                        DocumentReference df1 = store.collection("Orders").document(loopKey);
-//                        df1.set(extraInfo);
-//
-//                        DocumentReference df2 = df1.collection("Products").document(randomKey);
-//                        df2.set(orderInfo);
-//
-//                    }
-//                } else {
-//                    Log.d(CheckoutActivity.class.getSimpleName(), "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-
-
     }
 
 

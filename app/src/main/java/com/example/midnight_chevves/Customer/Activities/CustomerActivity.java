@@ -18,8 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CustomerActivity extends AppCompatActivity {
 
-    private Bundle bundle;
-    private Fragment currentFragment;
     private FragmentTransaction fragmentTransaction;
 
     @Override
@@ -27,7 +25,6 @@ public class CustomerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
         BottomNavigationView bottomNavigationView = findViewById(R.id.customer_nav);
-        currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();

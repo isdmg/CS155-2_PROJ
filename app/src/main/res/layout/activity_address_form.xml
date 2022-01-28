@@ -76,6 +76,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address_text_form"
             android:layout_width="267dp"
+            android:maxLength="100"
             android:layout_height="wrap_content"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
