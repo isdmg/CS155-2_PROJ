@@ -90,7 +90,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
-        android:text="Add" />
+        android:text="@string/proceed" />
 
     <TextView
         android:id="@+id/add_product_image"

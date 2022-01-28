@@ -29,6 +29,10 @@
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
         <activity
+            android:name=".Admin.AddDescriptionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity
             android:name=".Customer.Activities.PaymentFormEmail"
             android:exported="false" />
         <activity
@@ -64,7 +68,8 @@
             android:exported="false" />
         <activity
             android:name=".Admin.Category.CategoryBoxes"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Admin.AdminActivity" />
         <activity
             android:name=".Admin.AddCakesActivity"
             android:exported="false"

@@ -19,7 +19,9 @@ import androidx.activity.result.ActivityResult;
         import android.widget.Toast;
 
         import com.example.midnight_chevves.R;
-        import com.example.midnight_chevves.SignUpStep3Activity;
+import com.example.midnight_chevves.SignUpActivity;
+import com.example.midnight_chevves.SignUpStep2Activity;
+import com.example.midnight_chevves.SignUpStep3Activity;
         import com.google.android.gms.tasks.Continuation;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.OnFailureListener;
@@ -54,8 +56,9 @@ public class AddBoxesActivity extends AppCompatActivity {
     private Uri imageUri;
     private String downloadImageUrl;
 
-    private String randomKey = UUID.randomUUID().toString();
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +75,7 @@ public class AddBoxesActivity extends AppCompatActivity {
         inputPrice = findViewById(R.id.add_box_price);
         inputSlots = findViewById(R.id.add_box_slots);
         boxImage = findViewById(R.id.add_boxes_image);
-
-        progressDialog = new ProgressDialog(this);
-
+        bundle = new Bundle();
 
         btnAddBox = findViewById(R.id.button_add_box);
 
@@ -156,82 +157,19 @@ public class AddBoxesActivity extends AppCompatActivity {
         }
 
         if (withoutErrors()) {
-            addBox();
+            bundle.putString("name", name);
+            bundle.putString("price", price);
+            bundle.putString("slots", slots);
+            bundle.putParcelable("uri", imageUri);
+            bundle.putString("product", "box");
+            sendUserToNextActivity();
         }
     }
 
-    private void addBox() {
-        progressDialog.setMessage("Adding Char-CUTE-rie boxes...");
-        progressDialog.setTitle("Adding Product");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-        final StorageReference filepath = storageReference.child("Product Images/" + randomKey + ".jpg");
-        final UploadTask uploadTask = filepath.putFile(imageUri);
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-                downloadImageUrl = filepath.getDownloadUrl().toString();
-                return filepath.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    downloadImageUrl = task.getResult().toString();
-                    writeDocument();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Toast.makeText(AddBoxesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void writeDocument() {
-        String name = inputName.getText().toString();
-        String price = inputPrice.getText().toString();
-        String slots = inputSlots.getText().toString();
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-        String saveCurrentDate = currentDate.format(calendar.getTime());
-
-        Map<String, Object> boxInfo = new HashMap<>();
-        boxInfo.put("Category", "box");
-        boxInfo.put("Description", "");
-        boxInfo.put("ID", randomKey);
-        boxInfo.put("Name", name);
-        boxInfo.put("Price", Integer.parseInt(price));
-        boxInfo.put("RDate", saveCurrentDate);
-        boxInfo.put("imageRef", downloadImageUrl);
-        boxInfo.put("Slots", Integer.parseInt(slots));
-
-        store.collection("Products").document(randomKey)
-                .set(boxInfo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("test0", "DocumentSnapshot successfully written!");
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("test0", "Error writing document", e);
-                        progressDialog.dismiss();
-                        Toast.makeText(AddBoxesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        Toast.makeText(AddBoxesActivity.this, "Adding Product Successful", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+    private void sendUserToNextActivity() {
+        Intent intent = new Intent(AddBoxesActivity.this, AddDescriptionActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void clearError(int field) {

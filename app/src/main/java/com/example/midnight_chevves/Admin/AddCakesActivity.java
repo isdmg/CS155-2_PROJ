@@ -55,8 +55,9 @@ public class AddCakesActivity extends AppCompatActivity {
     private Uri imageUri;
     private String downloadImageUrl;
 
-    private String randomKey = UUID.randomUUID().toString();
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +74,7 @@ public class AddCakesActivity extends AppCompatActivity {
         inputPrice = findViewById(R.id.add_cake_price);
         inputSlots = findViewById(R.id.add_cake_slots);
         cakeImage = findViewById(R.id.add_cake_image);
-
-        progressDialog = new ProgressDialog(this);
-
+        bundle = new Bundle();
 
         btnAddCake = findViewById(R.id.button_add_cake);
 
@@ -157,82 +156,19 @@ public class AddCakesActivity extends AppCompatActivity {
         }
 
         if (withoutErrors()) {
-            addCake();
+            bundle.putString("name", name);
+            bundle.putString("price", price);
+            bundle.putString("slots", slots);
+            bundle.putParcelable("uri", imageUri);
+            bundle.putString("product", "cake");
+            sendUserToNextActivity();
         }
     }
 
-    private void addCake() {
-        progressDialog.setMessage("Adding Cake...");
-        progressDialog.setTitle("Adding Product");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-        final StorageReference filepath = storageReference.child("Product Images/" + randomKey + ".jpg");
-        final UploadTask uploadTask = filepath.putFile(imageUri);
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-                downloadImageUrl = filepath.getDownloadUrl().toString();
-                return filepath.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    downloadImageUrl = task.getResult().toString();
-                    writeDocument();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Toast.makeText(AddCakesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void writeDocument() {
-        String name = inputName.getText().toString();
-        String price = inputPrice.getText().toString();
-        String slots = inputSlots.getText().toString();
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-        String saveCurrentDate = currentDate.format(calendar.getTime());
-
-        Map<String, Object> cakeInfo = new HashMap<>();
-        cakeInfo.put("Category", "cake");
-        cakeInfo.put("Description", "");
-        cakeInfo.put("ID", randomKey);
-        cakeInfo.put("Name", name);
-        cakeInfo.put("Price", Integer.parseInt(price));
-        cakeInfo.put("RDate", saveCurrentDate);
-        cakeInfo.put("imageRef", downloadImageUrl);
-        cakeInfo.put("Slots", Integer.parseInt(slots));
-
-        store.collection("Products").document(randomKey)
-                .set(cakeInfo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("test0", "DocumentSnapshot successfully written!");
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("test0", "Error writing document", e);
-                        progressDialog.dismiss();
-                        Toast.makeText(AddCakesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        Toast.makeText(AddCakesActivity.this, "Adding Product Successful", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+    private void sendUserToNextActivity() {
+        Intent intent = new Intent(AddCakesActivity.this, AddDescriptionActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void clearError(int field) {

@@ -54,8 +54,9 @@ public class AddWinesActivity extends AppCompatActivity {
     private Uri imageUri;
     private String downloadImageUrl;
 
-    private String randomKey = UUID.randomUUID().toString();
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +73,7 @@ public class AddWinesActivity extends AppCompatActivity {
         inputPrice = findViewById(R.id.add_wine_price);
         inputSlots = findViewById(R.id.add_wine_slots);
         wineImage = findViewById(R.id.add_wines_image);
-
-        progressDialog = new ProgressDialog(this);
-
+        bundle = new Bundle();
 
         btnAddWine = findViewById(R.id.button_add_wine);
 
@@ -156,82 +155,19 @@ public class AddWinesActivity extends AppCompatActivity {
         }
 
         if (withoutErrors()) {
-            addWine();
+            bundle.putString("name", name);
+            bundle.putString("price", price);
+            bundle.putString("slots", slots);
+            bundle.putParcelable("uri", imageUri);
+            bundle.putString("product", "wine");
+            sendUserToNextActivity();
         }
     }
 
-    private void addWine() {
-        progressDialog.setMessage("Adding Wines...");
-        progressDialog.setTitle("Adding Product");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-        final StorageReference filepath = storageReference.child("Product Images/" + randomKey + ".jpg");
-        final UploadTask uploadTask = filepath.putFile(imageUri);
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-                downloadImageUrl = filepath.getDownloadUrl().toString();
-                return filepath.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    downloadImageUrl = task.getResult().toString();
-                    writeDocument();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Toast.makeText(AddWinesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void writeDocument() {
-        String name = inputName.getText().toString();
-        String price = inputPrice.getText().toString();
-        String slots = inputSlots.getText().toString();
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-        String saveCurrentDate = currentDate.format(calendar.getTime());
-
-        Map<String, Object> wineInfo = new HashMap<>();
-        wineInfo.put("Category", "wine");
-        wineInfo.put("Description", "");
-        wineInfo.put("ID", randomKey);
-        wineInfo.put("Name", name);
-        wineInfo.put("Price", Integer.parseInt(price));
-        wineInfo.put("RDate", saveCurrentDate);
-        wineInfo.put("imageRef", downloadImageUrl);
-        wineInfo.put("Slots", Integer.parseInt(slots));
-
-        store.collection("Products").document(randomKey)
-                .set(wineInfo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("test0", "DocumentSnapshot successfully written!");
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("test0", "Error writing document", e);
-                        progressDialog.dismiss();
-                        Toast.makeText(AddWinesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        Toast.makeText(AddWinesActivity.this, "Adding Product Successful", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+    private void sendUserToNextActivity() {
+        Intent intent = new Intent(AddWinesActivity.this, AddDescriptionActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void clearError(int field) {

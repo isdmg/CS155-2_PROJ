@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midnight_chevves.Admin.AddWinesActivity;
 
+import com.example.midnight_chevves.Admin.AdminActivity;
 import com.example.midnight_chevves.Admin.EditProductsActivity;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
@@ -53,6 +54,15 @@ public class CategoryWines extends AppCompatActivity {
     private CollectionReference collectionReference;
 
     private Button btnAddWines;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(CategoryWines.this, AdminActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 
 
     @Override

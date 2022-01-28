@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midnight_chevves.Admin.AddBoxesActivity;
 
+import com.example.midnight_chevves.Admin.AddDescriptionActivity;
+import com.example.midnight_chevves.Admin.AdminActivity;
 import com.example.midnight_chevves.Admin.EditProductsActivity;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
@@ -53,6 +55,14 @@ public class CategoryBoxes extends AppCompatActivity {
     private CollectionReference collectionReference;
 
     private Button btnAddBoxes;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(CategoryBoxes.this, AdminActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 
     @Override
