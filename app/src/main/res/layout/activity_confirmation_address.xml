@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Account"
+        android:textAlignment="center"
+        android:textSize="17sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_address"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/text_account"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginRight="25dp"
+        android:text="Address"
+        android:textAlignment="center"
+        android:textColor="#606467" />
+
+</RelativeLayout>
