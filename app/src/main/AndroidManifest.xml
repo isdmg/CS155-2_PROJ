@@ -60,10 +60,6 @@
             android:parentActivityName=".Customer.Activities.CustomerActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Customer.Activities.CheckoutActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".Admin.AddWinesActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>

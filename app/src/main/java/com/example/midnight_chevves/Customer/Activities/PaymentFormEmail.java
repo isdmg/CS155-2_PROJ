@@ -259,7 +259,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         sendMail();
                     }
                 } else {
-                    Log.d(CheckoutActivity.class.getSimpleName(), "Error getting documents: ", task.getException());
+                   Log.d(PaymentFormEmail.class.getSimpleName(), "Error getting documents: ", task.getException());
                 }
             }
         });
@@ -298,7 +298,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
 
                     }
                 } else {
-                    Log.d(CheckoutActivity.class.getSimpleName(), "Error getting documents: ", task.getException());
+                    Log.d(PaymentFormEmail.class.getSimpleName(), "Error getting documents: ", task.getException());
                 }
             }
         });
