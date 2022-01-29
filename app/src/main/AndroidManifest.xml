@@ -32,88 +32,112 @@
         <activity
             android:name=".Admin.AddDescriptionActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.PaymentFormEmail"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.AddExtrasActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.Category.CategoryExtras"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".OrderDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.ManageOrdersActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.CustomerOrdersActivity"
             android:exported="false"
-            android:parentActivityName=".Customer.Activities.CustomerActivity" />
+            android:parentActivityName=".Customer.Activities.CustomerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.CheckoutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.AddWinesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.Category.CategoryWines"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.AddBoxesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.EditProductsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.Category.CategoryBoxes"
             android:exported="false"
-            android:parentActivityName=".Admin.AdminActivity" />
+            android:parentActivityName=".Admin.AdminActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.AddCakesActivity"
             android:exported="false"
-            android:parentActivityName=".Admin.Category.CategoryCakes" />
+            android:parentActivityName=".Admin.Category.CategoryCakes"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.Category.CategoryCakes"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.ProductDetailsActivity"
             android:exported="false"
-            android:parentActivityName=".Customer.Activities.CustomerActivity" />
+            android:parentActivityName=".Customer.Activities.CustomerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SignUpStep3Activity"
             android:exported="false"
-            android:parentActivityName=".SignUpStep2Activity" />
+            android:parentActivityName=".SignUpStep2Activity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SignUpStep2Activity"
             android:exported="false"
-            android:parentActivityName=".SignUpActivity" />
+            android:parentActivityName=".SignUpActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.LoginSecurityActivity"
             android:exported="false"
-            android:parentActivityName=".Customer.Activities.CustomerActivity" />
+            android:parentActivityName=".Customer.Activities.CustomerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.AddressActivity"
             android:exported="false"
-            android:parentActivityName=".Customer.Activities.UserAddressActivity" />
+            android:parentActivityName=".Customer.Activities.UserAddressActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Customer.Activities.UserAddressActivity"
             android:exported="false"
-            android:parentActivityName=".Customer.Activities.CustomerActivity" />
+            android:parentActivityName=".Customer.Activities.CustomerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin.AdminActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SignUpActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
 
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -122,10 +146,12 @@
         </activity>
         <activity
             android:name=".Customer.Activities.CustomerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Base.Theme.AppCompat"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
