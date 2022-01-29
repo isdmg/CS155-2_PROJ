@@ -63,22 +63,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_address_form"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="120dp"
         android:layout_width="267dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        app:helperText="e.g., Floor, Unit Number, Street, Village/Barangay, Nearby Landmarks"
-
+        android:layout_marginTop="120dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="Address Details">
+        android:hint="Address Details"
+        app:helperText="e.g., Floor, Unit Number, Street, Village/Barangay, Nearby Landmarks">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address_text_form"
             android:layout_width="267dp"
-            android:maxLength="100"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:maxLength="100" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout

@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -60,7 +61,7 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
     HashMap<String, Object> addressInfo = new HashMap<>();
 
 
-    private TextInputLayout textInputLayout;
+    private TextInputLayout textInputLayout, textInputLayoutForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +214,7 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
         btnOffi = contactPopupView.findViewById(R.id.button_office);
         btnResi = contactPopupView.findViewById(R.id.button_residential);
         btnSaveForm = contactPopupView.findViewById(R.id.button_save_form);
+        textInputLayoutForm = contactPopupView.findViewById(R.id.layout_address_form);
 
         dialogBuilder.setView(contactPopupView);
         dialog = dialogBuilder.create();
@@ -234,15 +236,32 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
                 addressType = "Residential";
             }
         });
+        addressTextForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textInputLayoutForm.setError(null);
+            }
+        });
         btnSaveForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
-                addressInfo.put("MapAddress", addressString);
-                addressInfo.put("AddressDetails", addressTextForm.getText().toString());
-                addressInfo.put("AddressType", addressType);
-                addressInfo.put("userRef", auth.getUid());
-                writeDocument();
+                textInputLayoutForm.setError(null);
+                if ((addressType == null) && (TextUtils.isEmpty(addressTextForm.getText().toString()))){
+                    Toast.makeText(AddressActivity.this, "Please select an Address Type", Toast.LENGTH_SHORT).show();
+                    textInputLayoutForm.setError("Please Fill Up Address Details");
+                } else if (TextUtils.isEmpty(addressTextForm.getText().toString())){
+                    textInputLayoutForm.setError("Please Fill Up Address Details");
+                } else if (addressType == null){
+                    Toast.makeText(AddressActivity.this, "Please select an Address Type", Toast.LENGTH_SHORT).show();
+                } else{
+                    dialog.dismiss();
+                    addressInfo.put("MapAddress", addressString);
+                    addressInfo.put("AddressDetails", addressTextForm.getText().toString());
+                    addressInfo.put("AddressType", addressType);
+                    addressInfo.put("userRef", auth.getUid());
+                    writeDocument();
+                }
+
             }
         });
 
