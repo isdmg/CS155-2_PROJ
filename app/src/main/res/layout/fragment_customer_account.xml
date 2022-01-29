@@ -42,7 +42,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="25dp"
-        android:text="Login &amp; Security"
+        android:text="Account Details"
         android:textAlignment="center"
         android:textColor="#606467"
         app:cornerRadius="20dp" />

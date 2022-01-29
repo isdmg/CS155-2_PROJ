@@ -1,11 +1,14 @@
 package com.example.midnight_chevves.Customer.Activities;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -41,8 +45,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -53,30 +60,22 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-public class PaymentFormEmail extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
+public class PaymentFormEmail extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private FirebaseAuth auth;
     private FirebaseFirestore store;
 
     public EditText txtName, txtMobileNo, txtLocation;
+
     Spinner paymentmethod;
-    Button SendEmail_btn, showMap;
-    AlertDialog dialog;
-    AlertDialog.Builder dialogBuilder;
+    Button SendEmail_btn;
 
     long subtotalText;
     TextView subtotal;
-    ImageButton btnBack, btnLocation;
-    Button btnSave, btnResi, btnOffi;
-    FusedLocationProviderClient client;
-    SupportMapFragment supportMapFragment;
-    GoogleMap gMap;
-    TextInputEditText addressInput;
-    TextView addressInside;
-    String addressString, addressType;
-    Boolean popup = false;
-    private String randomKey = UUID.randomUUID().toString();
+
+    private String orderId = UUID.randomUUID().toString();
     Map<String, Object> detailsInfo = new HashMap<>();
+
 
 
 
@@ -94,7 +93,13 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
         subtotal = (TextView) findViewById(R.id.text_subtotal);
 
         subtotalText = getIntent().getLongExtra("totalAmount", 0);
-        subtotal.setText(String.valueOf(subtotalText));
+        subtotal.setText("Total Price: ₱" + String.valueOf(+ subtotalText));
+
+        //locks EditText
+        txtName.setFocusable(false);
+        txtMobileNo.setFocusable(false);
+        txtLocation.setFocusable(false);
+
 
         paymentmethod = findViewById(R.id.orderform_paymentmethod);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.payment_method_array, android.R.layout.simple_spinner_item);
@@ -102,75 +107,66 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
         paymentmethod.setAdapter(adapter);
         paymentmethod.setOnItemSelectedListener(this);
 
-
         SendEmail_btn = findViewById(R.id.orderFormSubmit_btn);
         SendEmail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getAddress();
                 Toast.makeText(PaymentFormEmail.this, "Added to Orders.", Toast.LENGTH_SHORT).show();
-//                sendMail();
-            }
-        });
 
-        showMap = findViewById(R.id.button_show_map);
-
-        /*supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.google_map2);
-        client = LocationServices.getFusedLocationProviderClient(this);
-        supportMapFragment.getMapAsync(this);*/
-
-        showMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popup();
             }
         });
 
 
-    }
-
-    private void popup() {
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.activity_payment_form_map, null);
-
-        btnLocation = (ImageButton) contactPopupView.findViewById(R.id.address_location_popup);
-        addressInput = (TextInputEditText) contactPopupView.findViewById(R.id.address_text_popup);
-
-        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.google_map_popup);
-        client = LocationServices.getFusedLocationProviderClient(this);
-        supportMapFragment.getMapAsync(this);
 
 
-        btnSave = (Button) contactPopupView.findViewById(R.id.button_save_changes2_popup);
-        btnLocation.setOnClickListener(new View.OnClickListener() {
+        final DocumentReference docRef = store.collection("Users").document(auth.getUid());
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View view) {
-                if (ActivityCompat.checkSelfPermission(PaymentFormEmail.this
-                        , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: " + snapshot.getData());
+                    txtName.setText(snapshot.getString("Name"));
+                    txtMobileNo.setText(snapshot.getString("Phone").substring(3));
+
                 } else {
-                    ActivityCompat.requestPermissions(PaymentFormEmail.this
-                            , new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-
+                    Log.d(TAG, "Current data: null");
                 }
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        final DocumentReference docRef2 = store.collection("Addresses").document(auth.getUid());
+        docRef2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View view) {
-                txtLocation.setText(addressInput.getText());
-                dialog.dismiss();
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    String mapAddress = snapshot.getString("MapAddress");
+                    String addressDetails = snapshot.getString("AddressDetails");
+                    String addressType = snapshot.getString("AddressType");
+                    txtLocation.setText(mapAddress + ", " + addressDetails +", " + addressType);
+
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
             }
         });
-
-        dialogBuilder.setView(contactPopupView);
-        dialog = dialogBuilder.create();
-        dialog.show();
-
     }
+
+
+
+
 
     private void getAddress() {
         store.collection("Addresses").document(auth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -182,18 +178,20 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                     String addressType = documentSnapshot.getString("AddressType");
                     detailsInfo.put("Address", mapAddress + " / " + addressDetails + " / " + addressType);
                 }
-                createOrderEntry(randomKey, paymentmethod.getSelectedItem().toString());
+                createOrderEntry(orderId, paymentmethod.getSelectedItem().toString());
             }
         });
     }
 
+
     private void createOrderEntry(String randomKey, String paymentMethod) {
-        String orderId = randomKey;
+        orderId = randomKey;
 
         store.collection("Users").document(auth.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+
                 detailsInfo.put("Email", auth.getCurrentUser().getEmail());
                 detailsInfo.put("Name", documentSnapshot.getString("Name"));
                 detailsInfo.put("Phone", "+63" + documentSnapshot.getString("Phone").substring(3));
@@ -228,7 +226,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
     }
 
     private void addProducts(String randomKey) {
-        String orderId = randomKey;
+        orderId = randomKey;
         CollectionReference collectionReference = store.collection("Carts").document(auth.getUid()).collection("List");
         collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -257,6 +255,8 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         DocumentReference df1 = store.collection("Orders").document(orderId);
                         CollectionReference df2 = df1.collection("Products");
                         df2.add(orderInfo);
+
+                        sendMail();
                     }
                 } else {
                     Log.d(CheckoutActivity.class.getSimpleName(), "Error getting documents: ", task.getException());
@@ -294,6 +294,8 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         DocumentReference df1 = store.collection("Orders").document(orderId);
                         CollectionReference df2 = df1.collection("Extras");
                         df2.add(orderInfo);
+
+
                     }
                 } else {
                     Log.d(CheckoutActivity.class.getSimpleName(), "Error getting documents: ", task.getException());
@@ -308,15 +310,11 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
 
         String mail = "cs155.midnight.payment@gmail.com";
         String subject = txtName.getText().toString().trim() + " Payment Form";
-        String message = "Customer Name: " + txtName.getText().toString() + "\n" +
-                "Phone Number: " + txtMobileNo.getText().toString() + "\n" +
-
-
-                //gerome pls add user's profile location here_ tnx
-                "Shipping Address: " + txtLocation.getText().toString() + "\n" +
-                "Order Number: " + "\n" +
+        String message = "Customer Name: " + detailsInfo.get("Name") + "\n" +
+                "Phone Number: " + detailsInfo.get("Phone") + "\n" +
+                "Shipping Address: " + detailsInfo.get("Address") + "\n" +
+                "Order Number: " + orderId + "\n" +
                 "Payment Method: " + paymentmethod.getSelectedItem().toString();
-        ;
 
         //Send Mail
         JavaMailAPI javaMailAPI = new JavaMailAPI(this, mail, subject, message);
@@ -336,92 +334,6 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
     }
 
 
-    private void getLocation() {
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Task<Location> task = client.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-
-                            LatLng latLng = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
-                            MarkerOptions options = new MarkerOptions().position(latLng).title("My Address");
-                            gMap.clear();
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                            googleMap.addMarker(options);
-
-                        }
-                    });
-                }
-            }
-        });
-        client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                Location location = task.getResult();
-                if (location != null) {
-                    try {
-                        Geocoder geocoder = new Geocoder(PaymentFormEmail.this,
-                                Locale.getDefault());
-                        List<Address> addresses = geocoder.getFromLocation(
-                                location.getLatitude(), location.getLongitude(), 4);
-                        txtLocation.setText(addresses.get(0).getAddressLine(0));
-                        addressInput.setText(addresses.get(0).getAddressLine(0));
-                        addressString = addresses.get(0).getAddressLine(0);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
-
-    public void onMapReady(GoogleMap googleMap) {
-        gMap = googleMap;
-
-        gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                //Marker
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title("My Address");
-                gMap.clear();
-                gMap.addMarker(markerOptions);
-
-                Geocoder geocoder = new Geocoder(PaymentFormEmail.this,
-                        Locale.getDefault());
-                double lat = latLng.latitude;
-                double lng = latLng.longitude;
-                List<Address> addresses = null;
-                try {
-                    addresses = geocoder.getFromLocation(
-                            lat, lng, 4);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                txtLocation.setText(addresses.get(0).getAddressLine(0));
-                addressInput.setText(addresses.get(0).getAddressLine(0));
-                addressString = addresses.get(0).getAddressLine(0);
-
-            }
-        });
-    }
 
 
 }

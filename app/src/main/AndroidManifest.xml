@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
+
         <activity
             android:name=".Admin.AddDescriptionActivity"
             android:exported="false"
@@ -110,6 +111,8 @@
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
+
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
