@@ -3,6 +3,7 @@ package com.example.midnight_chevves.Customer.Activities;
 import static android.content.ContentValues.TAG;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -26,7 +27,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.midnight_chevves.Admin.AdminActivity;
+import com.example.midnight_chevves.Admin.Category.CategoryCakes;
+import com.example.midnight_chevves.Admin.Category.CategoryExtras;
 import com.example.midnight_chevves.Interface.JavaMailAPI;
+import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -113,8 +118,8 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
             public void onClick(View view) {
                 getAddress();
             }
-        });
 
+        });
 
 
 
@@ -254,6 +259,9 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         df2.add(orderInfo);
 
                         sendMail();
+
+                        Intent intent = new Intent(PaymentFormEmail.this, CustomerActivity.class);
+                        startActivity(intent);
                     }
                 } else {
                    Log.d(PaymentFormEmail.class.getSimpleName(), "Error getting documents: ", task.getException());
