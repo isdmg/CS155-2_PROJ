@@ -315,8 +315,6 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
         //Send Mail
         JavaMailAPI javaMailAPI = new JavaMailAPI(this, mail, subject, message);
         javaMailAPI.execute();
-        Toast.makeText(PaymentFormEmail.this, "Added to Orders.", Toast.LENGTH_SHORT).show();
-        onBackPressed();
     }
 
     @Override

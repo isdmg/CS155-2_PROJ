@@ -59,8 +59,10 @@
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_category_extras.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_checkout.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_edit_products.xml" value="0.18229166666666666" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_item_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_login_security.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_manage_orders.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_order_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_payment_form_email.xml" value="0.2390625" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_payment_form_map.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_product_details.xml" value="0.1265625" />
@@ -68,7 +70,9 @@
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_sign_up_step2.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_sign_up_step3.xml" value="0.21875" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_user_address.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/cart_items_layout.xml" value="0.24270833333333333" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/cart_update_form.xml" value="0.33" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/extra_items_layout.xml" value="0.33" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/fragment_customer_account.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/fragment_customer_cart.xml" value="0.175" />
       </map>

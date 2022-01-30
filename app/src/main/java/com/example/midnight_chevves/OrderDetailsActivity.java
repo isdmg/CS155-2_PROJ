@@ -17,11 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.midnight_chevves.Admin.ManageOrdersActivity;
 import com.example.midnight_chevves.Model.Cart;
-import com.example.midnight_chevves.Model.Orders;
 import com.example.midnight_chevves.ViewHolder.CartViewHolder;
-import com.example.midnight_chevves.ViewHolder.OrderViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,12 +30,11 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
     private ImageButton btnBack;
-    private TextView txtShippingAddress,txtPaymentMethod, txtGrandTotal;
+    private TextView txtShippingAddress,txtPaymentMethod, txtTotalAmount;
     private FirebaseFirestore store;
     private RecyclerView recyclerViewProducts;
     private CollectionReference collectionReference, extraReference;
@@ -58,7 +54,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         store = FirebaseFirestore.getInstance();
         txtShippingAddress = findViewById(R.id.order_details_shipping_address_data);
         txtPaymentMethod = findViewById(R.id.order_details_payment_method_data);
-        txtGrandTotal = findViewById(R.id.order_details_grand_total_data);
+        txtTotalAmount = findViewById(R.id.order_details_total_amount_data);
 
         collectionReference = store.collection("Orders");
         extraReference = collectionReference.document(getIntent().getStringExtra("orderId")).collection("Extras");
@@ -85,10 +81,22 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 new FirestoreRecyclerAdapter<Cart, CartViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
-                        holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
+                        holder.txtProductQuantity.setText("Quantity: " + model.getQuantity());
                         holder.txtProductName.setText(model.getProductName());
 
                         long productPrice = model.getProductPrice() * model.getQuantity();
+
+                        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                Intent intent = new Intent(OrderDetailsActivity.this, ItemDetailsActivity.class);
+                                intent.putExtra("ListID", model.getListID());
+                                intent.putExtra("ProductName", model.getProductName());
+                                intent.putExtra("orderId",getIntent().getStringExtra("orderId"));
+                                startActivity(intent);
+                                return true;
+                            }
+                        });
 
                         extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -135,7 +143,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     txtPaymentMethod.setText(snapshot.getString("PaymentMethod"));
                     long l = (Long) snapshot.get("TotalAmount");
-                    txtGrandTotal.setText(String.valueOf(l));
+                    txtTotalAmount.setText(String.valueOf(l));
 
                     String accountRef = snapshot.getString("accountRef");
 
@@ -164,6 +172,5 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }
