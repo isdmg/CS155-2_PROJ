@@ -112,8 +112,6 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View view) {
                 getAddress();
-                Toast.makeText(PaymentFormEmail.this, "Added to Orders.", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -133,7 +131,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     txtName.setText(snapshot.getString("Name"));
-                    txtMobileNo.setText(snapshot.getString("Phone").substring(3));
+                    txtMobileNo.setText("+63" + snapshot.getString("Phone").substring(3));
 
                 } else {
                     Log.d(TAG, "Current data: null");
@@ -155,7 +153,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                     String mapAddress = snapshot.getString("MapAddress");
                     String addressDetails = snapshot.getString("AddressDetails");
                     String addressType = snapshot.getString("AddressType");
-                    txtLocation.setText(mapAddress + ", " + addressDetails +", " + addressType);
+                    txtLocation.setText(mapAddress + " / " + addressDetails +" / " + addressType);
 
                 } else {
                     Log.d(TAG, "Current data: null");
@@ -317,6 +315,8 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
         //Send Mail
         JavaMailAPI javaMailAPI = new JavaMailAPI(this, mail, subject, message);
         javaMailAPI.execute();
+        Toast.makeText(PaymentFormEmail.this, "Added to Orders.", Toast.LENGTH_SHORT).show();
+        onBackPressed();
     }
 
     @Override

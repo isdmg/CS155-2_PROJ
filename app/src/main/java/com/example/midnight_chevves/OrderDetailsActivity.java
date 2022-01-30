@@ -24,12 +24,15 @@ import com.example.midnight_chevves.ViewHolder.CartViewHolder;
 import com.example.midnight_chevves.ViewHolder.OrderViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 public class OrderDetailsActivity extends AppCompatActivity {
@@ -38,9 +41,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private TextView txtShippingAddress,txtPaymentMethod, txtGrandTotal;
     private FirebaseFirestore store;
     private RecyclerView recyclerViewProducts;
-    private CollectionReference collectionReference;
+    private CollectionReference collectionReference, extraReference;
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
-    private int overTotalPrice = 0;
 
 
     @Override
@@ -59,6 +61,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtGrandTotal = findViewById(R.id.order_details_grand_total_data);
 
         collectionReference = store.collection("Orders");
+        extraReference = collectionReference.document(getIntent().getStringExtra("orderId")).collection("Extras");
         getOrderDetails();
 
         btnBack = findViewById(R.id.order_details_back);
@@ -83,11 +86,24 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
                         holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
-                        holder.txtProductPrice.setText("Price = " + "₱" + ((Integer.valueOf(model.getProductPrice()))) * Integer.valueOf(model.getQuantity()));
                         holder.txtProductName.setText(model.getProductName());
-                        Log.d("WineHolder", model.getProductName());
-                        int oneTypeProductTPrice = ((Integer.valueOf(model.getProductPrice()))) * Integer.valueOf(model.getQuantity());
-                        overTotalPrice = overTotalPrice + oneTypeProductTPrice;
+
+                        long productPrice = model.getProductPrice() * model.getQuantity();
+
+                        extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                long extraTotal = 0;
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        extraTotal += document.getLong("Quantity") * document.getLong("ProductPrice");
+                                        Log.d("extraTotal", String.valueOf(extraTotal));
+                                    }
+                                }
+                                long productTotalWithExtra = productPrice + extraTotal;
+                                holder.txtProductPrice.setText("Price: ₱" + productTotalWithExtra);
+                            }
+                        });
                     }
 
                     @NonNull
