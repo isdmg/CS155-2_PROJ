@@ -88,7 +88,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         listReference = store.collection("Carts").document(auth.getUid()).collection("List");
         productReference = store.collection("Products");
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
-
+        btnAddToCart = findViewById(R.id.button_add_to_cart);
 
         bundle = getIntent().getExtras();
         ListID = bundle.getString("ListID");
@@ -97,6 +97,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         if (bundle.getBoolean("Edit")) {
             isEdit = true;
+            btnAddToCart.setText("Save");
         } else {
             isEdit = false;
         }
@@ -110,7 +111,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         getProductDetails();
 
         btnBack = findViewById(R.id.details_back);
-        btnAddToCart = findViewById(R.id.button_add_to_cart);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ProductDetailsActivity.this, RecyclerView.HORIZONTAL, false);
         recyclerViewExtra = (RecyclerView) findViewById(R.id.recycler_view_add_ons2);
         recyclerViewExtra.setLayoutManager(layoutManager);
