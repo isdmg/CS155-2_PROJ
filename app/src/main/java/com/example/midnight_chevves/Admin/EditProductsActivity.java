@@ -20,18 +20,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
-import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -41,13 +37,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 // TODO: Prevent changes when in Cart.
 
 public class EditProductsActivity extends AppCompatActivity {
 
-    private String ID;
+    private String ID, description, category;
 
     private TextInputLayout layoutName, layoutPrice;
     private TextInputEditText inputName, inputPrice;
@@ -64,6 +59,8 @@ public class EditProductsActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
 
+    private Bundle bundle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +76,7 @@ public class EditProductsActivity extends AppCompatActivity {
         inputPrice = findViewById(R.id.edit_product_price);
         productImage = findViewById(R.id.manage_image);
         btnSlots = findViewById(R.id.button_edit_slots);
+        bundle = new Bundle();
         getProductDetails();
 
         btnBack = findViewById(R.id.edit_products_back);
@@ -93,7 +91,7 @@ public class EditProductsActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                save();
+                PerformAuth();
             }
         });
 
@@ -124,32 +122,6 @@ public class EditProductsActivity extends AppCompatActivity {
     }
 
     private void getProductDetails() {
-//        store.collection("Products").document(ID)
-//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                inputName.setText(documentSnapshot.getString("Name"));
-//                inputPrice.setText(documentSnapshot.getString("Price"));
-//                btnSlots.setNumber(documentSnapshot.get("Slots").toString());
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(EditProductsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).into(productImage);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(EditProductsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         final DocumentReference docRef = store.collection("Products").document(ID);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -166,6 +138,11 @@ public class EditProductsActivity extends AppCompatActivity {
                     inputName.setText(snapshot.getString("Name"));
                     inputPrice.setText(Long.toString((Long) snapshot.get("Price")));
                     btnSlots.setNumber(snapshot.get("Slots").toString());
+                    description = snapshot.getString("Description");
+                    category = snapshot.getString("Category");
+                    bundle.putString("slots", String.valueOf(snapshot.get("Slots")));
+                    bundle.putString("description", description);
+                    bundle.putString("product", category);
                     Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
                 } else {
                     Log.d(TAG, "Current data: null");
@@ -174,10 +151,10 @@ public class EditProductsActivity extends AppCompatActivity {
         });
     }
 
-    private void save() {
+    private void PerformAuth() {
         String name = inputName.getText().toString();
         String price = inputPrice.getText().toString();
-        int slots = Integer.parseInt(btnSlots.getNumber());
+        int newSlots = Integer.parseInt(btnSlots.getNumber());
 
         if (price.isEmpty()) {
             layoutPrice.setErrorEnabled(true);
@@ -196,32 +173,47 @@ public class EditProductsActivity extends AppCompatActivity {
         }
 
         if (withoutErrors()) {
-            DocumentReference documentReference = store.collection("Products").document(ID);
-            documentReference.update("Name", name);
-            documentReference.update("Price", Integer.parseInt(price));
-            documentReference.update("Slots", slots);
+//            DocumentReference documentReference = store.collection("Products").document(ID);
+//            documentReference.update("Name", name);
+//            documentReference.update("Price", Integer.parseInt(price));
+//            documentReference.update("Slots", newSlots);
 
-            if (imageUri != null) {
-                storageReference.child("Product Images/" + ID + ".jpg")
-                        .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                documentReference.update("imageRef", uri.toString());
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProductsActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            onBackPressed();
+            bundle.putString("ID", ID);
+            bundle.putString("name", name);
+            bundle.putString("price", price);
+            bundle.putString("description", description);
+            bundle.putInt("newSlots", newSlots);
+            bundle.putParcelable("uri", imageUri);
+            bundle.putBoolean("isEdit", true);
+            sendUserToNextActivity();
+
+//            if (imageUri != null) {
+//                storageReference.child("Product Images/" + ID + ".jpg")
+//                        .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                            @Override
+//                            public void onSuccess(Uri uri) {
+//                                documentReference.update("imageRef", uri.toString());
+//                            }
+//                        });
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(EditProductsActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
         }
+    }
+
+    private void sendUserToNextActivity() {
+        Log.d("description", description);
+        Intent intent = new Intent(EditProductsActivity.this, AddDescriptionActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void clearError(int field) {

@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -43,14 +44,19 @@ public class AddDescriptionActivity extends AppCompatActivity {
     private TextInputEditText inputDescription;
     private Bundle bundle;
     private Button addProduct;
-    private String name, price, slots, product;
+    private String name, price, slots, product, ID;
+    private int newSlots;
     private String randomKey = UUID.randomUUID().toString();
-    private String downloadImageUrl;
+    private String downloadImageUrl, description;
+    private boolean isEdit;
     private Uri imageUri;
-
 
     private FirebaseFirestore store;
     private StorageReference storageReference;
+
+    private Calendar calendar = Calendar.getInstance();
+    private SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
+    private String saveCurrentDate = currentDate.format(calendar.getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,6 @@ public class AddDescriptionActivity extends AppCompatActivity {
 
         store = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-
 
 
         progressDialog = new ProgressDialog(this);
@@ -75,6 +80,14 @@ public class AddDescriptionActivity extends AppCompatActivity {
         slots = bundle.getString("slots");
         product = bundle.getString("product");
         imageUri = bundle.getParcelable("uri");
+        isEdit = bundle.getBoolean("isEdit");
+
+        if (isEdit) {
+            ID = bundle.getString("ID");
+            description = bundle.getString("description");
+            newSlots = bundle.getInt("newSlots");
+            inputDescription.setText(description);
+        }
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +108,58 @@ public class AddDescriptionActivity extends AppCompatActivity {
         }
 
         if (!layoutDescription.isErrorEnabled()) {
-            addProduct();
+            if (isEdit) {
+                updateProduct();
+            } else {
+                addProduct();
+            }
+
+        }
+    }
+
+    private void updateProduct() {
+        progressDialog.setMessage("Saving changes...");
+        progressDialog.setTitle("Updating Product");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        DocumentReference documentReference = store.collection("Products").document(ID);
+        documentReference.update("Name", name);
+        documentReference.update("Price", Integer.parseInt(price));
+        documentReference.update("Description", inputDescription.getText().toString());
+
+        if (Integer.parseInt(slots) != newSlots) {
+            documentReference.update("RDate", saveCurrentDate);
+        }
+        documentReference.update("Slots", newSlots);
+
+        if (imageUri != null) {
+            storageReference.child("Product Images/" + ID + ".jpg")
+                    .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            documentReference.update("imageRef", uri.toString());
+                            progressDialog.dismiss();
+                            Toast.makeText(AddDescriptionActivity.this, "Selected product was updated!", Toast.LENGTH_SHORT).show();
+                            sendUserToNextActivity();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Log.d("updateStatus", "fail");
+                    Toast.makeText(AddDescriptionActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            progressDialog.dismiss();
+            Toast.makeText(AddDescriptionActivity.this, "Selected product was updated!", Toast.LENGTH_SHORT).show();
+            sendUserToNextActivity();
         }
     }
 
@@ -145,10 +209,6 @@ public class AddDescriptionActivity extends AppCompatActivity {
     private void writeDocument() {
         String description = inputDescription.getText().toString();
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-        String saveCurrentDate = currentDate.format(calendar.getTime());
-
         Map<String, Object> boxInfo = new HashMap<>();
         boxInfo.put("Category", product);
         boxInfo.put("Description", description);
@@ -182,6 +242,7 @@ public class AddDescriptionActivity extends AppCompatActivity {
 
     private void sendUserToNextActivity() {
         Intent intent;
+
         if (product.equals("box")) {
             intent = new Intent(AddDescriptionActivity.this, CategoryBoxes.class);
         } else if (product.equals("cake")) {

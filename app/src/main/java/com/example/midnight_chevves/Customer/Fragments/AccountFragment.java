@@ -16,9 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.midnight_chevves.Customer.Activities.AccountDetailsActivity;
 import com.example.midnight_chevves.Customer.Activities.UserAddressActivity;
 import com.example.midnight_chevves.Customer.Activities.CustomerOrdersActivity;
-import com.example.midnight_chevves.Customer.Activities.LoginSecurityActivity;
 import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +72,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         int id = view.getId();
         switch (id) {
             case R.id.button_login_security:
-                intent = new Intent(getActivity(), LoginSecurityActivity.class);
+                intent = new Intent(getActivity(), AccountDetailsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.button_orders:

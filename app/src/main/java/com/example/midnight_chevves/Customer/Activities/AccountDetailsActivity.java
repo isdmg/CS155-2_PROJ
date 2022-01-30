@@ -15,19 +15,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.midnight_chevves.Customer.Fragments.AccountFragment;
-import com.example.midnight_chevves.LoginActivity;
 import com.example.midnight_chevves.R;
-import com.example.midnight_chevves.SignUpStep3Activity;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -41,7 +34,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class LoginSecurityActivity extends AppCompatActivity {
+public class AccountDetailsActivity extends AppCompatActivity {
 
     private TextInputLayout layoutName, layoutUsername, layoutPhoneNumber;
     private TextInputEditText inputName, inputUsername, inputPhoneNumber;
@@ -57,7 +50,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_security);
+        setContentView(R.layout.activity_account_details);
 
         layoutName = findViewById(R.id.layout_edit_name);
         layoutUsername = findViewById(R.id.layout_edit_username);
@@ -91,7 +84,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
         accountImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CropImage.activity().setAspectRatio(1, 1).start(LoginSecurityActivity.this);
+                CropImage.activity().setAspectRatio(1, 1).start(AccountDetailsActivity.this);
             }
         });
     }
@@ -119,7 +112,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
 //        }).addOnFailureListener(new OnFailureListener() {
 //            @Override
 //            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(LoginSecurityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AccountDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
 //
@@ -131,7 +124,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
 //        }).addOnFailureListener(new OnFailureListener() {
 //            @Override
 //            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(LoginSecurityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AccountDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
 
@@ -221,7 +214,7 @@ public class LoginSecurityActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginSecurityActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AccountDetailsActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

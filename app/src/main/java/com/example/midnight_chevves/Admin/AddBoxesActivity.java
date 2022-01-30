@@ -116,17 +116,6 @@ public class AddBoxesActivity extends AppCompatActivity {
         someActivityResultLauncher.launch(intent);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-//            imageUri = result.getUri();
-//            Picasso.get().load(imageUri).into(cakeImage);
-//        }
-//    }
-
     private void PerformAuth() {
         String name = inputName.getText().toString();
         String price = inputPrice.getText().toString();
