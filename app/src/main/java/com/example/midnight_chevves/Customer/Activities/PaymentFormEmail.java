@@ -249,7 +249,6 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         orderInfo.put("ProductID", document.getString("ProductID"));
                         orderInfo.put("ProductName", document.getString("ProductName"));
                         orderInfo.put("ProductPrice", document.getLong("ProductPrice"));
-                        orderInfo.put("PurchaseDate", document.getString("PurchaseDate"));
                         orderInfo.put("Quantity", document.getLong("Quantity"));
 
                         DocumentReference df1 = store.collection("Orders").document(orderId);
@@ -287,7 +286,6 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         orderInfo.put("ProductID", document.getString("ProductID"));
                         orderInfo.put("ProductName", document.getString("ProductName"));
                         orderInfo.put("ProductPrice", document.getLong("ProductPrice"));
-                        orderInfo.put("PurchaseDate", document.getString("PurchaseDate"));
                         orderInfo.put("Quantity", document.getLong("Quantity"));
                         orderInfo.put("parentRef", document.getString("parentRef"));
 

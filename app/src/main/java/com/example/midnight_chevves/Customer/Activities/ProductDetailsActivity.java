@@ -479,7 +479,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         cartInfo.put("ProductID", ID);
         cartInfo.put("ProductName", productName.getText().toString());
         cartInfo.put("ProductPrice", Integer.parseInt(productPrice.getText().toString()));
-        cartInfo.put("PurchaseDate", date);
         cartInfo.put("Quantity", Integer.parseInt(btnQuantity.getNumber()));
 
         extraInfo = new ArrayList<>();
@@ -512,7 +511,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     hMap.put("ExtraID", UUID.randomUUID().toString());
                     hMap.put("ProductName", name);
                     hMap.put("Quantity", quantity);
-                    hMap.put("PurchaseDate", date);
                     hMap.put("ProductID", id);
                     hMap.put("ProductPrice", price);
 
