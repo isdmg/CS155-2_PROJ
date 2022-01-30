@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/text_user_address"
@@ -18,12 +19,13 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/text_user_address"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="480dp"
-        android:layout_marginRight="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="25dp"
         android:text="Change Location"
         android:textAlignment="center"
-        android:textColor="#606467" />
+        android:textColor="#606467"
+        app:cornerRadius="20dp" />
 
 </RelativeLayout>

@@ -99,9 +99,9 @@ public class AddDescriptionActivity extends AppCompatActivity {
     }
 
     private void PerformAuth() {
-        if (name.isEmpty()) {
+        if (inputDescription.getText().toString().isEmpty()) {
             layoutDescription.setErrorEnabled(true);
-            layoutDescription.setError("Name field is required!");
+            layoutDescription.setError("Description field is required!");
             inputDescription.requestFocus();
         } else {
             clearError();
