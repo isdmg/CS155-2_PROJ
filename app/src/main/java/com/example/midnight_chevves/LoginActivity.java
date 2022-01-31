@@ -57,43 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         layoutEmail = findViewById(R.id.layout_login_email);
         layoutPassword = findViewById(R.id.layout_password_login);
 
-//         For Testing
-//        auth.signInWithEmailAndPassword("daniel.geneta.m@gmail.com", "zxczxc").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    progressDialog.dismiss();
-//                    isAdmin();
-//                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    try {
-//                        throw task.getException();
-//                    } catch (Exception e) {
-//                        progressDialog.dismiss();
-//                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
-
-//        auth.signInWithEmailAndPassword("cs155.midnight@gmail.com", "cs155gabriel").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    progressDialog.dismiss();
-//                    isAdmin();
-//                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    try {
-//                        throw task.getException();
-//                    } catch (Exception e) {
-//                        progressDialog.dismiss();
-//                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
-
 
         // TODO: Implement View Listener?
         btnLogIn.setOnClickListener(new View.OnClickListener() {

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
@@ -95,15 +96,15 @@ public class HomeFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
 
         //image gallery banner segment
-//        imageSlider = v.findViewById(R.id.slider);
-//        ArrayList<SlideModel> images = new ArrayList<>();
-//        images.add(new SlideModel(R.drawable.temp_banner, null));
-//        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG", null));
-//        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG", null));
-//        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg", null));
+        imageSlider = v.findViewById(R.id.slider);
+        ArrayList<SlideModel> images = new ArrayList<>();
+        images.add(new SlideModel(R.drawable.temp_banner, null));
+        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG", null));
+        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG", null));
+        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg", null));
 
 
-//        imageSlider.setImageList(images);
+        imageSlider.setImageList(images);
         //
 
 

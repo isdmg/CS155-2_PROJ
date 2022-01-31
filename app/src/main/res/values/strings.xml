@@ -12,7 +12,7 @@
     <string name="sign_up">Sign up</string>
     <string name="proceed">Proceed</string>
     <string name="add_to_cart">Add to Cart</string>
-    <string name="checkout">Checkout</string>
+    <string name="checkout">Proceed to Checkout</string>
     <string name="cash_on_delivery">Cash on Delivery</string>
     <string name="address">Address</string>
     <string name="residential">Residential</string>
