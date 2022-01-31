@@ -16,7 +16,8 @@
         android:alpha="1"
         android:orientation="vertical"
         android:padding="15dp"
-        android:background="@color/LightBG_hans">
+        android:background="#f6f5f1"
+        >
 
         <ImageView
             android:id="@+id/product_image"
@@ -32,6 +33,7 @@
             android:padding="3dp"
             android:text="Product Name \nsecond line"
             android:textColor="@color/black"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:textSize="16sp" />
 
         <TextView
@@ -40,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="₱100"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            />
 
         <TextView
             android:id="@+id/product_description"

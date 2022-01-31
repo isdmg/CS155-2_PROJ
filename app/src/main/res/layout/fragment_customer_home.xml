@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightBG_hans">
+   android:background="@drawable/background_tmp_home"
+    >
+
 
 
     <com.paulrybitskyi.persistentsearchview.PersistentSearchView
@@ -30,19 +32,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:layout_marginStart="30dp"
+                android:layout_width="410dp"
+                android:layout_height="165dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+
                 android:layout_marginBottom="20dp"
                 app:iss_auto_cycle="true"
-                app:iss_period="3000"
+                app:iss_corner_radius="150"
                 app:iss_delay="0"
-                app:iss_placeholder="@drawable/image_missing"
-                app:iss_corner_radius="150"/>
+                app:iss_period="3000"
+                app:iss_placeholder="@drawable/image_missing" />
 
             <TextView
                 android:id="@+id/text_cake"
@@ -52,7 +56,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:text="Cakes"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:textColor="@color/white"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view1"
@@ -69,7 +75,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Char-CUTE-rie boxes"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:textColor="@color/white"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view2"
@@ -86,7 +94,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Wines"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:textColor="@color/white"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view3"
@@ -94,6 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_wines"
                 android:layout_marginTop="5dp" />
+
+
 
         </RelativeLayout>
     </ScrollView>

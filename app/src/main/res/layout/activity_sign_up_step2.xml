@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpStep2Activity">
+    tools:context=".SignUpStep2Activity"
+    android:background="@drawable/background_tmp">
 
     <ImageButton
         android:id="@+id/signup_step2_back"
@@ -15,22 +16,73 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_baseline_arrow_back_ios_24"
         android:contentDescription="@string/back_button"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:backgroundTint="@color/white"/>
 
-        <com.google.android.material.textfield.TextInputLayout
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="176dp"
+        android:layout_height="174dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="120dp"
+        app:srcCompat="@drawable/tmc_round_monogram" />
+
+    <TextView
+        android:id="@+id/Midnight_title"
+        android:layout_width="412dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="0dp"
+        android:text="Midnight Chevves"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/kabrio_soft_bold"/>
+
+    <TextView
+        android:id="@+id/login_subs2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Midnight_title"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:text="Satisfy your midnight cravings!"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/password_title"
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_subs2"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="139dp"
+        android:text="Create Password"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_signup_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/signup_step2_back"
+            android:layout_below="@id/password_title"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="35dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="35dp"
             android:ems="10"
             android:hint="@string/password"
             app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24">
+            app:startIconDrawable="@drawable/key">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_password"
@@ -48,12 +100,12 @@
             android:layout_below="@id/layout_signup_password"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="35dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="35dp"
             android:ems="10"
             android:hint="@string/confirm_password"
             app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24">
+            app:startIconDrawable="@drawable/key">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_confirm_password"
@@ -65,13 +117,18 @@
 
     <Button
         android:id="@+id/button_signup3_redirect"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_signup_confirm_password"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="120dp"
         android:layout_marginRight="35dp"
-        android:layout_marginBottom="25dp"
-        android:layout_alignParentBottom="true"
-        android:text="@string/proceed" />
+        android:text="Next"
+        android:textAllCaps="false"
+        app:cornerRadius="10dp" />
 
 </RelativeLayout>

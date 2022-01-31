@@ -98,12 +98,11 @@ public class HomeFragment extends Fragment {
         //image gallery banner segment
         imageSlider = v.findViewById(R.id.slider);
         ArrayList<SlideModel> images = new ArrayList<>();
-        images.add(new SlideModel(R.drawable.temp_banner, null));
-        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438077820411924/B8005DAC-6D53-4164-8501-C17846067A0D-FA7D8431-40AC-425C-89CF-F2866EBB0931.JPG", null));
-        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438380938575882/IMG_6556.JPG", null));
-        images.add(new SlideModel("https://cdn.discordapp.com/attachments/856045907409764393/931438478351282226/IMG_6601.jpg", null));
-
-
+        images.add(new SlideModel(R.drawable.oreo, null));
+        images.add(new SlideModel(R.drawable.apple_crisp, null));
+        images.add(new SlideModel(R.drawable.banoffee_pie, null));
+        images.add(new SlideModel(R.drawable.choco, null));
+        images.add(new SlideModel(R.drawable.salted_caramel, null));
         imageSlider.setImageList(images);
         //
 

@@ -4,71 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/background_tmp">
+
+
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="176dp"
+        android:layout_height="174dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="120dp"
+        app:srcCompat="@drawable/tmc_round_monogram" />
 
     <TextView
-        android:id="@+id/login_title"
+        android:id="@+id/Midnight_title"
+        android:layout_width="412dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="0dp"
+        android:text="Midnight Chevves"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/kabrio_soft_bold"/>
+
+    <TextView
+        android:id="@+id/login_subs2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="WIP"
+        android:layout_below="@+id/Midnight_title"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:text="Satisfy your midnight cravings!"
         android:textAlignment="center"
-        android:textSize="70sp" />
+        android:textColor="@color/white" />
 
-    <!--    <EditText-->
-    <!--        android:id="@+id/login_email"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_below="@id/login_title"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:layout_marginLeft="35dp"-->
-    <!--        android:layout_marginTop="35dp"-->
-    <!--        android:layout_marginRight="35dp"-->
-    <!--        android:background="@drawable/custom_input"-->
-    <!--        android:drawableStart="@drawable/ic_baseline_email_24"-->
-    <!--        android:drawablePadding="12dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="@string/email_address"-->
-    <!--        android:paddingStart="12dp"-->
-    <!--        android:paddingEnd="12dp" />-->
+    <TextView
+        android:id="@+id/login_subs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Midnight_title"
+        android:layout_marginTop="145dp"
+        android:text="You need to Sign In or Create an account to continue."
+        android:textAlignment="center"
+        android:fontFamily="@font/kabrio_soft_regular"/>
 
-    <!--    <EditText-->
-    <!--        android:id="@+id/login_password"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_below="@id/login_email"-->
-    <!--        android:layout_marginLeft="35dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:layout_marginRight="35dp"-->
-    <!--        android:background="@drawable/custom_input"-->
-    <!--        android:drawableStart="@drawable/ic_baseline_lock_24"-->
-    <!--        android:drawablePadding="15dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="@string/password"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        android:paddingStart="12dp"-->
-    <!--        android:paddingEnd="12dp" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_login_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_title"
+        android:layout_below="@id/login_subs"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="35dp"
         android:ems="10"
-        android:hint="@string/email_address"
-        app:startIconDrawable="@drawable/ic_baseline_email_24">
+        android:hint="E-mail"
+        app:startIconDrawable="@drawable/profile"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,12 +91,12 @@
         android:layout_below="@id/layout_login_email"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="35dp"
         android:ems="10"
         android:hint="@string/password"
         app:endIconMode="password_toggle"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24">
+        app:startIconDrawable="@drawable/key">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_password"
@@ -98,40 +108,55 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/layout_password_login"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
+        android:layout_marginEnd="120dp"
         android:layout_marginRight="35dp"
-        android:text="Log in" />
+        android:text="Sign in"
+        android:textAllCaps="false"
+        app:cornerRadius="10dp" />
+
 
     <TextView
         android:id="@+id/signup_button_header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_signup_redirect"
-        android:layout_marginStart="35dp"
-        android:text="Don't have an account?"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
+        android:layout_below="@+id/button_login"
+        android:layout_marginTop="5dp"
+        android:text="-------------------------------------  or  -------------------------------------"
+        android:textAlignment="center" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_signup_redirect"
-        style="?attr/materialButtonOutlinedStyle"
+
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/signup_button_header"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="120dp"
         android:layout_marginRight="35dp"
-        android:layout_marginBottom="75dp"
-        android:backgroundTint="@color/white"
+
+
         android:text="Sign up"
-        android:textColor="#1877F2"
-        app:icon="@drawable/ic_baseline_email_24"
+        android:textAllCaps="false"
+        app:cornerRadius="10dp"
         app:iconGravity="textStart"
         app:iconSize="30dp"
-        app:iconTint="#1877F2" />
+        app:backgroundTint="#ef4747"/>
+
+
+
+
+
 
 </RelativeLayout>
