@@ -174,7 +174,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     productName.setText(snapshot.getString("Name"));
                     productDescription.setText(snapshot.getString("Description"));
-                    productPrice.setText(String.valueOf(snapshot.get("Price")));
+                    productPrice.setText("Price: ₱" + String.valueOf(snapshot.get("Price")));
 
                     int quantity = bundle.getInt("Quantity");
                     if (quantity != 0) {

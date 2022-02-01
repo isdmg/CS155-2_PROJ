@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/details_back"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,32 +29,33 @@
 
             <ImageView
                 android:id="@+id/details_image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="182dp"
+                android:layout_height="198dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="35dp"
-                android:src="@drawable/ic_baseline_refresh_24" />
+                android:src="@drawable/image_add" />
 
 
             <TextView
                 android:id="@+id/details_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/details_image"
+                android:layout_below="@id/button_quantity"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:text="WIP"
-                android:textAlignment="textStart"
+                android:text="Product Name"
+                android:textAlignment="center"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/details_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="349dp"
+                android:layout_height="120dp"
                 android:layout_below="@id/details_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:text="WIP"
+                android:text="Product Description Product Description
+                Product Description Product Description Product
+                Description"
                 android:textAlignment="textStart"
                 android:textSize="20sp" />
 
@@ -65,8 +66,8 @@
                 android:layout_below="@id/details_description"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:text="WIP"
-                android:textAlignment="textStart"
+                android:text="Price: ₱500"
+                android:textAlignment="center"
                 android:textSize="20sp" />
 
             <TextView
@@ -75,35 +76,31 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/details_price"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:text="WIP"
-                android:textAlignment="textStart"
+                android:layout_marginTop="5dp"
+                android:text="Slots Remaining: 1"
+                android:textAlignment="center"
                 android:textSize="20sp" />
+
 
             <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                 android:id="@+id/button_quantity"
-                android:layout_width="wrap_content"
+                android:layout_width="141dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/details_slots"
-                android:layout_marginTop="25dp"
+                android:layout_below="@+id/details_image"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="135dp"
                 app:backGroundColor="?attr/colorPrimary"
                 app:initialNumber="1"
                 app:textSize="5sp" />
-
-            <!--    <com.google.android.material.button.MaterialButton-->
-            <!--        android:id="@+id/button_add_ons"-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="50dp"-->
-            <!--        android:layout_below="@+id/button_quantity"-->
-            <!--        android:text="Add ons"-->
-            <!--        android:textAlignment="center"-->
-            <!--        app:cornerRadius="20dp" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_add_ons2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/button_quantity"
+                android:layout_below="@id/details_slots"
                 android:layout_marginTop="16dp" />
 
             <com.google.android.material.button.MaterialButton

@@ -98,11 +98,11 @@ public class HomeFragment extends Fragment {
         //image gallery banner segment
         imageSlider = v.findViewById(R.id.slider);
         ArrayList<SlideModel> images = new ArrayList<>();
-        images.add(new SlideModel(R.drawable.oreo, null));
-        images.add(new SlideModel(R.drawable.apple_crisp, null));
-        images.add(new SlideModel(R.drawable.banoffee_pie, null));
-        images.add(new SlideModel(R.drawable.choco, null));
-        images.add(new SlideModel(R.drawable.salted_caramel, null));
+        images.add(new SlideModel(R.drawable.banner__1_, null));
+        images.add(new SlideModel(R.drawable.banner__2_, null));
+        images.add(new SlideModel(R.drawable.banner__3_, null));
+        images.add(new SlideModel(R.drawable.banner__4_, null));
+        images.add(new SlideModel(R.drawable.banner__5_, null));
         imageSlider.setImageList(images);
         //
 
