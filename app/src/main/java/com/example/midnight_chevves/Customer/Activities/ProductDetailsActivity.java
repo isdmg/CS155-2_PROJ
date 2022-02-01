@@ -166,8 +166,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                     btnAddToCart.setAlpha(1f);
                                 }
 
-                                productSlots.setText(String.valueOf(snapshot.getLong("Slots") - cumulativeSlots));
-                                btnQuantity.setRange(1, Integer.parseInt(productSlots.getText().toString()));
+                                productSlots.setText("Available Slots: " + (snapshot.getLong("Slots") - cumulativeSlots));
+                                btnQuantity.setRange(1, snapshot.getLong("Slots").intValue() - cumulativeSlots);
                             }
                         }
                     });
