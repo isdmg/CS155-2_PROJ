@@ -33,7 +33,6 @@
             android:layout_height="match_parent">
 
 
-
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/slider"
                 android:layout_width="410dp"
@@ -42,10 +41,9 @@
                 android:layout_marginTop="20dp"
 
                 android:layout_marginBottom="20dp"
-                app:iss_auto_cycle="true"
+
                 app:iss_corner_radius="150"
-                app:iss_delay="0"
-                app:iss_period="3000"
+
                 app:iss_placeholder="@drawable/image_missing" />
 
             <TextView
