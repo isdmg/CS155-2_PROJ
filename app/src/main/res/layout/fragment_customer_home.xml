@@ -33,26 +33,55 @@
             android:layout_height="match_parent">
 
 
+<!--            <com.denzcoskun.imageslider.ImageSlider-->
+<!--                android:id="@+id/slider"-->
+<!--                android:layout_width="410dp"-->
+<!--                android:layout_height="165dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="20dp"-->
 
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/slider"
-                android:layout_width="410dp"
-                android:layout_height="165dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+<!--                android:layout_marginBottom="20dp"-->
+<!--                app:iss_auto_cycle="true"-->
+<!--                app:iss_corner_radius="150"-->
+<!--                app:iss_delay="0"-->
+<!--                app:iss_period="3000"-->
+<!--                app:iss_placeholder="@drawable/image_missing" />-->
 
-                android:layout_marginBottom="20dp"
-                app:iss_auto_cycle="true"
-                app:iss_corner_radius="150"
-                app:iss_delay="0"
-                app:iss_period="3000"
-                app:iss_placeholder="@drawable/image_missing" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sliderCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                android:layout_margin="16dp">
+
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/slider"
+                    android:layout_width="410dp"
+                    android:layout_height="165dp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5A5A5A"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true" />
+
+            </androidx.cardview.widget.CardView>
+
+
 
             <TextView
                 android:id="@+id/text_cake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/slider"
+                android:layout_below="@id/sliderCard"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:text="Cakes"

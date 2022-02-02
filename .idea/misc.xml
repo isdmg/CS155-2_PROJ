@@ -60,6 +60,7 @@
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_checkout.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_edit_products.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_item_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_login.xml" value="0.2234375" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_login_security.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_manage_orders.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/activity_order_details.xml" value="0.36666666666666664" />
@@ -75,6 +76,8 @@
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/extra_items_layout.xml" value="0.33" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/fragment_customer_account.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/fragment_customer_cart.xml" value="0.175" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/fragment_customer_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/danie/Downloads/temp_clone/app/src/main/res/layout/image_item.xml" value="0.2463768115942029" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_cakes.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_login.xml" value="0.33" />

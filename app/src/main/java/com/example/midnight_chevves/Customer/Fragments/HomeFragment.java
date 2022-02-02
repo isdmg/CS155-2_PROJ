@@ -1,7 +1,5 @@
 package com.example.midnight_chevves.Customer.Fragments;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -21,12 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
 import com.example.midnight_chevves.Model.Products;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.ProductViewHolder;
+import com.example.midnight_chevves.ViewHolder.SliderAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,10 +45,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.paulrybitskyi.persistentsearchview.PersistentSearchView;
 import com.paulrybitskyi.persistentsearchview.listeners.OnSearchConfirmedListener;
+import com.smarteist.autoimageslider.SliderView;
+import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore store;
     private StorageReference storageReference;
     private CollectionReference productReference, listReference;
-    private ImageSlider imageSlider;
     private PersistentSearchView persistentSearchView;
     private String searchInput = "";
     private ScrollView scrollView;
@@ -96,15 +95,30 @@ public class HomeFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
 
         //image gallery banner segment
-        imageSlider = v.findViewById(R.id.slider);
-        ArrayList<SlideModel> images = new ArrayList<>();
-        images.add(new SlideModel(R.drawable.banner__1_, null));
-        images.add(new SlideModel(R.drawable.banner__2_, null));
-        images.add(new SlideModel(R.drawable.banner__3_, null));
-        images.add(new SlideModel(R.drawable.banner__4_, null));
-        images.add(new SlideModel(R.drawable.banner__5_, null));
-        imageSlider.setImageList(images);
+//        imageSlider = v.findViewById(R.id.slider);
+//        ArrayList<SlideModel> images = new ArrayList<>();
+//        images.add(new SlideModel(R.drawable.banner__1_, null));
+//        images.add(new SlideModel(R.drawable.banner__2_, null));
+//        images.add(new SlideModel(R.drawable.banner__3_, null));
+//        images.add(new SlideModel(R.drawable.banner__4_, null));
+//        images.add(new SlideModel(R.drawable.banner__5_, null));
+//        imageSlider.setImageList(images);
         //
+
+        SliderView sliderView = v.findViewById(R.id.slider);
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.banner__1_);
+        images.add(R.drawable.banner__2_);
+        images.add(R.drawable.banner__3_);
+        images.add(R.drawable.banner__4_);
+        images.add(R.drawable.banner__5_);
+
+        SliderAdapter sliderAdapter = new SliderAdapter(images);
+        sliderView.setSliderAdapter(sliderAdapter);
+        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+        sliderView.startAutoCycle();
+
+
 
 
         scrollView = v.findViewById(R.id.scrollView_home);
@@ -165,19 +179,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-            FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter;
+        FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter;
 
-            adapter = populateRecyclerView("cake");
-            recyclerView1.setAdapter(adapter);
-            adapter.startListening();
+        adapter = populateRecyclerView("cake");
+        recyclerView1.setAdapter(adapter);
+        adapter.startListening();
 
-            adapter = populateRecyclerView("box");
-            recyclerView2.setAdapter(adapter);
-            adapter.startListening();
+        adapter = populateRecyclerView("box");
+        recyclerView2.setAdapter(adapter);
+        adapter.startListening();
 
-            adapter = populateRecyclerView("wine");
-            recyclerView3.setAdapter(adapter);
-            adapter.startListening();
+        adapter = populateRecyclerView("wine");
+        recyclerView3.setAdapter(adapter);
+        adapter.startListening();
     }
 
     private FirestoreRecyclerAdapter<Products, ProductViewHolder> populateRecyclerView(String category) {
