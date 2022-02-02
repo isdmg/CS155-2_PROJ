@@ -2,92 +2,121 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_tmp_home2">
 
-    <TextView
-        android:id="@+id/text_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="Account"
-        android:textAlignment="center"
-        android:textSize="17sp" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/account_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_below="@id/text_account"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_cardview"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/ic_baseline_person_24" />
+        android:layout_marginTop="100dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
 
-    <TextView
-        android:id="@+id/text_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/account_image"
-        android:layout_marginTop="25dp"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/account_image"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="35dp"
+            android:src="@drawable/ic_baseline_person_24" />
+
+        <TextView
+            android:id="@+id/text_username"
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="100dp"
+            android:fontFamily="@font/kabrio_soft_bold"
+            android:gravity="left"
+            android:text="Welcome back \nusername!"
+            android:textAlignment="gravity"
+            android:textColor="@color/navyblue_brand"
+            android:textSize="25sp" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login_security"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/text_username"
+        android:layout_width="300dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/profile_cardview"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="25dp"
-        android:text="Account Details"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="Edit Profile"
         android:textAlignment="center"
-        android:textColor="#606467"
-        app:cornerRadius="20dp" />
+        android:textAllCaps="false"
+        android:textColor="@color/navyblue_brand"
+        android:textSize="16dp"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/profile"
+        app:iconTint="@color/navyblue_brand"
+      />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_orders"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="65dp"
         android:layout_below="@+id/button_login_security"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="13dp"
         android:layout_marginRight="25dp"
         android:text="Orders"
         android:textAlignment="center"
-        android:textColor="#606467"
-        app:cornerRadius="20dp" />
+        android:textAllCaps="false"
+        android:textColor="@color/navyblue_brand"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/ic_baseline_fastfood_24"
+        app:iconTint="@color/navyblue_brand"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:textSize="16dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_address_info"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="65dp"
         android:layout_below="@+id/button_orders"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="25dp"
         android:text="Address Information"
         android:textAlignment="center"
-        android:textColor="#606467"
-        app:cornerRadius="20dp" />
+        android:textAllCaps="false"
+        android:textColor="@color/navyblue_brand"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/ic_baseline_location_on_24"
+        app:iconTint="@color/navyblue_brand"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:textSize="16dp"/>
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_customer_logout"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@+id/button_address_info"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="25dp"
+        android:fontFamily="@font/kabrio_soft_bold"
         android:text="Log out"
         android:textAlignment="center"
-        android:textColor="#606467"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:backgroundTint="#ef4747"
         app:cornerRadius="20dp" />
 
 

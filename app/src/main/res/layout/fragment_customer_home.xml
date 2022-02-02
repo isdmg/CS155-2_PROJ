@@ -33,26 +33,14 @@
             android:layout_height="match_parent">
 
 
-<!--            <com.denzcoskun.imageslider.ImageSlider-->
-<!--                android:id="@+id/slider"-->
-<!--                android:layout_width="410dp"-->
-<!--                android:layout_height="165dp"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginTop="20dp"-->
-
-<!--                android:layout_marginBottom="20dp"-->
-<!--                app:iss_auto_cycle="true"-->
-<!--                app:iss_corner_radius="150"-->
-<!--                app:iss_delay="0"-->
-<!--                app:iss_period="3000"-->
-<!--                app:iss_placeholder="@drawable/image_missing" />-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/sliderCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
-                android:layout_margin="16dp">
+                android:layout_margin="16dp"
+                app:cardElevation="10dp">
 
 
                 <com.smarteist.autoimageslider.SliderView
@@ -84,20 +72,20 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/container2"
-                android:fontFamily="@font/kabrio_soft_bold"
+                android:elevation="10dp"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
                 android:text="Cakes"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:elevation="10dp"/>
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_cake"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="1dp" />
 
             <TextView
                 android:id="@+id/text_char_cute_rie_boxes"
@@ -107,7 +95,7 @@
                 android:layout_below="@id/recycler_view1"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/container2"
-                android:fontFamily="@font/kabrio_soft_bold"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
                 android:text="Char-CUTE-rie boxes"
@@ -120,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_char_cute_rie_boxes"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="1dp" />
 
             <TextView
                 android:id="@+id/text_wines"
@@ -133,7 +121,7 @@
                 android:background="@drawable/container2"
                 android:padding="5dp"
                 android:paddingStart="10dp"
-                android:fontFamily="@font/kabrio_soft_bold"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:text="Wines"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -144,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_wines"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="1dp" />
 
 
 

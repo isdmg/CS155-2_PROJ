@@ -120,7 +120,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
-                    username.setText(snapshot.getString("Username"));
+                    username.setText("Welcome back \n" + snapshot.getString("Username") +"!");
                     Picasso.get().load(snapshot.getString("imageRef")).into(accountImage);
                 } else {
                     Log.d(TAG, "Current data: null");
