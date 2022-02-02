@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Customer.Activities.ProductDetailsActivity">
+    tools:context=".Customer.Activities.ProductDetailsActivity"
+    android:background="@color/LightBG_hans">
 
     <ImageButton
         android:id="@+id/details_back"
@@ -24,88 +25,84 @@
         android:layout_marginTop="0dp">
 
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/details_image"
-                android:layout_width="182dp"
-                android:layout_height="198dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewImageProduct"
+                android:layout_width="220dp"
+                android:layout_height="210dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/image_add" />
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="20dp">
+
+                <ImageView
+                    android:id="@+id/details_image"
+                    android:layout_width="182dp"
+                    android:layout_height="198dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/image_add" />
+            </androidx.cardview.widget.CardView>
 
 
             <TextView
                 android:id="@+id/details_name"
-                android:layout_width="match_parent"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/button_quantity"
+                android:layout_below="@id/cardViewImageProduct"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
+                android:fontFamily="@font/kabrio_soft_bold_numbers_italic"
                 android:text="Product Name"
                 android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/details_description"
-                android:layout_width="349dp"
-                android:layout_height="120dp"
-                android:layout_below="@id/details_name"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:text="Product Description Product Description
-                Product Description Product Description Product
-                Description"
-                android:textAlignment="textStart"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/details_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/details_description"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:text="Price: ₱500"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/details_slots"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/details_price"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:text="Slots Remaining: 1"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textColor="@color/navyblue_brand"
+                android:textSize="35sp" />
 
 
             <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                 android:id="@+id/button_quantity"
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/details_image"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="135dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="135dp"
-                app:backGroundColor="?attr/colorPrimary"
+                android:layout_width="179dp"
+                android:layout_height="65dp"
+                android:layout_below="@+id/cardView_slots_price"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/container1"
+                android:elevation="5dp"
+                app:backGroundColor="@color/fui_transparent"
                 app:initialNumber="1"
-                app:textSize="5sp" />
+                app:textColor="@color/black"
+                app:textSize="9sp" />
+
+            <TextView
+                android:id="@+id/details_description"
+                android:layout_width="327dp"
+                android:layout_height="114dp"
+                android:layout_below="@id/details_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+
+                android:elevation="5dp"
+                android:justificationMode="inter_word"
+                android:text="Product Description Product Description
+                Product Description Product Description Product
+                Description"
+                android:fontFamily="@font/kabrio_soft_regular"
+                android:textAlignment="textStart"
+                android:textSize="17sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_add_ons2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/details_slots"
-                android:layout_marginTop="16dp" />
+                android:layout_below="@+id/textview_customize"
+                android:layout_marginTop="5dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_add_to_cart"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+               android:backgroundTint="@color/navyblue_brand"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/recycler_view_add_ons2"
@@ -115,8 +112,73 @@
                 android:layout_marginBottom="25dp"
                 android:text="@string/add_to_cart"
                 android:textAlignment="center"
-                android:textColor="#606467"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="15dp"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                android:fontFamily="@font/kabrio_soft_regular"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_slots_price"
+                android:layout_width="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="65dp"
+                android:layout_below="@id/details_description"
+                app:cardCornerRadius="10dp"
+                android:backgroundTint="@color/grey_brand"
+                app:cardElevation="10dp">
+
+
+                <TextView
+                    android:id="@+id/details_slots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:fontFamily="@font/kabrio_soft_regular"
+                    android:text="Slots Remaining: 1"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/details_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/kabrio_soft_regular"
+                    android:text="Price: ₱500"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textview_customize"
+                android:layout_width="327dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_quantity"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:text="Customize"
+                android:textSize="20dp"
+                android:elevation="5dp"
+                android:textColor="@color/navyblue_brand"/>
+
+            <TextView
+                android:id="@+id/scrolldownformore"
+                android:layout_width="148dp"
+                android:layout_height="37dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="530dp"
+                android:layout_marginEnd="-64dp"
+                android:layout_toEndOf="@+id/button_quantity"
+                android:fontFamily="@font/kabrio_soft_regular"
+                android:rotation="270"
+                android:text="Scroll Down for more!" />
 
         </RelativeLayout>
 

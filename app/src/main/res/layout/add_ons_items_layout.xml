@@ -21,7 +21,8 @@
             android:id="@+id/add_ons_product_image"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:scaleType="centerCrop" />
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"/>
 
 
         <TextView
@@ -33,7 +34,8 @@
             android:textAlignment="center"
             android:layout_gravity="center"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            />
 
         <TextView
             android:id="@+id/add_ons_product_price"
@@ -50,10 +52,9 @@
             android:id="@+id/add_ons_button_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             app:initialNumber="0"
             android:layout_gravity="center"
-            app:backGroundColor="?attr/colorPrimary"
+            app:backGroundColor="@color/navyblue_brand"
             app:textSize="5sp" />
 
 

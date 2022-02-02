@@ -16,8 +16,8 @@
         android:id="@+id/customer_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/customer_menu" />
+        android:background="@color/LightBG_hans"
+        app:menu="@menu/customer_menu"/>
 
 </RelativeLayout>

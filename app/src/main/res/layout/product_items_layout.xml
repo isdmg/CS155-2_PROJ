@@ -16,14 +16,14 @@
         android:alpha="1"
         android:orientation="vertical"
         android:padding="15dp"
-        android:background="#f6f5f1"
+        android:background="@color/white"
         >
 
         <ImageView
             android:id="@+id/product_image"
             android:layout_width="185dp"
             android:layout_height="168dp"
-            android:scaleType="centerCrop" />
+            android:layout_gravity="center"/>
 
 
         <TextView
@@ -31,18 +31,23 @@
             android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:padding="3dp"
+            android:layout_marginTop="5dp"
             android:text="Product Name \nsecond line"
-            android:textColor="@color/black"
-            android:fontFamily="@font/kabrio_soft_regular"
-            android:textSize="16sp" />
+            android:textColor="@color/navyblue_brand"
+            android:fontFamily="@font/kabrio_soft_bold"
+            android:textSize="17sp"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/product_price"
-            android:padding="3dp"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_marginLeft="4dp"
+            android:fontFamily="@font/kabrio_soft_regular"
+            android:padding="3dp"
             android:text="₱100"
-            android:textColor="@color/black"
+            android:textColor="@color/navyblue_brand"
+
             />
 
         <TextView
