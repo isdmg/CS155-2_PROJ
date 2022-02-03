@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Customer.Activities.CustomerOrdersActivity">
+    tools:context=".Customer.Activities.CustomerOrdersActivity"
+    android:background="@drawable/background_tmp_home2">
 
     <ImageButton
         android:id="@+id/orders_back"
@@ -16,6 +17,16 @@
         android:background="@drawable/ic_baseline_arrow_back_ios_24"
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/textView_Orders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="Orders"
+        android:textSize="25dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_orders"

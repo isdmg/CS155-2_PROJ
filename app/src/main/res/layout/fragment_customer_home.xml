@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:background="@drawable/background_tmp_home2"
+   android:background="@drawable/background_tmp_home3"
     >
 
 
@@ -77,7 +77,7 @@
                 android:padding="5dp"
                 android:paddingStart="10dp"
                 android:text="Cakes"
-                android:textColor="@color/white"
+                android:textColor="@color/navyblue_brand"
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -99,7 +99,7 @@
                 android:padding="5dp"
                 android:paddingStart="10dp"
                 android:text="Char-CUTE-rie boxes"
-                android:textColor="@color/white"
+                android:textColor="@color/navyblue_brand"
                 android:textSize="20sp"
                 android:elevation="10dp"/>
 
@@ -123,7 +123,7 @@
                 android:paddingStart="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
                 android:text="Wines"
-                android:textColor="@color/white"
+                android:textColor="@color/navyblue_brand"
                 android:textSize="20sp"
                 android:elevation="10dp"/>
 
