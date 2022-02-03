@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.midnight_chevves.Admin.ManageOrdersActivity;
 import com.example.midnight_chevves.Customer.Fragments.CartFragment;
@@ -49,6 +50,8 @@ public class CustomerOrdersActivity extends AppCompatActivity {
     private CollectionReference collectionReference;
     private FirestoreRecyclerAdapter<Orders, OrderViewHolder> adapter;
     private ImageButton btnBack;
+    private ImageView noItemsImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +64,9 @@ public class CustomerOrdersActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
 
-//        store.collection("Orders").document(auth.getUid()).collection("Orders")
-//                .document(randomKey).collection("Products");
-
         collectionReference = store.collection("Orders");
+
+        noItemsImage = findViewById(R.id.no_orders);
 
         btnBack = findViewById(R.id.orders_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +108,23 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                         });
                     }
 
+                    @Override
+                    public int getItemCount() {
+                        return getSnapshots().size();
+                    }
+
+                    @Override
+                    public void onDataChanged() {
+                        adapter.notifyDataSetChanged();
+                        if (getItemCount() == 0) {
+                            noItemsImage.setVisibility(View.VISIBLE);
+                        }
+
+                        else {
+                            noItemsImage.setVisibility(View.GONE);
+                        }
+                    }
+
                     @NonNull
                     @Override
                     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -116,50 +135,5 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                 };
         recyclerViewOrders.setAdapter(adapter);
         adapter.startListening();
-    }
-
-    private void test2() {
-        collectionReference.get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-
-                                collectionReference.document(documentSnapshot.getId()).collection("Products").get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                                        Log.d("test0", documentSnapshot.getId());
-                                                    }
-                                                } else {
-                                                    Log.d("test0", "Error getting documents: ", task.getException());
-                                                }
-                                            }
-                                        });
-                            }
-                        } else {
-                            Log.d("test0", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-
-    private void test3() {
-        store.collection("Transactions").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                Log.d("test0", documentSnapshot.getId());
-                            }
-                        } else {
-                            Log.d("test0", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
     }
 }
