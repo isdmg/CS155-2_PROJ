@@ -39,7 +39,7 @@
                 android:layout_gravity="center_horizontal"
                 android:padding="20dp"
 
-                android:text="Scroll down"/>
+                android:text="About Us"/>
         </FrameLayout>
 
     </com.example.midnight_chevves.Customer.Fragments.TrackingScrollView>
