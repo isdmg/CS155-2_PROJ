@@ -37,5 +37,14 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="40dp" />
 
+    <ImageView
+        android:id="@+id/no_orders"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+
+        app:srcCompat="@drawable/no_orders" />
+
 
 </RelativeLayout>

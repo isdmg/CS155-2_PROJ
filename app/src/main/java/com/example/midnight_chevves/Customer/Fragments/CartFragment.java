@@ -4,12 +4,15 @@ import static android.content.ContentValues.TAG;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,11 +57,14 @@ public class CartFragment extends Fragment {
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
 
     private Button btnCheckout;
+    private ImageView noItemsImage;
     private HashMap<String, Object> updateListInfo;
     private HashMap<String, Object> updateExtraInfo;
 
     private boolean productPriceQueryOnComplete = true;
     private boolean extraPriceQueryOnComplete = true;
+
+
 
     @Nullable
     @Override
@@ -84,6 +90,7 @@ public class CartFragment extends Fragment {
         listReference = store.collection("Carts").document(auth.getUid()).collection("List");
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
         btnCheckout = v.findViewById(R.id.button_checkout);
+        noItemsImage = v.findViewById(R.id.no_items_cart);
         btnCheckout.setVisibility(View.GONE);
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +129,12 @@ public class CartFragment extends Fragment {
                         getTotal();
                         if (getItemCount() == 0) {
                             btnCheckout.setVisibility(View.GONE);
-                        } else {
+                            noItemsImage.setVisibility(View.VISIBLE);
+                        }
+
+                        else {
                             btnCheckout.setVisibility(View.VISIBLE);
+                            noItemsImage.setVisibility(View.GONE);
                         }
                     }
 
