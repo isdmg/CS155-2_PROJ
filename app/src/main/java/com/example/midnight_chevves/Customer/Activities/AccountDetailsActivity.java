@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -84,7 +85,9 @@ public class AccountDetailsActivity extends AppCompatActivity {
         accountImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CropImage.activity().setAspectRatio(1, 1).start(AccountDetailsActivity.this);
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(AccountDetailsActivity.this);
             }
         });
     }
