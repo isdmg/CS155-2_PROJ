@@ -26,12 +26,13 @@
     <TextView
         android:id="@+id/abouttext1"
         android:layout_width="300dp"
-        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@+id/heading1"
+        android:layout_centerHorizontal="true"
         android:text="@string/about1"
         android:textAlignment="center"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:textColor="@color/navyblue_brand"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview1_aboutus"
@@ -40,8 +41,8 @@
         android:layout_below="@+id/abouttext1"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/navyblue_brand"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp">
 
         <TextView
             android:id="@+id/heading2"
@@ -58,7 +59,7 @@
         <TextView
             android:id="@+id/abouttext2"
             android:layout_width="300dp"
-            android:layout_height="432dp"
+            android:layout_height="320dp"
             android:layout_gravity="center"
             android:layout_marginTop="80dp"
             android:text="@string/about2"
@@ -67,35 +68,13 @@
             android:textSize="15dp" />
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/headch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardview1_aboutus"
-        android:layout_marginTop="5dp"
-        android:layout_centerHorizontal="true">
-
-        <ImageView
-            android:layout_width="156dp"
-            android:layout_height="174dp"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/profile"
-            android:layout_gravity="center"/>
-
-        <ImageView
-            android:layout_width="156dp"
-            android:layout_height="174dp"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/profile" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/heading3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/headch"
-        android:layout_marginTop="0dp"
+        android:layout_below="@+id/cardview1_aboutus"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/kabrio_soft_bold"
         android:paddingBottom="20dp"
         android:text="The head chevves!"
@@ -103,14 +82,132 @@
         android:textColor="@color/navyblue_brand"
         android:textSize="35dp" />
 
+    <LinearLayout
+        android:id="@+id/headchef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="174dp"
+            android:src="@drawable/image_chefs" />
+
+    </LinearLayout>
+
+
+
     <TextView
         android:id="@+id/abouttext3"
         android:layout_width="300dp"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heading3"
+        android:layout_below="@+id/headchef"
         android:text="@string/about3"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/navyblue_brand"
+        android:textSize="15dp"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2_aboutus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/abouttext3"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/navyblue_brand"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp">
+
+        <TextView
+            android:id="@+id/heading4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:fontFamily="@font/kabrio_soft_bold"
+            android:gravity="center_horizontal"
+            android:paddingBottom="20dp"
+            android:text="Our mission!"
+            android:textColor="@color/white"
+            android:textSize="35dp" />
+
+        <TextView
+            android:id="@+id/abouttext4"
+            android:layout_width="300dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:text="@string/about4"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/heading5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardview2_aboutus"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:paddingBottom="20dp"
+        android:text="Follow us!"
+        android:textAlignment="center"
+        android:textColor="@color/navyblue_brand"
+        android:textSize="35dp" />
+
+    <LinearLayout
+        android:id="@+id/socialmedia"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/fb"
+            app:tint="@color/navyblue_brand"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/insta"
+            app:tint="@color/navyblue_brand"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/abouttext5"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/socialmedia"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/about5"
+        android:textAlignment="center"
+        android:textColor="@color/navyblue_brand"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/abouttext6"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/abouttext5"
+        android:text="ig: themidnightchevves \n fb: The Midnight Chevves"
+        android:textAlignment="center"
+        android:textColor="@color/navyblue_brand"
+        android:textSize="15dp"
+        android:fontFamily="@font/kabrio_soft_bold_numbers_italic"/>
 
 </RelativeLayout>
 
