@@ -37,6 +37,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -112,7 +113,7 @@ public class CartFragment extends Fragment {
         super.onStart();
         FirestoreRecyclerOptions<Cart> options =
                 new FirestoreRecyclerOptions.Builder<Cart>()
-                        .setQuery(listReference, Cart.class)
+                        .setQuery(listReference.orderBy("ProductName", Query.Direction.ASCENDING), Cart.class)
                         .build();
 
         adapter =
