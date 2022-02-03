@@ -29,6 +29,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class OrderDetailsActivity extends AppCompatActivity {
@@ -74,7 +75,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         super.onStart();
         FirestoreRecyclerOptions<Cart> options =
                 new FirestoreRecyclerOptions.Builder<Cart>()
-                        .setQuery(collectionReference.document(getIntent().getStringExtra("orderId")).collection("Products"), Cart.class)
+                        .setQuery(collectionReference.document(getIntent().getStringExtra("orderId")).collection("Products").orderBy("ProductName", Query.Direction.ASCENDING), Cart.class)
                         .build();
 
         adapter =

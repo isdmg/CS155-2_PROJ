@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class ItemDetailsActivity extends AppCompatActivity {
@@ -71,7 +72,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         FirestoreRecyclerOptions<Extras> options =
                 new FirestoreRecyclerOptions.Builder<Extras>()
-                        .setQuery(extraReference.whereEqualTo("parentRef", listID), Extras.class)
+                        .setQuery(extraReference.whereEqualTo("parentRef", listID).orderBy("ProductName", Query.Direction.ASCENDING), Extras.class)
                         .build();
 
         adapter =

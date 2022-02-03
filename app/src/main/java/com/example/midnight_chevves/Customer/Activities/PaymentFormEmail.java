@@ -46,11 +46,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -200,16 +202,12 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                 detailsInfo.put("Phone", "+63" + documentSnapshot.getString("Phone").substring(3));
 
 
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
-                String saveCurrentDate = currentDate.format(calendar.getTime());
-
                 Map<String, Object> extraInfo = new HashMap<>();
                 extraInfo.put("accountRef", auth.getUid());
                 extraInfo.put("OrderId", orderId);
                 extraInfo.put("OrderStatus", "Ordered");
-                extraInfo.put("OrderDate", saveCurrentDate);
                 extraInfo.put("TotalAmount", getIntent().getLongExtra("totalAmount", 0));
+                extraInfo.put("Timestamp", Timestamp.now());
                 extraInfo.put("PaymentMethod", paymentMethod);
 
                 DocumentReference df1 = store.collection("Orders").document(orderId);
@@ -264,7 +262,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         startActivity(intent);
                     }
                 } else {
-                   Log.d(PaymentFormEmail.class.getSimpleName(), "Error getting documents: ", task.getException());
+                    Log.d(PaymentFormEmail.class.getSimpleName(), "Error getting documents: ", task.getException());
                 }
             }
         });
@@ -336,8 +334,4 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
-
-
-
 }

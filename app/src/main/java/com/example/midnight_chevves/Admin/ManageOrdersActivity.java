@@ -29,6 +29,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+
 public class ManageOrdersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewOrders;
@@ -76,7 +78,11 @@ public class ManageOrdersActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull final Orders model) {
                         holder.txtOrderId.setText("Order # " + "\n" + model.getOrderId());
-                        holder.txtProductDate.setText("Order Placed: " + model.getOrderDate());
+
+                        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
+                        String saveCurrentDate = currentDate.format(model.getTimestamp().toDate());
+
+                        holder.txtProductDate.setText("Order Placed: " + saveCurrentDate);
                         holder.txtProductStatus.setText(model.getOrderStatus());
 
                         holder.orderDetail.setOnClickListener(new View.OnClickListener() {

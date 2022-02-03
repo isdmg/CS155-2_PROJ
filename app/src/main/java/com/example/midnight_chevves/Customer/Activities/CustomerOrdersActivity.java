@@ -36,6 +36,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,31 +75,12 @@ public class CustomerOrdersActivity extends AppCompatActivity {
         });
     }
 
-//    private void test() {
-//        collectionReference.whereEqualTo("Details", "Not Delivered").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (DocumentSnapshot document : task.getResult()) {
-//                                detailsReference = collectionReference.document(document.getId()).collection("Details");
-//                                Log.d("test0", document.getId());
-////                                test2(detailsReference);
-//                            }
-//                        } else {
-//                            Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//    }
-
-
     @Override
     protected void onStart() {
         super.onStart();
         FirestoreRecyclerOptions<Orders> options =
                 new FirestoreRecyclerOptions.Builder<Orders>()
-                        .setQuery(collectionReference.whereEqualTo("accountRef", auth.getUid()), Orders.class)
+                        .setQuery(collectionReference.whereEqualTo("accountRef", auth.getUid()).orderBy("Timestamp", Query.Direction.DESCENDING), Orders.class)
                         .build();
 
         adapter =
@@ -106,7 +88,12 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull final Orders model) {
                         holder.txtOrderId.setText("Order # " + "\n" + model.getOrderId());
-                        holder.txtProductDate.setText("Order Placed: " + model.getOrderDate());
+
+                        SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
+                        String saveCurrentDate = currentDate.format(model.getTimestamp().toDate());
+
+                        holder.txtProductDate.setText("Order Placed: " + saveCurrentDate);
+
                         holder.txtProductStatus.setText(model.getOrderStatus());
 
                         holder.orderDetail.setOnClickListener(new View.OnClickListener() {
