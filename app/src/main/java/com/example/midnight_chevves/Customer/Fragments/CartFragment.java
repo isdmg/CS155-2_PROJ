@@ -53,7 +53,7 @@ public class CartFragment extends Fragment {
     private long overTotalPrice = 0;
     private long overTotalExtraPrice = 0;
     private long overTotalProductPrice = 0;
-    private CollectionReference listReference, extraReference;
+    private CollectionReference listReference, extraReference, productReference;
 
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
 
@@ -88,6 +88,7 @@ public class CartFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
+        productReference = store.collection("Products");
         listReference = store.collection("Carts").document(auth.getUid()).collection("List");
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
         btnCheckout = v.findViewById(R.id.button_checkout);
@@ -202,18 +203,7 @@ public class CartFragment extends Fragment {
                                                 }
                                             });
                                         } else {
-                                            listReference.whereEqualTo("ListID", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        for (DocumentSnapshot document : task.getResult()) {
-                                                            listReference.document(document.getId()).delete();
-                                                        }
-                                                    } else {
-                                                        Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
-                                                    }
-                                                }
-                                            });
+                                            listReference.document(model.getListID()).delete();
 
                                             extraReference.whereEqualTo("parentRef", model.getListID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
@@ -309,6 +299,20 @@ public class CartFragment extends Fragment {
                             }
                         });
                     } else {
+                        listReference.document(String.valueOf(entry.getValue())).delete();
+
+                        extraReference.whereEqualTo("parentRef", String.valueOf(entry.getValue())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        extraReference.document(document.getId()).delete();
+                                    }
+                                } else {
+                                    Log.d(CartFragment.class.getSimpleName(), "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
                         Log.d(TAG, "Current data: null");
                     }
                 }
@@ -343,7 +347,6 @@ public class CartFragment extends Fragment {
 
                                     if (productSlots == 0) {
                                         extraReference.document(String.valueOf(entry.getValue())).delete();
-                                        ;
                                     } else if (productSlots < cumulativeSlots) {
                                         extraReference.document(String.valueOf(entry.getValue())).update("Quantity", snapshot.getLong("Slots"));
                                     }
