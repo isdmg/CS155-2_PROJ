@@ -79,17 +79,17 @@
             <TextView
                 android:id="@+id/details_description"
                 android:layout_width="327dp"
-                android:layout_height="114dp"
+                android:layout_height="match_parent"
                 android:layout_below="@id/details_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
 
                 android:elevation="5dp"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:justificationMode="inter_word"
                 android:text="Product Description Product Description
                 Product Description Product Description Product
                 Description"
-                android:fontFamily="@font/kabrio_soft_regular"
                 android:textAlignment="textStart"
                 android:textSize="17sp" />
 
@@ -119,12 +119,13 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_slots_price"
-                android:layout_width="300dp"
+                android:layout_width="230dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:layout_height="65dp"
                 android:layout_below="@id/details_description"
                 app:cardCornerRadius="10dp"
-                android:backgroundTint="@color/grey_brand"
+                android:backgroundTint="@color/navyblue_brand"
                 app:cardElevation="10dp">
 
 
@@ -133,7 +134,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-
                     android:fontFamily="@font/kabrio_soft_regular"
                     android:text="Slots Remaining: 1"
                     android:textAlignment="center"

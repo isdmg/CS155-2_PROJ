@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,11 @@ public class UserAddressActivity extends AppCompatActivity {
 
     private TextView userAddress;
     private Button btnAddress;
+    private ImageButton btnBack;
     private FirebaseAuth auth;
     private FirebaseFirestore store;
 
-    protected void onCreate(Bundle savedInstanceState) { 
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_address);
 
@@ -42,6 +44,14 @@ public class UserAddressActivity extends AppCompatActivity {
         btnAddress = findViewById(R.id.button_address);
         userAddress = findViewById(R.id.text_user_address);
 
+
+        btnBack = findViewById(R.id.user_address_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         btnAddress.setOnClickListener(new View.OnClickListener() {
             @Override

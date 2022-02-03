@@ -2,17 +2,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_tmp_home2">
+
+    <ImageButton
+        android:id="@+id/user_address_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_baseline_arrow_back_ios_24"
+        android:contentDescription="@string/back_button"
+        android:scaleType="fitXY" />
 
     <TextView
-        android:id="@+id/text_user_address"
-        android:layout_width="match_parent"
+        android:id="@+id/textView_useraddress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="Address"
-        android:textAlignment="center"
-        android:textSize="17sp" />
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="User Location"
+        android:textSize="25dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_user_address"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/LightBG_hans"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp">
+
+        <TextView
+            android:id="@+id/text_user_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/kabrio_soft_regular"
+            android:padding="50dp"
+            android:text="Address"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_address"

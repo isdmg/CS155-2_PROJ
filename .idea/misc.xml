@@ -83,6 +83,8 @@
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/drawable/ic_launcher_background.xml" value="0.225" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_account_details.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_add_cakes.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_address.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_address_form.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_customer_orders.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -91,8 +93,11 @@
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up_step2.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_sign_up_step3.xml" value="0.371875" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/activity_user_address.xml" value="0.22418478260869565" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/add_ons_items_layout.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/cart_items_layout.xml" value="0.213768115942029" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/content.xml" value="0.33" />
+        <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_about_us.xml" value="0.20181177654755914" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_account.xml" value="0.33" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_cart.xml" value="0.371875" />
         <entry key="..\:/Users/hans/AndroidStudioProjects/clean_test/app/src/main/res/layout/fragment_customer_home.xml" value="0.25" />

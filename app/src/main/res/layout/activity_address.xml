@@ -17,6 +17,16 @@
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
 
+    <TextView
+        android:id="@+id/textView_SetLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="Set Location"
+        android:textSize="25dp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_g_address"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
