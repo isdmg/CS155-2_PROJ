@@ -28,13 +28,25 @@
         <item>BPI</item>
     </string-array>
     <string name="about1">
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nisl efficitur, ultricies magna finibus, feugiat lorem. Nulla varius dapibus erat sed elementum. Aenean in aliquam arcu. Nam pellentesque sed urna eu rhoncus. Cras semper, ligula nec cursus aliquet, ex dolor condimentum metus, ac consequat nulla sem eget ex. Quisque fringilla feugiat ultrices. Morbi ut arcu mollis libero dapibus tincidunt. Vivamus ut nibh pharetra mauris pulvinar molestie eleifend nec nulla. Integer quis metus est. Phasellus lacinia consectetur lorem non lobortis. Phasellus sit amet fermentum nunc, sit amet elementum lorem. Maecenas elementum tempor magna eu commodo. Quisque viverra arcu purus, non tempus nulla condimentum et. Donec non diam vel ipsum ornare viverra non id nisl. Sed vel commodo elit. Pellentesque a metus a massa posuere fringilla.
+        "It’s late at night and everyone’s asleep. What are you craving for?"
     </string>
     <string name="about2">
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nisl efficitur, ultricies magna finibus, feugiat lorem. Nulla varius dapibus erat sed elementum. Aenean in aliquam arcu. Nam pellentesque sed urna eu rhoncus. Cras semper, ligula nec cursus aliquet, ex dolor condimentum metus, ac consequat nulla sem eget ex. Quisque fringilla feugiat ultrices. Morbi ut arcu mollis libero dapibus tincidunt. Vivamus ut nibh pharetra mauris pulvinar molestie eleifend nec nulla. Integer quis metus est. Phasellus lacinia consectetur lorem non lobortis. Phasellus sit amet fermentum nunc, sit amet elementum lorem. Maecenas elementum tempor magna eu commodo. Quisque viverra arcu purus, non tempus nulla condimentum et. Donec non diam vel ipsum ornare viverra non id nisl. Sed vel commodo elit. Pellentesque a metus a massa posuere fringilla.
+    "TMC came from the idea of experimenting with cooking and baking in the middle of the night. Really, it’s a passion project from an aspiring chef (thus the spelling of “chevves”) who loves food a little too much to the point that she equates receiving food with contentment and high spirits.
+
+        From this, TMC aims to share the same effect to others with their homemade creations and someday be able to help others through it. You know what they say — Always aim for the stars!"
     </string>
     <string name="about3">
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nisl efficitur, ultricies magna finibus, feugiat lorem. Nulla varius dapibus erat sed elementum. Aenean in aliquam arcu. Nam pellentesque sed urna eu rhoncus. Cras semper, ligula nec cursus aliquet, ex dolor condimentum metus, ac consequat nulla sem eget ex. Quisque fringilla feugiat ultrices. Morbi ut arcu mollis libero dapibus tincidunt. Vivamus ut nibh pharetra mauris pulvinar molestie eleifend nec nulla. Integer quis metus est. Phasellus lacinia consectetur lorem non lobortis. Phasellus sit amet fermentum nunc, sit amet elementum lorem. Maecenas elementum tempor magna eu commodo. Quisque viverra arcu purus, non tempus nulla condimentum et. Donec non diam vel ipsum ornare viverra non id nisl. Sed vel commodo elit. Pellentesque a metus a massa posuere fringilla.
+    "The siblings chevves that bring the midnight magic! On the right side is hypeman and media extraordinaire Jerico Rillo, bringing not only the best of vibes but the best of products.
+        On the left side is the woman behind it all, the aspiring chef and midnight connoisseur, Trishia Rillo! Her love of food may transcend the night but you can be she brings the highest of spirits.
+"
+    </string>
+
+    <string name="about4">
+        "Day or night, birthday or non-birthday. Whether it's a craving or a gift for a loved one, The Midnight Chevves will deliver the best of the best."
+    </string>
+
+    <string name="about5">
+        "Interested in our newest releases? Follow our social media accounts and stick around for more updates!"
     </string>
 
 </resources>
