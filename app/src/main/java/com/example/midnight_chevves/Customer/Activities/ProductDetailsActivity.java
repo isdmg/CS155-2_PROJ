@@ -174,7 +174,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     productName.setText(snapshot.getString("Name"));
                     productDescription.setText(snapshot.getString("Description"));
-                    productPrice.setText(String.valueOf(snapshot.get("Price")));
+                    productPrice.setText("₱" + String.valueOf(snapshot.get("Price")));
 
                     int quantity = bundle.getInt("Quantity");
                     if (quantity != 0) {
@@ -468,17 +468,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void addToCart(FirestoreRecyclerAdapter<AddOns, AddOnsViewHolder> adapter) {
-        String date, randomKey;
+        String randomKey;
         randomKey = UUID.randomUUID().toString();
-        Calendar calendarDate = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        date = dateFormat.format(calendarDate.getTime());
 
         Map<String, Object> cartInfo = new HashMap<>();
         cartInfo.put("ListID", randomKey);
         cartInfo.put("ProductID", ID);
         cartInfo.put("ProductName", productName.getText().toString());
-        cartInfo.put("ProductPrice", Integer.parseInt(productPrice.getText().toString()));
+        cartInfo.put("ProductPrice", Integer.parseInt(productPrice.getText().toString().substring(1)));
         cartInfo.put("Quantity", Integer.parseInt(btnQuantity.getNumber()));
 
         extraInfo = new ArrayList<>();
