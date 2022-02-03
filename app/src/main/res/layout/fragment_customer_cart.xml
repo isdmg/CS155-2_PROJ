@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,4 +19,13 @@
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
         android:text="@string/checkout" />
+
+    <ImageView
+        android:id="@+id/no_items_cart"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+
+        app:srcCompat="@drawable/no_items_cart" />
 </RelativeLayout>
