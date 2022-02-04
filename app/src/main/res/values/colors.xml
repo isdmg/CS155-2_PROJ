@@ -2,12 +2,17 @@
 <resources>
     <color name="purple_200">#FFBB86FC</color>
     <color name="yellow_brand">#DFAF27</color>
+    <color name="yellow_2_brand">#e9cc87</color>
+    <color name="yellow_3_brand">#765c25</color>
     <color name="navyblue_brand">#0C162C</color>
+    <color name="navyblue2_brand">#175873</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="LightBG_hans">#f6f5f1</color>
     <color name="grey_brand">#9D9D8E</color>
+
+
 
 </resources>

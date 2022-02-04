@@ -18,7 +18,7 @@
         android:layout_marginTop="-5dp"
         android:fontFamily="@font/kabrio_soft_bold"
         android:paddingBottom="20dp"
-        android:text="Satisfy Your Midnight Cravings"
+        android:text="Satisfy your midnight cravings!"
         android:textAlignment="center"
         android:textColor="@color/navyblue_brand"
         android:textSize="35dp" />
@@ -31,8 +31,9 @@
         android:layout_centerHorizontal="true"
         android:text="@string/about1"
         android:textAlignment="center"
+        android:textColor="@color/navyblue_brand"
         android:textSize="15dp"
-        android:textColor="@color/navyblue_brand"/>
+        android:fontFamily="@font/kabrio_soft_regular"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview1_aboutus"
@@ -44,31 +45,64 @@
         app:cardCornerRadius="15dp"
         app:cardElevation="10dp">
 
-        <TextView
-            android:id="@+id/heading2"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:fontFamily="@font/kabrio_soft_bold"
-            android:gravity="center_horizontal"
-            android:paddingBottom="20dp"
-            android:text="So... who are we?"
-            android:textColor="@color/white"
-            android:textSize="35dp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/abouttext2"
-            android:layout_width="300dp"
-            android:layout_height="320dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:text="@string/about2"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/drag_line_aboutus1"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/yellow_line" />
+
+            <ImageView
+                android:id="@+id/bg_card_aboutus_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/_3rd_white_card_bg" />
+
+            <TextView
+                android:id="@+id/heading2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:gravity="center_horizontal"
+                android:paddingBottom="20dp"
+                android:text="So... who are we?"
+                android:textColor="@color/white"
+                android:textSize="35dp" />
+
+            <TextView
+                android:id="@+id/abouttext2"
+                android:layout_width="300dp"
+                android:layout_height="270dp"
+                android:layout_below="@id/heading2"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/kabrio_soft_regular"
+                android:gravity="center"
+                android:text="@string/about2"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
-
+    <ImageView
+        android:id="@+id/drag_line_aboutus2"
+        android:layout_below="@id/cardview1_aboutus"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/yellow_line" />
     <TextView
         android:id="@+id/heading3"
         android:layout_width="match_parent"
@@ -81,6 +115,14 @@
         android:textAlignment="center"
         android:textColor="@color/navyblue_brand"
         android:textSize="35dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/cardview1_aboutus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/_1st_white_card_bg" />
 
     <LinearLayout
         android:id="@+id/headchef"
@@ -122,29 +164,64 @@
         app:cardCornerRadius="15dp"
         app:cardElevation="10dp">
 
-        <TextView
-            android:id="@+id/heading4"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:fontFamily="@font/kabrio_soft_bold"
-            android:gravity="center_horizontal"
-            android:paddingBottom="20dp"
-            android:text="Our mission!"
-            android:textColor="@color/white"
-            android:textSize="35dp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/abouttext4"
-            android:layout_width="300dp"
-            android:layout_height="160dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:text="@string/about4"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+            <ImageView
+                android:id="@+id/drag_line_aboutus3"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/yellow_line" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/_2nd_white_card_bg" />
+
+            <TextView
+                android:id="@+id/heading4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:gravity="center_horizontal"
+                android:paddingBottom="20dp"
+                android:text="Our mission!"
+                android:textColor="@color/white"
+                android:textSize="35dp" />
+
+            <TextView
+                android:id="@+id/abouttext4"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/heading4"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:text="@string/about4"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+
+        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/drag_line_aboutus4"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/cardview2_aboutus"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/yellow_line" />
 
     <TextView
         android:id="@+id/heading5"
@@ -183,6 +260,13 @@
 
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardview2_aboutus"
+        app:srcCompat="@drawable/_4th_white_card_bg" />
 
     <TextView
         android:id="@+id/abouttext5"

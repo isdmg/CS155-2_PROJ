@@ -23,7 +23,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="256dp"
                     android:scaleType="centerCrop"
-
                     android:src="@drawable/banner_cloud" />
 
                 <include layout="@layout/content" />

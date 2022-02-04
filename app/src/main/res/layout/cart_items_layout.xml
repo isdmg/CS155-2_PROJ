@@ -5,52 +5,60 @@
     android:layout_height="120dp"
     android:layout_margin="15dp"
     app:cardCornerRadius="15dp"
-    app:cardElevation="5dp">
+    app:cardElevation="5dp"
+    android:backgroundTint="@color/LightBG_hans">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp">
 
+        <ImageView
+            android:id="@+id/product_image_cart"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/image_add" />
+
         <TextView
             android:id="@+id/cart_product_name"
-            android:layout_width="160dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:text="Product Name" />
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/product_image_cart"
+            android:fontFamily="@font/kabrio_soft_extra_bold"
+            android:text="Product Name"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/cart_product_quantity"
-            android:layout_width="160dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginEnd="96dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="5dp"
-            android:text="Product Quantitiy"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+
+            android:layout_toEndOf="@+id/product_image_cart"
+            android:fontFamily="@font/kabrio_soft_regular"
+            android:text="Quantity: 1"
             android:textAlignment="viewStart" />
 
         <TextView
             android:id="@+id/cart_product_price"
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="178dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:text="Product Price"
-            android:textAlignment="viewEnd"
-            android:textStyle="bold" />
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="75dp"
+
+            android:layout_toEndOf="@+id/product_image_cart"
+            android:fontFamily="@font/kabrio_soft_regular"
+            android:text="Price: ₱100"
+            android:textAlignment="viewEnd" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

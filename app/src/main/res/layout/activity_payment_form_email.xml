@@ -4,132 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Customer.Activities.PaymentFormEmail">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextNAME_paymentform_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginRight="35dp"
-        android:ems="10"
-        android:hint="Name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextNAME_paymentform"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextMobileNo_paymentform_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="35dp"
-        android:ems="10"
-        android:hint="Mobile Number"
-       >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextMobileNo_paymentform"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextLocation_paymentform_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="225dp"
-        android:layout_marginRight="35dp"
-        android:ems="10"
-        android:hint="Shipping Address"
-        android:inputType="textMultiLine"
-        android:textAlignment="textStart">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextLocation_paymentform"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="left"
-            android:inputType="textMultiLine"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <Button
-        android:id="@+id/orderFormSubmit_btn"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="20dp"
-
-        android:layout_marginEnd="263dp"
-        android:layout_marginBottom="102dp"
-        android:text="Submit"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderform_paymentmethod" />
-
-    <Spinner
-        android:id="@+id/orderform_paymentmethod"
-        android:layout_width="151dp"
-        android:layout_height="51dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="515dp"
-        android:layout_marginEnd="225dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+    tools:context=".Customer.Activities.PaymentFormEmail"
+    android:background="@drawable/cart_bg">
 
     <TextView
-        android:id="@+id/text_subtotal"
-        android:layout_width="116dp"
+        android:id="@+id/payment_title"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="90dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="229dp"
-        android:text="Total Price: ₱500"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="CHECKOUT"
+        android:textSize="40dp"
+        android:fontFamily="@font/kabrio_soft_extra_bold"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/payment_subtext"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/payment_title"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:text="Please select a payment method below!"
+        android:textColor="@color/white" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_payment_form"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="15dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/payment_subtext"
+        android:backgroundTint="@color/LightBG_hans">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/title_customer_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:text="Your customer info:"
+                android:fontFamily="@font/kabrio_soft_bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextNAME_paymentform_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_below="@+id/title_customer_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="35dp"
+                android:ems="10"
+                android:hint="Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNAME_paymentform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextMobileNo_paymentform_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_below="@id/editTextNAME_paymentform_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="35dp"
+                android:ems="10"
+                android:hint="Mobile Number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMobileNo_paymentform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextLocation_paymentform_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="35dp"
+                android:layout_below="@id/editTextMobileNo_paymentform_layout"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="35dp"
+                android:ems="10"
+                android:hint="Shipping Address"
+                android:inputType="textMultiLine"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLocation_paymentform"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:inputType="textMultiLine" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/text_subtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextLocation_paymentform_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/kabrio_soft_bold_numbers_italic"
+                android:text="Total Price: ₱500"
+                android:textAlignment="center"
+                android:textColor="@color/yellow_brand" />
+
+            <Spinner
+                android:id="@+id/orderform_paymentmethod"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/text_subtotal"
+                android:layout_centerHorizontal="true"
+                android:popupElevation="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dropdown"
+                android:fontFamily="@font/kabrio_soft_regular"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/orderFormSubmit_btn"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/orderform_paymentmethod"
+                android:background="@drawable/container2"
+                android:layout_marginTop="20dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orderform_paymentmethod" />
+
+
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

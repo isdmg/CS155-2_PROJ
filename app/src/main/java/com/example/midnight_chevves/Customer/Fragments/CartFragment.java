@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +63,9 @@ public class CartFragment extends Fragment {
     private ImageView noItemsImage;
     private HashMap<String, Object> updateListInfo;
     private HashMap<String, Object> updateExtraInfo;
+    private CardView cart_total;
+    private TextView total, subtotal, subtext1, subtext2;
+    long subtotalText;
 
     private boolean productPriceQueryOnComplete = true;
     private boolean extraPriceQueryOnComplete = true;
@@ -93,6 +98,12 @@ public class CartFragment extends Fragment {
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
         btnCheckout = v.findViewById(R.id.button_checkout);
         noItemsImage = v.findViewById(R.id.no_items_cart);
+        cart_total = v.findViewById(R.id.cardview_cart_total);
+        subtext1 = v.findViewById(R.id.cart_subtext);
+        subtext2 = v.findViewById(R.id.cart_subtext2);
+        subtotal = (TextView) v.findViewById(R.id.cart_total_amount);
+
+
         btnCheckout.setVisibility(View.GONE);
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +114,7 @@ public class CartFragment extends Fragment {
         });
         return v;
     }
+
 
     @Override
     public void onResume() {
@@ -131,12 +143,20 @@ public class CartFragment extends Fragment {
                         getTotal();
                         if (getItemCount() == 0) {
                             btnCheckout.setVisibility(View.GONE);
+                            cart_total.setVisibility(View.GONE);
                             noItemsImage.setVisibility(View.VISIBLE);
+
+                            subtext1.setVisibility(View.GONE);
+                            subtext2.setVisibility(View.VISIBLE);
                         }
 
                         else {
                             btnCheckout.setVisibility(View.VISIBLE);
+                            cart_total.setVisibility(View.VISIBLE);
                             noItemsImage.setVisibility(View.GONE);
+
+                            subtext1.setVisibility(View.VISIBLE);
+                            subtext2.setVisibility(View.GONE);
                         }
                     }
 
@@ -242,13 +262,19 @@ public class CartFragment extends Fragment {
         startActivity(intent);
     }
 
+
     private void checkout() {
         overTotalPrice = overTotalProductPrice + overTotalExtraPrice;
         Log.d("totalAmount", String.valueOf(overTotalPrice));
         Intent intent = new Intent(getActivity(), PaymentFormEmail.class);
         intent.putExtra("totalAmount", overTotalPrice);
         startActivity(intent);
+
+
+
     }
+
+
 
     private void validateCart() {
         for (Map.Entry<String, Object> entry : updateListInfo.entrySet()) {
@@ -367,6 +393,7 @@ public class CartFragment extends Fragment {
         overTotalExtraPrice = 0;
         getProductTotal();
         getExtraTotal();
+
     }
 
     private void getProductTotal() {
