@@ -29,6 +29,9 @@
         android:theme="@style/Theme.Midnight_chevves"
         tools:replace="android:theme">
         <activity
+            android:name=".Customer.Activities.AfterOrderSplash"
+            android:exported="false" />
+        <activity
             android:name=".ItemDetailsActivity"
             android:exported="false"
             android:screenOrientation="portrait"

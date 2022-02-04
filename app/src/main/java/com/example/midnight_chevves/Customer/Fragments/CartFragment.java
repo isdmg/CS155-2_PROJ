@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,7 +61,7 @@ public class CartFragment extends Fragment {
     private ImageView noItemsImage;
     private HashMap<String, Object> updateListInfo;
     private HashMap<String, Object> updateExtraInfo;
-    private CardView cart_total;
+    private CardView cardview_cart_total, cart_items;
     private TextView total, subtotal, subtext1, subtext2;
     long subtotalText;
 
@@ -98,7 +96,9 @@ public class CartFragment extends Fragment {
         extraReference = store.collection("Carts").document(auth.getUid()).collection("Extras");
         btnCheckout = v.findViewById(R.id.button_checkout);
         noItemsImage = v.findViewById(R.id.no_items_cart);
-        cart_total = v.findViewById(R.id.cardview_cart_total);
+        cardview_cart_total = v.findViewById(R.id.cardview_cart_total);
+        cart_items = v.findViewById(R.id.cardview_cart_products);
+
         subtext1 = v.findViewById(R.id.cart_subtext);
         subtext2 = v.findViewById(R.id.cart_subtext2);
         subtotal = (TextView) v.findViewById(R.id.cart_total_amount);
@@ -143,7 +143,8 @@ public class CartFragment extends Fragment {
                         getTotal();
                         if (getItemCount() == 0) {
                             btnCheckout.setVisibility(View.GONE);
-                            cart_total.setVisibility(View.GONE);
+                            cardview_cart_total.setVisibility(View.GONE);
+                            cart_items.setVisibility(View.GONE);
                             noItemsImage.setVisibility(View.VISIBLE);
 
                             subtext1.setVisibility(View.GONE);
@@ -152,7 +153,8 @@ public class CartFragment extends Fragment {
 
                         else {
                             btnCheckout.setVisibility(View.VISIBLE);
-                            cart_total.setVisibility(View.VISIBLE);
+                            cardview_cart_total.setVisibility(View.VISIBLE);
+                            cart_items.setVisibility(View.VISIBLE);
                             noItemsImage.setVisibility(View.GONE);
 
                             subtext1.setVisibility(View.VISIBLE);
