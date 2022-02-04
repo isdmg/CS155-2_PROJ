@@ -75,6 +75,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_username"
             android:layout_width="match_parent"
+            android:inputType="text"
+            android:singleLine="true"
             android:layout_height="wrap_content"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
 

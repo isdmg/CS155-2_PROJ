@@ -27,6 +27,7 @@
         android:layout_marginRight="35dp"
         android:ems="10"
         android:hint="Product Name"
+        android:singleLine="true"
         app:startIconDrawable="@drawable/ic_baseline_drive_file_rename_outline_24">
 
         <com.google.android.material.textfield.TextInputEditText

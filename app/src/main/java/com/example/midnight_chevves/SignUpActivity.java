@@ -120,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
             layoutUsername.setError("Maximum length exceeded!");
             inputUsername.requestFocus();
         } else if (usernameDuplicate) {
-            layoutUsername.setError("Account name is taken!");
+            layoutUsername.setError("Username is taken!");
             inputUsername.requestFocus();
         } else {
             clearError(2);
