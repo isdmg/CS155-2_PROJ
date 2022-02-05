@@ -5,35 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.midnight_chevves.Model.Cart;
 import com.example.midnight_chevves.Model.Extras;
-import com.example.midnight_chevves.ViewHolder.CartViewHolder;
 import com.example.midnight_chevves.ViewHolder.ExtraViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class ItemDetailsActivity extends AppCompatActivity {
 
     private String listID;
     private ImageButton btnBack;
     private FirebaseFirestore store;
-    private TextView txtProductName;
+    private TextView txtProductDetail;
     private RecyclerView recyclerViewExtras;
     private CollectionReference extraReference;
     private FirestoreRecyclerAdapter<Extras, ExtraViewHolder> adapter;
@@ -52,8 +44,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
         store = FirebaseFirestore.getInstance();
         extraReference = store.collection("Orders").document(getIntent().getStringExtra("orderId")).collection("Extras");
 
-        txtProductName = findViewById(R.id.item_details_product);
-        txtProductName.setText(getIntent().getStringExtra("ProductName"));
+        txtProductDetail = findViewById(R.id.item_details_product);
+        txtProductDetail.setText(getIntent().getStringExtra("ProductName") + " x" + getIntent().getIntExtra("Quantity", 0));
 
         listID = getIntent().getStringExtra("ListID");
 
