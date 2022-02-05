@@ -8,12 +8,14 @@
 
     <ImageButton
         android:id="@+id/address_back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="48dp"
+        android:layout_height="54dp"
+        android:background="@drawable/back_btn"
+
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ic_baseline_arrow_back_ios_24"
+
         android:backgroundTint="@color/navyblue_brand"
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />

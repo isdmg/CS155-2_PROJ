@@ -297,7 +297,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         String PaymentMethodString = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), PaymentMethodString, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(parent.getContext(), PaymentMethodString, Toast.LENGTH_SHORT).show();
 
     }
 
