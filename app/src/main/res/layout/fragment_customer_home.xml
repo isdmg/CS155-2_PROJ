@@ -45,7 +45,7 @@
 
                 <com.smarteist.autoimageslider.SliderView
                     android:id="@+id/slider"
-                    android:layout_width="410dp"
+                    android:layout_width="match_parent"
                     android:layout_height="165dp"
                     app:sliderAnimationDuration="600"
                     app:sliderAutoCycleDirection="back_and_forth"
@@ -66,16 +66,17 @@
 
             <TextView
                 android:id="@+id/text_cake"
-                android:layout_width="360dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sliderCard"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/container2"
                 android:elevation="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Cakes"
                 android:textColor="@color/navyblue_brand"
                 android:textSize="20sp" />
@@ -89,15 +90,16 @@
 
             <TextView
                 android:id="@+id/text_char_cute_rie_boxes"
-                android:layout_width="360dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
                 android:layout_below="@id/recycler_view1"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/container2"
                 android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Char-CUTE-rie boxes"
                 android:textColor="@color/navyblue_brand"
                 android:textSize="20sp"
@@ -112,20 +114,21 @@
 
             <TextView
                 android:id="@+id/text_wines"
-                android:layout_width="360dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recycler_view2"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
+
                 android:layout_marginTop="10dp"
                 android:background="@drawable/container2"
+                android:elevation="10dp"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
-                android:fontFamily="@font/kabrio_soft_regular"
+                android:paddingEnd="10dp"
                 android:text="Wines"
                 android:textColor="@color/navyblue_brand"
-                android:textSize="20sp"
-                android:elevation="10dp"/>
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view3"
