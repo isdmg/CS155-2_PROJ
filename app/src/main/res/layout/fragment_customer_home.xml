@@ -3,21 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:background="@drawable/background_tmp_home3"
-    >
-
+    android:background="@drawable/background_tmp_home3">
 
 
     <com.paulrybitskyi.persistentsearchview.PersistentSearchView
         android:id="@+id/persistentSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:areSuggestionsDisabled="true"
         android:paddingStart="4dp"
         android:paddingLeft="4dp"
         android:paddingTop="4dp"
         android:paddingEnd="4dp"
         android:paddingRight="4dp"
+        app:areSuggestionsDisabled="true"
 
         />
 
@@ -25,27 +23,25 @@
         android:id="@+id/scrollView_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/persistentSearchView"
-        >
+        android:layout_below="@id/persistentSearchView">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/sliderCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
                 android:layout_margin="16dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="10dp">
 
 
                 <com.smarteist.autoimageslider.SliderView
                     android:id="@+id/slider"
-                    android:layout_width="410dp"
+                    android:layout_width="match_parent"
                     android:layout_height="165dp"
                     app:sliderAnimationDuration="600"
                     app:sliderAutoCycleDirection="back_and_forth"
@@ -91,17 +87,17 @@
                 android:id="@+id/text_char_cute_rie_boxes"
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/recycler_view1"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/container2"
+                android:elevation="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
                 android:text="Char-CUTE-rie boxes"
                 android:textColor="@color/navyblue_brand"
-                android:textSize="20sp"
-                android:elevation="10dp"/>
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view2"
@@ -119,13 +115,13 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/container2"
+                android:elevation="10dp"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:padding="5dp"
                 android:paddingStart="10dp"
-                android:fontFamily="@font/kabrio_soft_regular"
                 android:text="Wines"
                 android:textColor="@color/navyblue_brand"
-                android:textSize="20sp"
-                android:elevation="10dp"/>
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view3"
@@ -133,7 +129,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_wines"
                 android:layout_marginTop="1dp" />
-
 
 
         </RelativeLayout>

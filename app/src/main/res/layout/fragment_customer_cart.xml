@@ -61,7 +61,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Subtotal TOTAL: ₱not working" />
+                android:text="Subtotal: ₱" />
 
             <TextView
                 android:id="@+id/cart_delivery_fee"
@@ -92,7 +92,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Total Fee: ₱not working" />
+                android:text="Grand Total: ₱not working" />
         </RelativeLayout>
 
 
