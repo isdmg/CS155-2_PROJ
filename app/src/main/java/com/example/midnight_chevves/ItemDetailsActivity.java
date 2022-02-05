@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.midnight_chevves.Model.Extras;
@@ -30,6 +31,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewExtras;
     private CollectionReference extraReference;
     private FirestoreRecyclerAdapter<Extras, ExtraViewHolder> adapter;
+    private ImageView no_extras_image;
 
 
     @Override
@@ -48,6 +50,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
         txtProductDetail = findViewById(R.id.item_details_product);
         txtProductPrice = findViewById(R.id.item_details_price);
         txtExtrasHeader = findViewById(R.id.item_details_extras);
+
+        no_extras_image = findViewById(R.id.no_extras_image);
 
         String product = getIntent().getStringExtra("ProductName") + " x" + String.valueOf(getIntent().getIntExtra("Quantity", 0));
         txtProductDetail.setText(product);
@@ -94,9 +98,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                         if (getItemCount() == 0) {
                             txtExtrasHeader.setVisibility(View.GONE);
+                            no_extras_image.setVisibility(View.VISIBLE);
                         }
                         else {
                             txtExtrasHeader.setVisibility(View.VISIBLE);
+                            no_extras_image.setVisibility(View.GONE);
                         }
                         Log.d("getItemCount", String.valueOf(getItemCount()));
                     }
