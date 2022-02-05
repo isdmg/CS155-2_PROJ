@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,10 +39,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 // TODO: Prevent changes when in Cart.
 
 public class EditProductsActivity extends AppCompatActivity {
 
+    private ProgressDialog progressDialog;
     private String ID, description, category;
 
     private TextInputLayout layoutName, layoutPrice;
@@ -59,13 +64,20 @@ public class EditProductsActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> someActivityResultLauncher;
 
+    private long slots;
     private Bundle bundle;
+
+    private Calendar calendar = Calendar.getInstance();
+    private SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy");
+    private String saveCurrentDate = currentDate.format(calendar.getTime());
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_products);
+
+        progressDialog = new ProgressDialog(this);
 
         store = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -141,6 +153,7 @@ public class EditProductsActivity extends AppCompatActivity {
                     description = snapshot.getString("Description");
                     category = snapshot.getString("Category");
                     bundle.putString("slots", String.valueOf(snapshot.get("Slots")));
+                    slots = snapshot.getLong("Slots");
                     bundle.putString("description", description);
                     bundle.putString("product", category);
                     Picasso.get().load(snapshot.getString("imageRef")).into(productImage);
@@ -185,7 +198,53 @@ public class EditProductsActivity extends AppCompatActivity {
             bundle.putInt("newSlots", newSlots);
             bundle.putParcelable("uri", imageUri);
             bundle.putBoolean("isEdit", true);
-            sendUserToNextActivity();
+
+            if (description == null) {
+                progressDialog.setMessage("Saving changes...");
+                progressDialog.setTitle("Updating Product");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+
+                DocumentReference documentReference = store.collection("Products").document(ID);
+                documentReference.update("Name", name);
+                documentReference.update("Price", Integer.parseInt(price));
+
+                if (slots != newSlots) {
+                    documentReference.update("RDate", saveCurrentDate);
+                }
+                documentReference.update("Slots", newSlots);
+
+                if (imageUri != null) {
+                    storageReference.child("Product Images/" + ID + ".jpg")
+                            .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageReference.child("Product Images/" + ID + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    documentReference.update("imageRef", uri.toString());
+                                    progressDialog.dismiss();
+                                    Toast.makeText(EditProductsActivity.this, "Selected product was updated!", Toast.LENGTH_SHORT).show();
+                                    sendUserToNextActivity();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Log.d("updateStatus", "fail");
+                            Toast.makeText(EditProductsActivity.this, "Uploading Image Failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(EditProductsActivity.this, "Selected product was updated!", Toast.LENGTH_SHORT).show();
+                    sendUserToNextActivity();
+                }
+            } else {
+                sendUserToNextActivity();
+            }
 
 //            if (imageUri != null) {
 //                storageReference.child("Product Images/" + ID + ".jpg")
@@ -210,10 +269,13 @@ public class EditProductsActivity extends AppCompatActivity {
     }
 
     private void sendUserToNextActivity() {
-        Log.d("description", description);
-        Intent intent = new Intent(EditProductsActivity.this, AddDescriptionActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        if (description == null) {
+            onBackPressed();
+        } else {
+            Intent intent = new Intent(EditProductsActivity.this, AddDescriptionActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     private void clearError(int field) {
