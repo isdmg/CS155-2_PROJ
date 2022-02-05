@@ -31,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private TextView txtShippingAddress,txtPaymentMethod, txtTotalAmount;
     private FirebaseFirestore store;
     private RecyclerView recyclerViewProducts;
-    private CollectionReference collectionReference, extraReference;
+    private CollectionReference collectionReference, extraReference, productReference;
     private FirestoreRecyclerAdapter<Cart, CartViewHolder> adapter;
 
 
@@ -57,6 +58,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtPaymentMethod = findViewById(R.id.order_details_payment_method_data);
         txtTotalAmount = findViewById(R.id.order_details_total_amount_data);
 
+        productReference = store.collection("Products");
         collectionReference = store.collection("Orders");
         extraReference = collectionReference.document(getIntent().getStringExtra("orderId")).collection("Extras");
         getOrderDetails();
@@ -93,6 +95,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                 Intent intent = new Intent(OrderDetailsActivity.this, ItemDetailsActivity.class);
                                 intent.putExtra("ListID", model.getListID());
                                 intent.putExtra("ProductName", model.getProductName());
+                                intent.putExtra("Quantity", model.getQuantity());
                                 intent.putExtra("orderId",getIntent().getStringExtra("orderId"));
                                 startActivity(intent);
                                 return true;
@@ -111,6 +114,17 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                 }
                                 long productTotalWithExtra = productPrice + extraTotal;
                                 holder.txtProductPrice.setText("Price: ₱" + productTotalWithExtra);
+                            }
+                        });
+
+                        productReference.whereEqualTo("ID", model.getProductID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        Picasso.get().load(document.getString("imageRef")).into(holder.imgProduct);
+                                    }
+                                }
                             }
                         });
                     }
