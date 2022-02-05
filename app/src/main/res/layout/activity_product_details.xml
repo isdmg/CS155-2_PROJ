@@ -32,11 +32,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewImageProduct"
-                android:layout_below="@id/details_back"
                 android:layout_width="220dp"
                 android:layout_height="210dp"
+                android:layout_below="@id/details_back"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="20dp">
@@ -53,13 +53,13 @@
                 android:id="@+id/details_slots"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_below="@id/cardViewImageProduct"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
                 android:text="Slots Remaining: 1"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
 
 
@@ -67,7 +67,7 @@
                 android:id="@+id/details_cardview_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/details_slots"
                 app:cardCornerRadius="55dp"
                 android:backgroundTint="@color/LightBG_hans">
@@ -79,19 +79,19 @@
 
                     <ImageView
                         android:id="@+id/drag_line"
-                        android:layout_marginTop="5dp"
-                        android:layout_centerHorizontal="true"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
                         app:srcCompat="@drawable/yellow_line" />
 
                     <TextView
                         android:id="@+id/details_name"
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
                         android:layout_below="@id/drag_line"
-                        android:layout_marginTop="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="0dp"
                         android:fontFamily="@font/kabrio_soft_extra_bold"
                         android:text="Product Name"
                         android:textAlignment="center"
@@ -121,37 +121,38 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/details_description"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/kabrio_soft_extra_bold"
-                        android:text="Price: ₱500"
-                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:text="₱500"
                         android:textColor="@color/yellow_brand"
-                        android:textSize="20sp" />
+                        android:textSize="28dp" />
 
                     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                         android:id="@+id/button_quantity"
                         android:layout_width="179dp"
-                        android:layout_height="65dp"
+                        android:layout_height="60dp"
                         android:layout_below="@id/details_price"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/container1"
                         android:elevation="5dp"
+                        android:gravity="center"
                         app:backGroundColor="@color/fui_transparent"
                         app:initialNumber="1"
                         app:textColor="@color/yellow_brand"
 
-                        app:textSize="9sp" />
+                        app:textSize="7sp" />
 
                     <ImageView
                         android:id="@+id/line_prod_details"
-                        android:layout_below="@id/button_quantity"
-                        android:layout_centerHorizontal="true"
-                        app:tint="@color/grey_brand"
-                        android:layout_marginTop="20dp"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/line" />
+                        android:layout_below="@id/button_quantity"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        app:srcCompat="@drawable/line"
+                        app:tint="@color/grey_brand" />
 
                     <TextView
                         android:id="@+id/textview_customize"
@@ -159,12 +160,12 @@
                         android:layout_height="30dp"
                         android:layout_below="@id/line_prod_details"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/container3"
                         android:elevation="5dp"
                         android:fontFamily="@font/kabrio_soft_bold"
-                        android:text="Customize"
                         android:gravity="center"
+                        android:text="Customize"
                         android:textColor="@color/yellow_3_brand"
                         android:textSize="20dp" />
 
@@ -223,7 +224,8 @@
                         android:layout_marginEnd="-66dp"
                         android:fontFamily="@font/kabrio_soft_regular"
                         android:rotation="270"
-                        android:text="Scroll Down for more!" />
+                        android:text="Scroll Down for more!"
+                        android:textColor="@color/grey_brand" />
 
 
                 </RelativeLayout>
