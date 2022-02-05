@@ -179,11 +179,10 @@
                         android:background="@drawable/container3"
                         android:elevation="5dp"
                         android:fontFamily="@font/kabrio_soft_bold"
-                        android:text="Extras"
                         android:gravity="center"
+                        android:text="Extras"
                         android:textColor="@color/yellow_3_brand"
                         android:textSize="20dp" />
-
 
 
                     <androidx.recyclerview.widget.RecyclerView

@@ -56,10 +56,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private String ID, ListID, category;
     private Bundle bundle;
-    private TextView productName, productDescription, productPrice, productSlots;
+    private TextView productName, productDescription, productPrice, productSlots, extrasHeader, customizeHeader, scrollDown;
     private Button btnAddToCart;
     private ImageButton btnBack;
-    private ImageView productImage;
+    private ImageView productImage, horizontalSep;
     private ElegantNumberButton btnQuantity;
 
     private FirebaseAuth auth;
@@ -108,6 +108,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productSlots = findViewById(R.id.details_slots);
         productImage = findViewById(R.id.details_image);
         btnQuantity = findViewById(R.id.button_quantity);
+        customizeHeader = findViewById(R.id.textview_customize);
+        extrasHeader = findViewById(R.id.textview_extras);
+        horizontalSep = findViewById(R.id.line_prod_details);
+        scrollDown = findViewById(R.id.scrolldownformore);
         getProductDetails();
 
         btnBack = findViewById(R.id.details_back);
@@ -156,14 +160,22 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                 }
                                 if (snapshot.getLong("Slots") - cumulativeSlots < 1) {
                                     if (!isEdit) {
-                                        btnQuantity.setVisibility(View.INVISIBLE);
-                                        btnAddToCart.setEnabled(false);
-                                        btnAddToCart.setAlpha(0.25f);
+                                        btnQuantity.setVisibility(View.GONE);
+                                        btnAddToCart.setVisibility(View.GONE);
+                                        recyclerViewExtra.setVisibility(View.GONE);
+                                        customizeHeader.setVisibility(View.GONE);
+                                        extrasHeader.setVisibility(View.GONE);
+                                        horizontalSep.setVisibility(View.GONE);
+                                        scrollDown.setVisibility(View.GONE);
                                     }
                                 } else {
                                     btnQuantity.setVisibility(View.VISIBLE);
-                                    btnAddToCart.setEnabled(true);
-                                    btnAddToCart.setAlpha(1f);
+                                    btnAddToCart.setVisibility(View.VISIBLE);
+                                    recyclerViewExtra.setVisibility(View.VISIBLE);
+                                    customizeHeader.setVisibility(View.VISIBLE);
+                                    extrasHeader.setVisibility(View.VISIBLE);
+                                    horizontalSep.setVisibility(View.VISIBLE);
+                                    scrollDown.setVisibility(View.VISIBLE);
                                 }
 
                                 productSlots.setText("Available Slots: " + (snapshot.getLong("Slots") - cumulativeSlots));
