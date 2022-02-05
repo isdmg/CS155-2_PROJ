@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midnight_chevves.Customer.Activities.PaymentFormEmail;
 import com.example.midnight_chevves.Customer.Activities.ProductDetailsActivity;
+import com.example.midnight_chevves.Customer.Activities.UserAddressActivity;
 import com.example.midnight_chevves.Model.Cart;
 import com.example.midnight_chevves.R;
 import com.example.midnight_chevves.ViewHolder.CartViewHolder;
@@ -109,7 +110,7 @@ public class CartFragment extends Fragment {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkout();
+                checkAddress();
             }
         });
 
@@ -276,6 +277,24 @@ public class CartFragment extends Fragment {
         Intent intent = new Intent(getActivity(), PaymentFormEmail.class);
         intent.putExtra("totalAmount", Long.parseLong(grandTotal.getText().toString().substring(14)));
         startActivity(intent);
+    }
+
+    private void checkAddress() {
+        store.collection("Addresses").document(auth.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                checkout();
+                            } else {
+                                Intent intent = new Intent(getActivity(), UserAddressActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                });
     }
 
 
