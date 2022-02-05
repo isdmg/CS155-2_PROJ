@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.example.midnight_chevves.ViewHolder.CartViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,6 +43,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,8 +68,6 @@ public class CartFragment extends Fragment {
     private HashMap<String, Object> updateExtraInfo;
     private CardView cardview_cart_total, cart_items;
     private TextView grandTotal, subtotal, subtext1, subtext2;
-    long subtotalText;
-
 
     @Nullable
     @Override
@@ -180,6 +181,17 @@ public class CartFragment extends Fragment {
                             }
                         });
 
+                        productReference.whereEqualTo("ID", model.getProductID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        Picasso.get().load(document.getString("imageRef")).into(holder.imgProduct);
+                                    }
+                                }
+                            }
+                        });
+
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -262,7 +274,7 @@ public class CartFragment extends Fragment {
 
     private void checkout() {
         Intent intent = new Intent(getActivity(), PaymentFormEmail.class);
-        intent.putExtra("totalAmount", Integer.parseInt(grandTotal.getText().toString()));
+        intent.putExtra("totalAmount", Long.parseLong(grandTotal.getText().toString().substring(14)));
         startActivity(intent);
     }
 
