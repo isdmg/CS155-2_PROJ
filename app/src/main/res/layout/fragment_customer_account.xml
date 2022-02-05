@@ -78,7 +78,7 @@
         android:textSize="16dp"
         app:backgroundTint="@color/yellow_brand"
         app:cornerRadius="20dp"
-        app:icon="@drawable/ic_baseline_fastfood_24"
+        app:icon="@drawable/cake_orders_icon"
         app:iconTint="@color/navyblue_brand" />
 
     <com.google.android.material.button.MaterialButton
