@@ -20,27 +20,68 @@
         android:contentDescription="@string/back_button"
         android:scaleType="fitXY" />
 
-
     <TextView
-        android:id="@+id/item_details_product"
-        android:text="Product"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
-        android:layout_width="match_parent"
-        android:layout_below="@id/item_details_back"
-        android:textStyle="bold"
-        android:layout_height="wrap_content" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_order_details"
-        android:layout_width="match_parent"
+        android:id="@+id/textView_item_details"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_details_product"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="Item Details"
+        android:textSize="25dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_item_details"
+        android:layout_width="330dp"
+        android:layout_height="590dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/item_details_back"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="15dp"
+        android:backgroundTint="@color/LightBG_hans">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/item_details_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:text="Product"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/item_details_extras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_details_product"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:text="Extras:"
+                android:textStyle="bold" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_order_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_details_extras"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>
