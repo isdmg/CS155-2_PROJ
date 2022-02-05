@@ -55,7 +55,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         String product = getIntent().getStringExtra("ProductName") + " x" + String.valueOf(getIntent().getIntExtra("Quantity", 0));
         txtProductDetail.setText(product);
-        txtProductPrice.setText(String.valueOf(getIntent().getIntExtra("ProductPrice", 0)));
+        txtProductPrice.setText("₱" + String.valueOf(getIntent().getIntExtra("ProductPrice", 0)));
 
         listID = getIntent().getStringExtra("ListID");
 
@@ -85,7 +85,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                         holder.txtProductName.setText(model.getProductName());
 
                         long productPrice = model.getProductPrice() * model.getQuantity();
-                        holder.txtProductPrice.setText("Price: ₱ " + productPrice);
+                        holder.txtProductPrice.setText("Price: ₱" + productPrice);
                     }
 
                     @Override
