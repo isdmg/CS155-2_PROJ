@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private String listID;
     private ImageButton btnBack;
     private FirebaseFirestore store;
-    private TextView txtProductDetail;
+    private TextView txtProductDetail, txtProductPrice, txtExtrasHeader;
     private RecyclerView recyclerViewExtras;
     private CollectionReference extraReference;
     private FirestoreRecyclerAdapter<Extras, ExtraViewHolder> adapter;
@@ -38,14 +39,19 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ItemDetailsActivity.this, RecyclerView.VERTICAL, false);
 
-        recyclerViewExtras = (RecyclerView) findViewById(R.id.recycler_view_order_details);
+        recyclerViewExtras = (RecyclerView) findViewById(R.id.recycler_view_item_details);
         recyclerViewExtras.setLayoutManager(layoutManager);
 
         store = FirebaseFirestore.getInstance();
         extraReference = store.collection("Orders").document(getIntent().getStringExtra("orderId")).collection("Extras");
 
         txtProductDetail = findViewById(R.id.item_details_product);
-        txtProductDetail.setText(getIntent().getStringExtra("ProductName") + " x" + getIntent().getIntExtra("Quantity", 0));
+        txtProductPrice = findViewById(R.id.item_details_price);
+        txtExtrasHeader = findViewById(R.id.item_details_extras);
+
+        String product = getIntent().getStringExtra("ProductName") + " x" + String.valueOf(getIntent().getIntExtra("Quantity", 0));
+        txtProductDetail.setText(product);
+        txtProductPrice.setText(String.valueOf(getIntent().getIntExtra("ProductPrice", 0)));
 
         listID = getIntent().getStringExtra("ListID");
 
@@ -76,6 +82,23 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
                         long productPrice = model.getProductPrice() * model.getQuantity();
                         holder.txtProductPrice.setText("Price: ₱ " + productPrice);
+                    }
+
+                    @Override
+                    public int getItemCount() {
+                        return getSnapshots().size();
+                    }
+
+                    @Override
+                    public void onDataChanged() {
+                        adapter.notifyDataSetChanged();
+                        if (getItemCount() == 0) {
+                            txtExtrasHeader.setVisibility(View.GONE);
+                        }
+                        else {
+                            txtExtrasHeader.setVisibility(View.VISIBLE);
+                        }
+                        Log.d("getItemCount", String.valueOf(getItemCount()));
                     }
 
                     @NonNull

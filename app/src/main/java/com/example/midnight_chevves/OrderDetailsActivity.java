@@ -95,6 +95,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                 Intent intent = new Intent(OrderDetailsActivity.this, ItemDetailsActivity.class);
                                 intent.putExtra("ListID", model.getListID());
                                 intent.putExtra("ProductName", model.getProductName());
+                                intent.putExtra("ProductPrice", model.getProductPrice());
                                 intent.putExtra("Quantity", model.getQuantity());
                                 intent.putExtra("orderId",getIntent().getStringExtra("orderId"));
                                 startActivity(intent);
