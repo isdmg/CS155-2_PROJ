@@ -92,7 +92,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Grand Total: ₱not working" />
+                android:text="Grand Total: ₱" />
         </RelativeLayout>
 
 
