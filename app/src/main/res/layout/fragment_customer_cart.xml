@@ -48,51 +48,69 @@
         android:layout_below="@id/cart_subtext"
         android:layout_marginLeft="33dp"
         android:layout_marginTop="20dp"
+
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/cart_total_amount"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Subtotal TOTAL: ₱not working" />
+                android:backgroundTint="@color/fui_transparent"
+                app:cardElevation="0dp">
 
-            <TextView
-                android:id="@+id/cart_delivery_fee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cart_total_amount"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Delivery Fee: ₱100"
-                android:layout_marginTop="5dp"
-                />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/cart_line1"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/cart_delivery_fee"
-                app:tint="@color/grey_brand"
-                app:srcCompat="@drawable/line" />
 
-            <TextView
-                android:id="@+id/cart_delivery_and_total_fee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cart_line1"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Total Fee: ₱not working" />
+                    <TextView
+                        android:id="@+id/cart_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/kabrio_soft_regular"
+                        android:text="Subtotal TOTAL: ₱100" />
+
+                    <TextView
+                        android:id="@+id/cart_delivery_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cart_total_amount"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/kabrio_soft_regular"
+                        android:text="Delivery Fee: ₱100"
+                        android:layout_marginTop="5dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cart_line1"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cart_delivery_fee"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/line"
+                        app:tint="@color/grey_brand" />
+
+                    <TextView
+                        android:id="@+id/cart_delivery_and_total_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cart_line1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/kabrio_soft_regular"
+                        android:text="Total Fee: ₱100" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
         </RelativeLayout>
 
 
