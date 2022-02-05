@@ -383,7 +383,7 @@ public class CartFragment extends Fragment {
         subtotal.setText("Subtotal: ₱" + String.valueOf(userCartTotal));
 
         long userCartTotalWithDeliveryFee = userCartTotal + 100;
-        grandTotal.setText("Grandtotal: ₱" + userCartTotalWithDeliveryFee);
+        grandTotal.setText("Grand Total: ₱" + userCartTotalWithDeliveryFee);
     }
 
     private void getCart() {
