@@ -272,7 +272,6 @@ public class AddressActivity extends AppCompatActivity implements OnMapReadyCall
         store.collection("Addresses").document(auth.getUid()).set(addressInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(AddressActivity.this, "Address has been saved!", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }
         });
