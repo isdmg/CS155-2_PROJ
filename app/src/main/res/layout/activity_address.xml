@@ -52,6 +52,7 @@
             android:enabled="false"
             android:id="@+id/g_address"
             android:textSize="11sp"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="" />
@@ -73,6 +74,8 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:textAllCaps="false"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"

@@ -27,6 +27,7 @@
             qwertzuiopasdfghjklyxcvbnm
             QWERTZUIOPASDFGHJKLYXCVBNM_-!@#$%^&amp;*()/?.,\'&quot;;:[]=+-"
             android:gravity="top"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:justificationMode="inter_word"
             android:lines="20"
             android:maxLines="20"
@@ -45,6 +46,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:textAllCaps="false"
         android:text="@string/proceed" />
 
 
