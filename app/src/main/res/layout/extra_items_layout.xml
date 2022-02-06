@@ -28,8 +28,8 @@
                 android:id="@+id/extra_product_quantity"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_below="@id/extra_product_name"
+                android:layout_marginTop="5dp"
                 android:text="Product Quantitiy"
                 android:textAlignment="viewStart" />
 

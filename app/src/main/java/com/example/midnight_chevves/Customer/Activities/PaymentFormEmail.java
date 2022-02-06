@@ -230,6 +230,7 @@ public class PaymentFormEmail extends AppCompatActivity implements AdapterView.O
                         sendMail();
 
                         Intent intent = new Intent(PaymentFormEmail.this, AfterOrderSplash.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 } else {
