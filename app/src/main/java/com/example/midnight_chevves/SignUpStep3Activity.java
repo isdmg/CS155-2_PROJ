@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -38,6 +39,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
 
     private CircleImageView accountImage;
     private Button btnSignUp;
+    private ImageButton btnBack;
 
     private FirebaseAuth auth;
     private FirebaseFirestore store;
@@ -60,6 +62,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
         accountImage = findViewById(R.id.signup_account_image);
         btnSignUp = findViewById(R.id.button_signup);
         progressDialog = new ProgressDialog(this);
+        btnBack = findViewById(R.id.signup_step3_back);
 
         bundle = getIntent().getExtras();
 
@@ -82,6 +85,12 @@ public class SignUpStep3Activity extends AppCompatActivity {
                 } else {
                     Toast.makeText(SignUpStep3Activity.this, "Please select an account image!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
