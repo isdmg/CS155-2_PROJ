@@ -61,6 +61,8 @@
         android:layout_marginRight="35dp"
         android:layout_marginBottom="25dp"
         android:text="Change Location"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:textAllCaps="false"
         android:textAlignment="center"
         android:textColor="#606467"
         app:cornerRadius="20dp" />

@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/manage_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_below="@id/edit_products_back"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
@@ -48,6 +48,7 @@
             android:id="@+id/edit_product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_- "/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -70,6 +71,7 @@
             android:id="@+id/edit_product_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +101,8 @@
         android:text="@string/proceed"
         android:textAlignment="center"
         android:textColor="#606467"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:textAllCaps="false"
         app:cornerRadius="20dp" />
 
     <TextView
@@ -112,6 +116,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="146dp"
         android:text="Slots available"
+        android:fontFamily="@font/kabrio_soft_regular"
         android:textAlignment="center" />
 
 

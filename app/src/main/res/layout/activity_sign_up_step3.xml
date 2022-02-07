@@ -95,6 +95,7 @@
         android:layout_marginRight="35dp"
         android:text="Next"
         android:textAllCaps="false"
+        android:fontFamily="@font/kabrio_soft_regular"
         app:cornerRadius="10dp" />
 
 </RelativeLayout>

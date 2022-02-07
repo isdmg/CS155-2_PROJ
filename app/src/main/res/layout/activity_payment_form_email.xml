@@ -76,7 +76,8 @@
                     android:id="@+id/editTextNAME_paymentform"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:fontFamily="@font/kabrio_soft_regular"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +101,8 @@
                     android:id="@+id/editTextMobileNo_paymentform"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:fontFamily="@font/kabrio_soft_regular"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,7 +129,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:fontFamily="@font/kabrio_soft_regular"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -160,6 +160,7 @@
         android:background="@drawable/container1"
         android:elevation="15dp"
         android:text="@string/checkout"
+        android:fontFamily="@font/kabrio_soft_regular"
         android:textAllCaps="false" />
 
 </RelativeLayout>

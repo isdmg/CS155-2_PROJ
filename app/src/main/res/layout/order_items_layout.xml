@@ -21,7 +21,8 @@
             android:layout_marginStart="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:text="Order Id" />
+            android:text="Order Id"
+            android:fontFamily="@font/kabrio_soft_regular"/>
 
         <TextView
             android:id="@+id/order_date"
@@ -36,7 +37,8 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="15dp"
             android:text="Order Date"
-            android:textAlignment="viewStart" />
+            android:textAlignment="viewStart"
+            android:fontFamily="@font/kabrio_soft_regular"/>
 
         <TextView
             android:id="@+id/order_status"
@@ -52,7 +54,8 @@
             android:layout_marginBottom="70dp"
             android:text="Status"
             android:textAlignment="viewStart"
-            android:textStyle="bold" />
+
+            android:fontFamily="@font/kabrio_soft_bold"/>
 
         <ImageView
             android:id="@+id/order_detail"

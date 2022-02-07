@@ -37,6 +37,7 @@
             android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="12sp"
+            android:fontFamily="@font/kabrio_soft_regular"
             />
 
         <TextView
@@ -48,6 +49,7 @@
             android:textAlignment="center"
             android:layout_gravity="center"
             android:textColor="@color/black"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:textSize="10sp" />
 
         <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton

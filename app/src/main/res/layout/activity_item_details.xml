@@ -52,8 +52,9 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="20dp"
-                android:text="Product"
-                android:textStyle="bold" />
+                android:fontFamily="@font/kabrio_soft_bold"
+
+                android:text="Product" />
 
             <TextView
                 android:id="@+id/item_details_price"
@@ -64,7 +65,7 @@
                 android:layout_marginEnd="25dp"
                 android:layout_alignParentRight="true"
                 android:text="Price"
-                android:textStyle="bold" />
+                android:fontFamily="@font/kabrio_soft_bold" />
 
 
             <TextView
@@ -77,7 +78,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="20dp"
                 android:text="Extras:"
-                android:textStyle="bold" />
+                android:fontFamily="@font/kabrio_soft_bold" />
 
 
             <ImageView

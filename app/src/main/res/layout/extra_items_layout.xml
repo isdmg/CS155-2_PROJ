@@ -21,7 +21,7 @@
                 android:id="@+id/extra_product_name"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:text="Product Name" />
 
             <TextView
@@ -31,6 +31,7 @@
                 android:layout_below="@id/extra_product_name"
                 android:layout_marginTop="5dp"
                 android:text="Product Quantitiy"
+                android:fontFamily="@font/kabrio_soft_regular"
                 android:textAlignment="viewStart" />
 
             <TextView
@@ -41,7 +42,8 @@
                 android:layout_marginTop="15dp"
                 android:text="Product Price"
                 android:textAlignment="viewEnd"
-                android:textStyle="bold" />
+                android:fontFamily="@font/kabrio_soft_bold"
+                />
         </RelativeLayout>
 
     </RelativeLayout>

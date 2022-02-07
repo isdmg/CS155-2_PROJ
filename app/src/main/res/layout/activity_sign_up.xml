@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:fontFamily="@font/kabrio_soft_regular"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,6 +81,7 @@
             android:inputType="text"
             android:singleLine="true"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,6 +104,7 @@
             android:id="@+id/signup_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +129,7 @@
             android:id="@+id/signup_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/kabrio_soft_regular"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +147,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="120dp"
         android:layout_marginRight="35dp"
+        android:fontFamily="@font/kabrio_soft_regular"
         android:text="Next"
         android:textAllCaps="false"
         app:cornerRadius="10dp" />

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.AddExtrasActivity">
+    tools:context=".Admin.AddExtrasActivity"
+    android:background="@color/LightBG_hans">
 
     <ImageView
         android:id="@+id/add_extra_image"

@@ -1,147 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightBG_hans"
-    tools:context=".Admin.AdminActivity">
+    tools:context=".Admin.AdminActivity"
+    android:background="@drawable/background_tmp_home2"
+    >
+
+    <TextView
+        android:id="@+id/welcome_admin_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="Welcome Admin!"
+        android:textColor="@color/navyblue_brand"
+        android:textSize="35dp" />
 
 
     <TextView
         android:id="@+id/textView_ManageProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/welcome_admin_txt"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/kabrio_soft_regular"
         android:text="Manage Products"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20dp" />
 
 
-    <Button
-        android:id="@+id/button_ManageOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manage orders"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.811" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/cardview_admin"
+        android:layout_below="@id/textView_ManageProduct"
+        app:cardCornerRadius="30dp"
+        android:backgroundTint="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/AdminButton_Cake"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/adminselect_cake" />
+
+            <TextView
+                android:id="@+id/textViewCake"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="100dp"
+                android:text="Cakes"
+                android:textAlignment="center"
+                android:fontFamily="@font/kabrio_soft_regular"/>
+
+            <ImageView
+                android:id="@+id/AdminButton_Char_CUTE_rie_boxes"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/adminselect_box" />
+
+            <TextView
+                android:id="@+id/textViewChar_CUTE"
+                android:layout_width="130dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:text="Char CUTE rie boxes"
+                android:textAlignment="center"
+                android:fontFamily="@font/kabrio_soft_regular" />
+
+            <ImageView
+                android:id="@+id/AdminButton_Wines"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/adminselect_wine"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/textViewWines"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="100dp"
+                android:text="Wines"
+                android:textAlignment="center"
+                android:fontFamily="@font/kabrio_soft_regular"
+                 />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
     <Button
         android:id="@+id/AdminButton_Extras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/cardview_admin"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/navyblue_brand"
         android:text="Add Extras"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/button_ManageOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardview_admin"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/kabrio_soft_regular"
+        android:text="Manage orders"
+        android:textAllCaps="false" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_admin_logout"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="60dp"
+        android:layout_below="@id/cardview_admin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:text="Log out"
         android:textAlignment="center"
         android:textColor="#606467"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:cornerRadius="20dp" />
 
-    <ImageView
-        android:id="@+id/AdminButton_Cake"
-        android:layout_width="81dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/AdminButton_Char_CUTE_rie_boxes"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_ManageProduct"
-        app:srcCompat="@drawable/adminselect_cake" />
-
-    <ImageView
-        android:id="@+id/AdminButton_Char_CUTE_rie_boxes"
-        android:layout_width="81dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_ManageProduct"
-        app:srcCompat="@drawable/adminselect_box" />
-
-    <ImageView
-        android:id="@+id/AdminButton_Wines"
-        android:layout_width="81dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
-        app:layout_constraintStart_toEndOf="@+id/AdminButton_Char_CUTE_rie_boxes"
-        app:layout_constraintTop_toBottomOf="@+id/textView_ManageProduct"
-        app:srcCompat="@drawable/adminselect_wine" />
-
-    <TextView
-        android:id="@+id/textViewWines"
-        android:layout_width="81dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="284dp"
-        android:layout_marginTop="12dp"
-        android:text="Wines"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AdminButton_Wines" />
-
-    <TextView
-        android:id="@+id/textViewChar_CUTE"
-        android:layout_width="81dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="12dp"
-        android:text="Char CUTE rie boxes"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AdminButton_Char_CUTE_rie_boxes" />
-
-    <TextView
-        android:id="@+id/textViewCake"
-        android:layout_width="81dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="12dp"
-        android:text="Cakes"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AdminButton_Cake" />
-
-    <TextView
-        android:id="@+id/welcome_admin_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Welcome Admin"
-        android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 
 

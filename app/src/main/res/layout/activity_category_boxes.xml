@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.Category.CategoryBoxes">
+    tools:context=".Admin.Category.CategoryBoxes"
+    android:background="@drawable/background_tmp_home2">
 
 
     <TextView
         android:id="@+id/text_boxes_ADMIN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Char-CUTE-rie boxes"
-        android:textSize="16sp" />
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/kabrio_soft_bold"
+        android:text="Char-CUTE- \nrie boxes"
+        android:textSize="30sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_ADMIN_boxes"
@@ -27,12 +30,12 @@
         android:id="@+id/add_btn_boxes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="18dp"
-        android:layout_toEndOf="@+id/text_boxes_ADMIN"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/navyblue_brand"
+        android:textAllCaps="false"
+        android:fontFamily="@font/kabrio_soft_regular"
         android:text="Add" />
 
 

@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.Category.CategoryCakes">
+    tools:context=".Admin.Category.CategoryCakes"
+    android:background="@drawable/background_tmp_home2">
 
 
     <TextView
         android:id="@+id/text_cake_ADMIN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/kabrio_soft_bold"
         android:text="Cakes"
-        android:textSize="16sp" />
+        android:textSize="30sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_ADMIN_cake"
@@ -27,12 +30,12 @@
         android:id="@+id/add_btn_cake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="245dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
-        android:layout_toEndOf="@+id/text_cake_ADMIN"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/navyblue_brand"
+        android:textAllCaps="false"
+        android:fontFamily="@font/kabrio_soft_regular"
         android:text="Add" />
 
 

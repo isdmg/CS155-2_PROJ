@@ -30,15 +30,16 @@
         android:fontFamily="@font/kabrio_soft_bold"
         android:text="Order Details"
         android:textSize="25dp" />
+
     <TextView
         android:id="@+id/order_details_shipping_address"
-        android:text="Shipping Address"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="25dp"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/order_details_back"
-        android:textStyle="bold"
-        android:layout_height="wrap_content" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:text="Shipping Address"
+        android:fontFamily="@font/kabrio_soft_bold"/>
 
     <TextView
         android:id="@+id/order_details_shipping_address_data"
@@ -47,7 +48,8 @@
         android:layout_below="@+id/order_details_shipping_address"
         android:layout_marginStart="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kabrio_soft_regular"/>
 
     <TextView
         android:id="@+id/order_details_payment_method"
@@ -55,7 +57,7 @@
         android:layout_below="@id/order_details_shipping_address_data"
         android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
-        android:textStyle="bold"
+        android:fontFamily="@font/kabrio_soft_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -66,7 +68,8 @@
         android:layout_below="@+id/order_details_payment_method"
         android:layout_marginStart="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kabrio_soft_regular"/>
 
     <TextView
         android:id="@+id/order_details_total_amount"
@@ -76,7 +79,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:text="Grand Total"
-        android:textStyle="bold" />
+        android:fontFamily="@font/kabrio_soft_bold" />
 
     <TextView
         android:id="@+id/order_details_total_amount_data"
@@ -85,7 +88,8 @@
         android:layout_below="@+id/order_details_total_amount"
         android:layout_marginStart="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kabrio_soft_regular"/>
 
 
     <TextView
