@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.base.CharMatcher;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,6 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
         String phoneNumber = inputPhoneNumber.getText().toString();
+        int spaceCount = CharMatcher.is(' ').countIn(name);
 
         if (phoneNumber.isEmpty()) {
             layoutPhoneNumber.setErrorEnabled(true);
@@ -115,6 +117,10 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (!name.contains(" ")) {
             layoutName.setErrorEnabled(true);
             layoutName.setError("Last name is required!");
+            inputName.requestFocus();
+        } else if (spaceCount > 1) {
+            layoutName.setErrorEnabled(true);
+            layoutName.setError("Invalid format!");
             inputName.requestFocus();
         } else {
             clearError(1);
