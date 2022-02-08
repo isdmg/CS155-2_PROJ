@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.base.CharMatcher;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -104,33 +105,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
     }
 
     private void getUserInfo() {
-//        store.collection("Users").document(auth.getUid())
-//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                inputName.setText(documentSnapshot.getString("Name"));
-//                inputUsername.setText(documentSnapshot.getString("Username"));
-//                inputPhoneNumber.setText(documentSnapshot.getString("Phone").substring(3));
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(AccountDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        storageReference.child("Users/" + auth.getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).into(accountImage);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(AccountDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         final DocumentReference docRef = store.collection("Users").document(auth.getUid());
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -158,6 +132,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         String name = inputName.getText().toString();
         String username = inputUsername.getText().toString();
         String phoneNumber = inputPhoneNumber.getText().toString();
+        int spaceCount = CharMatcher.is(' ').countIn(name);
 
         if (phoneNumber.isEmpty()) {
             layoutPhoneNumber.setErrorEnabled(true);
@@ -191,6 +166,10 @@ public class AccountDetailsActivity extends AppCompatActivity {
         } else if (!name.contains(" ")) {
             layoutName.setErrorEnabled(true);
             layoutName.setError("Last name is required!");
+            inputName.requestFocus();
+        } else if (spaceCount > 1) {
+            layoutName.setErrorEnabled(true);
+            layoutName.setError("Invalid format!");
             inputName.requestFocus();
         } else {
             clearError(1);
