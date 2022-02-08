@@ -56,5 +56,8 @@ public class CustomerActivity extends AppCompatActivity {
         }
     };
 
-
+    @Override
+    public void onBackPressed() {
+        // Do nothing...
+    }
 }

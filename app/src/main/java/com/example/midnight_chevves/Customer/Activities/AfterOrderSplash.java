@@ -11,7 +11,12 @@ import com.example.midnight_chevves.R;
 
 public class AfterOrderSplash extends AppCompatActivity {
 
-    Button returnHome;
+    private Button returnHome;
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing...
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class AfterOrderSplash extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AfterOrderSplash.this, CustomerActivity.class);
+
                 startActivity(intent);
             }
         });
