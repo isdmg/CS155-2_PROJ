@@ -64,13 +64,14 @@
         android:layout_below="@id/layout_edit_product_name"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="35dp"
         app:counterEnabled="true"
         app:counterMaxLength="7"
         android:ems="10"
         android:hint="Product Price"
-        app:startIconDrawable="@drawable/ic_baseline_money_24">
+        app:startIconDrawable="@drawable/ic_baseline_money_24"
+        android:inputType="number">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_product_price"
@@ -78,6 +79,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/kabrio_soft_regular"
             android:maxLength="7"
+            android:inputType="number"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -90,10 +92,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="114dp"
-        app:finalNumber="9999999"
         app:backGroundColor="?attr/colorPrimary"
+        app:finalNumber="9999999"
         app:textSize="5sp" />
 
     <com.google.android.material.button.MaterialButton
