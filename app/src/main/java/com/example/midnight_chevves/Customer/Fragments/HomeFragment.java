@@ -53,6 +53,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -206,7 +207,7 @@ public class HomeFragment extends Fragment {
         } else {
             options =
                     new FirestoreRecyclerOptions.Builder<Products>()
-                            .setQuery(productReference.whereEqualTo("Category", category).orderBy("Name").startAt(searchInput).endAt(searchInput + "\uf8ff"), Products.class)
+                            .setQuery(productReference.whereEqualTo("Category", category).orderBy("Alias").startAt(searchInput.toLowerCase()).endAt(searchInput.toLowerCase() + "\uf8ff"), Products.class)
                             .build();
         }
 
