@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/kabrio_soft_regular"
-        android:text="An email was sent to your registered email \naccount for proof of purchase."
+        android:text="Your order has been received by our staff. \nPlease expect a message regarding \nyour order and payment shortly!"
         android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="16dp" />
