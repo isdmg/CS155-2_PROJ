@@ -49,6 +49,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginTop="70dp"
         android:layout_marginRight="35dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
         android:ems="10"
         android:hint="@string/name"
         app:startIconDrawable="@drawable/profile">
@@ -56,6 +58,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_name"
             android:layout_width="match_parent"
+            android:maxLength="30"
             android:layout_height="wrap_content"
             android:fontFamily="@font/kabrio_soft_regular"
             android:inputType="textPersonName" />
@@ -111,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/kabrio_soft_regular"
+            android:maxLength="20"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>

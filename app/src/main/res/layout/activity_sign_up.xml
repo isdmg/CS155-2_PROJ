@@ -47,12 +47,15 @@
         android:layout_marginRight="35dp"
         android:ems="10"
         android:hint="Name (First Name, Last Name)"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
         app:startIconDrawable="@drawable/profile">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="30"
             android:inputType="textPersonName"
             android:fontFamily="@font/kabrio_soft_regular"
             />
@@ -104,6 +107,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_email"
             android:layout_width="match_parent"
+            android:maxLength="70"
             android:layout_height="wrap_content"
             android:fontFamily="@font/kabrio_soft_regular"
             android:inputType="textEmailAddress" />
@@ -130,6 +134,7 @@
             android:id="@+id/signup_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="20"
             android:fontFamily="@font/kabrio_soft_regular"
             android:inputType="number" />
 
