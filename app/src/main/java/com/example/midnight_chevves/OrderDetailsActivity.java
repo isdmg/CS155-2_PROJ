@@ -36,7 +36,7 @@ import com.squareup.picasso.Picasso;
 public class OrderDetailsActivity extends AppCompatActivity {
 
     private ImageButton btnBack;
-    private TextView txtShippingAddress,txtPaymentMethod, txtTotalAmount;
+    private TextView txtCustomerName, txtCustomerPhone, txtCustomerEmail, txtShippingAddress,txtPaymentMethod, txtTotalAmount;
     private FirebaseFirestore store;
     private RecyclerView recyclerViewProducts;
     private CollectionReference collectionReference, extraReference, productReference;
@@ -54,6 +54,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
         recyclerViewProducts.setLayoutManager(layoutManager);
 
         store = FirebaseFirestore.getInstance();
+        txtCustomerName = findViewById(R.id.order_details_customer_name_data);
+        txtCustomerPhone = findViewById(R.id.order_details_customer_phone_number_data);
+        txtCustomerEmail = findViewById(R.id.order_details_customer_email_data);
         txtShippingAddress = findViewById(R.id.order_details_shipping_address_data);
         txtPaymentMethod = findViewById(R.id.order_details_payment_method_data);
         txtTotalAmount = findViewById(R.id.order_details_total_amount_data);
@@ -159,7 +162,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     txtPaymentMethod.setText(snapshot.getString("PaymentMethod"));
                     long l = (Long) snapshot.get("TotalAmount");
-                    txtTotalAmount.setText(String.valueOf(l));
+                    txtTotalAmount.setText("₱" + l);
 
                     String accountRef = snapshot.getString("accountRef");
 
@@ -177,6 +180,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
                             if (snapshot != null && snapshot.exists()) {
                                 Log.d(TAG, "Current data: " + snapshot.getData());
+                                txtCustomerName.setText(snapshot.getString("Name"));
+                                txtCustomerPhone.setText(snapshot.getString("Phone"));
+                                txtCustomerEmail.setText(snapshot.getString("Email"));
                                 txtShippingAddress.setText(snapshot.getString("Address"));
                             } else {
                                 Log.d(TAG, "Current data: null");
