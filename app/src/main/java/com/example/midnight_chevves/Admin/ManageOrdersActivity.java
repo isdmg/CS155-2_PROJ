@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 public class ManageOrdersActivity extends AppCompatActivity {
 
@@ -70,7 +71,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
         FirestoreRecyclerOptions<Orders> options =
                 new FirestoreRecyclerOptions.Builder<Orders>()
-                        .setQuery(collectionReference.whereNotEqualTo("OrderStatus", "Delivered"), Orders.class)
+                        .setQuery(collectionReference.whereIn("OrderStatus", Arrays.asList("Out for delivery", "Shipped", "Ordered")), Orders.class)
                         .build();
 
         adapter =
