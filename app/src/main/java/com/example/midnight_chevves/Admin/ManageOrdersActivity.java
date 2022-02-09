@@ -71,7 +71,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
         FirestoreRecyclerOptions<Orders> options =
                 new FirestoreRecyclerOptions.Builder<Orders>()
-                        .setQuery(collectionReference.whereIn("OrderStatus", Arrays.asList("Out for delivery", "Shipped", "Ordered")), Orders.class)
+                        .setQuery(collectionReference.whereIn("OrderStatus", Arrays.asList("Out for delivery", "Ordered")), Orders.class)
                         .build();
 
         adapter =
@@ -100,7 +100,6 @@ public class ManageOrdersActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 CharSequence options[] = new CharSequence[]
                                         {
-                                                "Shipped",
                                                 "Out for delivery",
                                                 "Delivered"
                                         };
@@ -111,18 +110,6 @@ public class ManageOrdersActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         DocumentReference df = store.collection("Orders").document(model.getOrderId());
                                         if (i == 0) {
-                                            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                    df.update("OrderStatus", "Shipped");
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(ManageOrdersActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        } else if (i == 1) {
                                             df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
