@@ -136,8 +136,6 @@ public class SignUpStep3Activity extends AppCompatActivity {
                         }
                     }
                 });
-
-                sendUserToNextActivity();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -162,6 +160,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressDialog.dismiss();
+                        sendUserToNextActivity();
                         Toast.makeText(SignUpStep3Activity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         Log.d("test0", "DocumentSnapshot successfully written!");
                     }
