@@ -40,6 +40,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
         android:ems="10"
         android:hint="Product Name"
         app:startIconDrawable="@drawable/ic_baseline_drive_file_rename_outline_24">
@@ -48,6 +50,7 @@
             android:id="@+id/edit_product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="30"
             android:fontFamily="@font/kabrio_soft_regular"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_- "/>
 
@@ -63,6 +66,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="7"
         android:ems="10"
         android:hint="Product Price"
         app:startIconDrawable="@drawable/ic_baseline_money_24">
@@ -72,6 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/kabrio_soft_regular"
+            android:maxLength="7"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -86,6 +92,7 @@
         android:layout_marginStart="114dp"
         android:layout_marginTop="51dp"
         android:layout_marginEnd="114dp"
+        app:finalNumber="9999999"
         app:backGroundColor="?attr/colorPrimary"
         app:textSize="5sp" />
 
