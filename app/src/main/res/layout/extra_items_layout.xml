@@ -19,17 +19,18 @@
 
             <TextView
                 android:id="@+id/extra_product_name"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/kabrio_soft_regular"
-                android:text="Product Name" />
+                android:fontFamily="@font/kabrio_soft_bold"
+                android:text="Product Name \nSecond Line"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/extra_product_quantity"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/extra_product_name"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="0dp"
                 android:text="Product Quantitiy"
                 android:fontFamily="@font/kabrio_soft_regular"
                 android:textAlignment="viewStart" />
@@ -39,11 +40,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/extra_product_quantity"
-                android:layout_marginTop="15dp"
-                android:text="Product Price"
-                android:textAlignment="viewEnd"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/kabrio_soft_bold"
-                />
+                android:text="Product Price"
+                android:textAlignment="viewEnd" />
         </RelativeLayout>
 
     </RelativeLayout>
