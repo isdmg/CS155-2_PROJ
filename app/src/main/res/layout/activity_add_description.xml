@@ -16,6 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="90dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="300"
         android:layout_marginRight="35dp"
         android:ems="10"
         android:hint="Product Description">
@@ -31,6 +33,7 @@
             android:fontFamily="@font/kabrio_soft_regular"
             android:justificationMode="inter_word"
             android:lines="20"
+            android:maxLength="300"
             android:maxLines="20"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"

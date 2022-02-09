@@ -27,6 +27,8 @@
         android:layout_marginTop="90dp"
         android:layout_marginRight="35dp"
         android:ems="10"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
         android:hint="Product Name"
         android:singleLine="true"
         app:startIconDrawable="@drawable/ic_baseline_drive_file_rename_outline_24">
@@ -35,6 +37,7 @@
             android:id="@+id/add_wine_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="30"
             android:fontFamily="@font/kabrio_soft_regular"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_- "/>
 
@@ -50,6 +53,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="7"
         android:ems="10"
         android:hint="Product Price"
         app:startIconDrawable="@drawable/ic_baseline_money_24">
@@ -58,6 +63,7 @@
             android:id="@+id/add_wine_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="7"
             android:fontFamily="@font/kabrio_soft_regular"
             android:inputType="number" />
 
@@ -71,6 +77,8 @@
         android:layout_below="@id/layout_add_wine_price"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="35dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="7"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:ems="10"
@@ -82,6 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/kabrio_soft_regular"
+            android:maxLength="7"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>

@@ -81,7 +81,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
-            android:maxLength="20"
+            android:maxLength="12"
             android:layout_height="wrap_content"
             android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM_-"
             android:fontFamily="@font/kabrio_soft_regular"
