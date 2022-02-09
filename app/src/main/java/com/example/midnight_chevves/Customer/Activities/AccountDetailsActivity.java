@@ -152,7 +152,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
             layoutUsername.setErrorEnabled(true);
             layoutUsername.setError("Username field is required!");
             inputUsername.requestFocus();
-        } else if (username.length() > 20) {
+        } else if (username.length() > 12) {
             layoutUsername.setError("Maximum length exceeded!");
             inputUsername.requestFocus();
         } else {
