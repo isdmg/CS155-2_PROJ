@@ -115,21 +115,6 @@ public class SignUpStep3Activity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(bundle.getString("email"), bundle.getString("password")).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                progressDialog.dismiss();
-
-//                storageReference.child("Users/" + auth.getUid() + ".jpg")
-//                        .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        Log.d("imageRef-test", downloadImageUrl);
-//                        downloadImageUrl = storageReference.child("Users/" + auth.getUid() + ".jpg").getDownloadUrl().toString();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(SignUpStep3Activity.this, "Upload Image Failed!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
                 final StorageReference filepath = storageReference.child("Users/" + auth.getUid() + ".jpg");
                 final UploadTask uploadTask = filepath.putFile(imageUri);
@@ -153,7 +138,6 @@ public class SignUpStep3Activity extends AppCompatActivity {
                 });
 
                 sendUserToNextActivity();
-                Toast.makeText(SignUpStep3Activity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -177,12 +161,15 @@ public class SignUpStep3Activity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        progressDialog.dismiss();
+                        Toast.makeText(SignUpStep3Activity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         Log.d("test0", "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Log.w("test0", "Error writing document", e);
                     }
                 });
