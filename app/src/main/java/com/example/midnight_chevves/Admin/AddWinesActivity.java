@@ -156,6 +156,7 @@ public class AddWinesActivity extends AppCompatActivity {
 
         if (withoutErrors()) {
             bundle.putString("name", name);
+            bundle.putString("alias", name.toLowerCase());
             bundle.putString("price", price);
             bundle.putString("slots", slots);
             bundle.putParcelable("uri", imageUri);

@@ -38,7 +38,8 @@ import com.example.midnight_chevves.SignUpStep3Activity;
         import java.text.SimpleDateFormat;
         import java.util.Calendar;
         import java.util.HashMap;
-        import java.util.Map;
+import java.util.Locale;
+import java.util.Map;
         import java.util.UUID;
 
 
@@ -147,6 +148,7 @@ public class AddBoxesActivity extends AppCompatActivity {
 
         if (withoutErrors()) {
             bundle.putString("name", name);
+            bundle.putString("alias", name.toLowerCase());
             bundle.putString("price", price);
             bundle.putString("slots", slots);
             bundle.putParcelable("uri", imageUri);

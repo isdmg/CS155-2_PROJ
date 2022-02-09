@@ -44,7 +44,7 @@ public class AddDescriptionActivity extends AppCompatActivity {
     private TextInputEditText inputDescription;
     private Bundle bundle;
     private Button addProduct;
-    private String name, price, slots, product, ID;
+    private String name, alias, price, slots, product, ID;
     private int newSlots;
     private String randomKey = UUID.randomUUID().toString();
     private String downloadImageUrl, description;
@@ -76,6 +76,7 @@ public class AddDescriptionActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
 
         name = bundle.getString("name");
+        alias = bundle.getString("alias");
         price = bundle.getString("price");
         slots = bundle.getString("slots");
         product = bundle.getString("product");
@@ -212,6 +213,7 @@ public class AddDescriptionActivity extends AppCompatActivity {
         Map<String, Object> boxInfo = new HashMap<>();
         boxInfo.put("Category", product);
         boxInfo.put("Description", description);
+        boxInfo.put("Alias", alias);
         boxInfo.put("ID", randomKey);
         boxInfo.put("Name", name);
         boxInfo.put("Price", Integer.parseInt(price));

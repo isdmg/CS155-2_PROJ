@@ -2,15 +2,16 @@ package com.example.midnight_chevves.Model;
 
 
 public class Products {
-    private String Name, Description, Category, ID, RDate;
+    private String Name, Description, Alias, Category, ID, RDate;
     private int Price, Slots;
 
     public Products() {
     }
 
-    public Products(String Name, String Description, int Price, String Category, String ID, String RDate, int Slots) {
+    public Products(String Name, String Description, String Alias, int Price, String Category, String ID, String RDate, int Slots) {
         this.Name = Name;
         this.Description = Description;
+        this.Alias = Alias;
         this.Price = Price;
         this.Category = Category;
         this.ID = ID;
@@ -32,6 +33,14 @@ public class Products {
 
     public void setDescription(String description) {
         this.Description = Description;
+    }
+
+    public String getAlias() {
+        return Alias;
+    }
+
+    public void setAlias(String alias) {
+        Alias = alias;
     }
 
     public int getPrice() {
